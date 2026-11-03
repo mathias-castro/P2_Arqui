@@ -148,6 +148,88 @@ module datapath(input  clk, reset,
     .q({RegWriteE,ResultSrcE,MemWriteE,JumpE,BranchE,ALUControlE,ALUSrcE})
   );
 
+    // Señales de las etapas Memory y Writeback
+    wire [31:0] ALUResultM, WriteDataM, PCPlus4M;
+    wire [31:0] ALUResultW, ReadDataW, PCPlus4W;
+    wire [4:0]  RdM, RdW;
+    wire        RegWriteM, MemWriteM, RegWriteW;
+    wire [1:0]  ResultSrcM, ResultSrcW;
+
+    // Execute -> Memory
+    flopr #(WIDTH) alumreg(
+      .clk(clk),
+      .reset(reset),
+      .d(ALUResult),
+      .q(ALUResultM)
+    );
+
+    flopr #(WIDTH) writedatamreg(
+      .clk(clk),
+      .reset(reset),
+      .d(RD2E),
+      .q(WriteDataM)
+    );
+
+    flopr #(WIDTH) pcplus4mreg(
+      .clk(clk),
+      .reset(reset),
+      .d(PCPlus4E),
+      .q(PCPlus4M)
+    );
+
+    flopr #(5) rdmreg(
+      .clk(clk),
+      .reset(reset),
+      .d(RdE),
+      .q(RdM)
+    );
+
+    flopr #(4) controlmreg(
+      .clk(clk),
+      .reset(reset),
+      .d({RegWriteE,ResultSrcE,MemWriteE}),
+      .q({RegWriteM,ResultSrcM,MemWriteM})
+    );
+
+    // Memory -> Writeback
+
+    flopr #(WIDTH) aluwreg(
+      .clk(clk),
+      .reset(reset),
+      .d(ALUResultM),
+      .q(ALUResultW)
+    );
+
+    flopr #(WIDTH) readdatawreg(
+      .clk(clk),
+      .reset(reset),
+      .d(ReadData),
+      .q(ReadDataW)
+    );
+
+    flopr #(WIDTH) pcplus4wreg(
+      .clk(clk),
+      .reset(reset),
+      .d(PCPlus4M),
+      .q(PCPlus4W)
+    );
+
+    flopr #(5) rdwreg(
+      .clk(clk),
+      .reset(reset),
+      .d(RdM),
+      .q(RdW)
+    );
+
+    flopr #(3) controlwreg(
+      .clk(clk),
+      .reset(reset),
+      .d({RegWriteM, ResultSrcM}),
+      .q({RegWriteW, ResultSrcW})
+    );
+
+
+
 
   // next PC logic
   flopenrc #(WIDTH) pcreg(
