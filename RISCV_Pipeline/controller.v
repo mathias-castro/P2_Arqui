@@ -7,11 +7,11 @@ module controller(input  [6:0] op,
                   output PCSrc, ALUSrc,
                   output RegWrite, Jump,
                   output [1:0] ImmSrc, 
-                  output [2:0] ALUControl);
+                  output [2:0] ALUControl,
+                  output Branch);
   
   wire [1:0] ALUOp; 
-  wire       Branch; 
-  
+    
   maindec md(
     .op(op), 
     .ResultSrc(ResultSrc), 

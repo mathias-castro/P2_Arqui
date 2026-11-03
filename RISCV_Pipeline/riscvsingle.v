@@ -12,6 +12,7 @@ module riscvsingle(input  clk, reset,
   wire [1:0] ResultSrc, ImmSrc; 
   wire [2:0] ALUControl; 
   wire       PCSrc; 
+  wire Branch;
 
   // DataAdr is connected to ALUResult
   assign DataAdr = ALUResult;
@@ -28,7 +29,8 @@ module riscvsingle(input  clk, reset,
     .RegWrite(RegWrite), 
     .Jump(Jump),
     .ImmSrc(ImmSrc), 
-    .ALUControl(ALUControl)
+    .ALUControl(ALUControl),
+    .Branch(Branch)
   ); 
   
   datapath dp(
@@ -45,6 +47,9 @@ module riscvsingle(input  clk, reset,
     .Instr(Instr),
     .ALUResult(ALUResult), 
     .WriteData(WriteData), 
-    .ReadData(ReadData)
+    .ReadData(ReadData),
+    .MemWrite(MemWrite),
+    .Jump(Jump),
+    .Branch(Branch)
   ); 
 endmodule

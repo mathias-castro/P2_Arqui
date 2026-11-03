@@ -8,7 +8,10 @@ module datapath(input  clk, reset,
                 output [31:0] PC,
                 input  [31:0] Instr,
                 output [31:0] ALUResult, WriteData, 
-                input  [31:0] ReadData);
+                input  [31:0] ReadData,
+                input MemWrite,
+                input Jump,
+                input Branch);
   
   localparam WIDTH = 32; // Define a local parameter for bus width
 
@@ -49,6 +52,102 @@ module datapath(input  clk, reset,
     .d(PCPlus4),
     .q(PCPlus4D)
   );
+
+
+    // Señales de la etapa Execute
+  wire [31:0] RD1E, RD2E, ImmExtE, PCE, PCPlus4E;
+  wire [4:0]  Rs1E, Rs2E, RdE;
+  wire        FlushE = 1'b0;   // luego vendra de la Hazard Unit
+
+  // Registro de pipeline D->E
+  flopenrc #(WIDTH) rd1ereg(
+    .clk(clk),
+    .reset(reset),
+    .clr(FlushE),
+    .en(1'b1),
+    .d(SrcA),
+    .q(RD1E)
+  );
+
+  flopenrc #(WIDTH) rd2ereg(
+    .clk(clk),
+    .reset(reset),
+    .clr(FlushE),
+    .en(1'b1),
+    .d(WriteData),
+    .q(RD2E)
+  );
+
+  flopenrc #(WIDTH) pcereg(
+    .clk(clk),
+    .reset(reset),
+    .clr(FlushE),
+    .en(1'b1),
+    .d(PCD),
+    .q(PCE)
+  );
+
+  flopenrc #(WIDTH) immextereg(
+    .clk(clk),
+    .reset(reset),
+    .clr(FlushE),
+    .en(1'b1),
+    .d(ImmExt),
+    .q(ImmExtE)
+  );
+
+  flopenrc #(WIDTH) pcplus4ereg(
+    .clk(clk),
+    .reset(reset),
+    .clr(FlushE),
+    .en(1'b1),
+    .d(PCPlus4D),
+    .q(PCPlus4E)
+  );
+
+  flopenrc #(5) rs1ereg(
+    .clk(clk),
+    .reset(reset),
+    .clr(FlushE),
+    .en(1'b1),
+    .d(InstrD[19:15]),
+    .q(Rs1E)
+  );
+
+  flopenrc #(5) rs2ereg(
+    .clk(clk),
+    .reset(reset),
+    .clr(FlushE),
+    .en(1'b1),
+    .d(InstrD[24:20]),
+    .q(Rs2E)
+  );
+
+  flopenrc #(5) rdereg(
+    .clk(clk),
+    .reset(reset),
+    .clr(FlushE),
+    .en(1'b1),
+    .d(InstrD[11:7]),
+    .q(RdE)
+  );
+
+
+
+  // Registro de pipeline D->E: senales de control
+  wire       RegWriteE, MemWriteE, JumpE, BranchE, ALUSrcE;
+  wire [1:0] ResultSrcE;
+  wire [2:0] ALUControlE;
+
+  flopenrc #(10) controlereg(
+    .clk(clk),
+    .reset(reset),
+    .clr(FlushE),
+    .en(1'b1),
+    .d({RegWrite, ResultSrc, MemWrite, Jump, Branch, ALUControl, ALUSrc}),
+    .q({RegWriteE,ResultSrcE,MemWriteE,JumpE,BranchE,ALUControlE,ALUSrcE})
+  );
+
 
   // next PC logic
   flopenrc #(WIDTH) pcreg(
