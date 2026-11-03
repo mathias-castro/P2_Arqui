@@ -1,17 +1,16 @@
 module controller(input  [6:0] op,
                   input  [2:0] funct3,
                   input        funct7b5,
-                  input        Zero,
                   output [1:0] ResultSrc, 
                   output MemWrite,
-                  output PCSrc, ALUSrc,
+                  output ALUSrc,
                   output RegWrite, Jump,
                   output [1:0] ImmSrc, 
                   output [2:0] ALUControl,
                   output Branch);
   
   wire [1:0] ALUOp; 
-    
+
   maindec md(
     .op(op), 
     .ResultSrc(ResultSrc), 
@@ -32,5 +31,4 @@ module controller(input  [6:0] op,
     .ALUControl(ALUControl)
   ); 
 
-  assign PCSrc = Branch & Zero | Jump; 
 endmodule

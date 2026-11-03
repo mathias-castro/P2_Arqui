@@ -1,13 +1,14 @@
 module datapath(input  clk, reset,
                 input  [1:0]  ResultSrc, 
-                input  PCSrc, ALUSrc,
+                input  ALUSrc,
                 input  RegWrite,
                 input  [1:0]  ImmSrc, 
                 input  [2:0]  ALUControl,
-                output Zero,
+                output [31:0] InstrD,
                 output [31:0] PC,
                 input  [31:0] Instr,
-                output [31:0] ALUResult, WriteData, 
+                output [31:0] ALUResultM, WriteDataM,
+                output MemWriteM,
                 input  [31:0] ReadData,
                 input MemWrite,
                 input Jump,
@@ -17,13 +18,14 @@ module datapath(input  clk, reset,
 
   wire [31:0] PCNext, PCPlus4, PCTarget; 
   wire [31:0] ImmExt; 
-  wire [31:0] SrcA, SrcB; 
-  wire [31:0] Result; 
+    wire [31:0] RD1D, RD2D, SrcAE, SrcBE, ALUResultE, WriteDataE;
+  wire        ZeroE, PCSrcE;
+  wire [31:0] ResultW;
 
   // Señales de la etapa Decode
-  wire [31:0] InstrD, PCD, PCPlus4D;
-  wire        StallD = 1'b0;   // luego vendra de la Hazard Unit
-  wire        FlushD = 1'b0;   // luego vendra de la Hazard Unit
+  wire [31:0] PCD, PCPlus4D;
+  wire StallF, StallD;
+  wire FlushD;
 
   // Registro de pipeline F->D
   flopenrc #(WIDTH) instrdreg(
@@ -57,7 +59,7 @@ module datapath(input  clk, reset,
     // Señales de la etapa Execute
   wire [31:0] RD1E, RD2E, ImmExtE, PCE, PCPlus4E;
   wire [4:0]  Rs1E, Rs2E, RdE;
-  wire        FlushE = 1'b0;   // luego vendra de la Hazard Unit
+  wire FlushE;
 
   // Registro de pipeline D->E
   flopenrc #(WIDTH) rd1ereg(
@@ -65,7 +67,7 @@ module datapath(input  clk, reset,
     .reset(reset),
     .clr(FlushE),
     .en(1'b1),
-    .d(SrcA),
+    .d(RD1D),
     .q(RD1E)
   );
 
@@ -74,7 +76,7 @@ module datapath(input  clk, reset,
     .reset(reset),
     .clr(FlushE),
     .en(1'b1),
-    .d(WriteData),
+    .d(RD2D),
     .q(RD2E)
   );
 
@@ -149,24 +151,24 @@ module datapath(input  clk, reset,
   );
 
     // Señales de las etapas Memory y Writeback
-    wire [31:0] ALUResultM, WriteDataM, PCPlus4M;
+    wire [31:0] PCPlus4M;
     wire [31:0] ALUResultW, ReadDataW, PCPlus4W;
     wire [4:0]  RdM, RdW;
-    wire        RegWriteM, MemWriteM, RegWriteW;
+    wire        RegWriteM, RegWriteW;
     wire [1:0]  ResultSrcM, ResultSrcW;
 
     // Execute -> Memory
     flopr #(WIDTH) alumreg(
       .clk(clk),
       .reset(reset),
-      .d(ALUResult),
+      .d(ALUResultE),
       .q(ALUResultM)
     );
 
     flopr #(WIDTH) writedatamreg(
       .clk(clk),
       .reset(reset),
-      .d(RD2E),
+      .d(WriteDataE),
       .q(WriteDataM)
     );
 
@@ -236,7 +238,7 @@ module datapath(input  clk, reset,
     .clk(clk),
     .reset(reset),
     .clr(1'b0),
-    .en(1'b1),
+    .en(~StallF),
     .d(PCNext),
     .q(PC)
   );
@@ -247,58 +249,99 @@ module datapath(input  clk, reset,
     .y(PCPlus4)
   ); 
 
+  assign PCSrcE = (BranchE & ZeroE) | JumpE;
+
   adder       pcaddbranch(
-    .a(PC), 
-    .b(ImmExt), 
+    .a(PCE),
+    .b(ImmExtE),
     .y(PCTarget)
   ); 
 
   mux2 #(WIDTH)  pcmux(
     .d0(PCPlus4), 
     .d1(PCTarget), 
-    .s(PCSrc), 
+    .s(PCSrcE),
     .y(PCNext)
   ); 
  
   // register file logic
   regfile     rf(
     .clk(clk), 
-    .we3(RegWrite), 
-    .a1(Instr[19:15]), 
-    .a2(Instr[24:20]), 
-    .a3(Instr[11:7]), 
-    .wd3(Result), 
-    .rd1(SrcA), 
-    .rd2(WriteData)
+    .we3(RegWriteW),
+    .a1(InstrD[19:15]),
+    .a2(InstrD[24:20]),
+    .a3(RdW),
+    .wd3(ResultW),
+    .rd1(RD1D),
+    .rd2(RD2D)
   ); 
 
   extend      ext(
-    .instr(Instr[31:7]), 
+    .instr(InstrD[31:7]),
     .immsrc(ImmSrc), 
     .immext(ImmExt)
   ); 
 
+  // Forwarding
+  wire [1:0] ForwardAE, ForwardBE;
+
+  hazardunit hu(
+    .Rs1E(Rs1E),
+    .Rs2E(Rs2E),
+    .RdM(RdM),
+    .RdW(RdW),
+    .RegWriteM(RegWriteM),
+    .RegWriteW(RegWriteW),
+    .ForwardAE(ForwardAE),
+        .ForwardBE(ForwardBE),
+    .Rs1D(InstrD[19:15]),
+    .Rs2D(InstrD[24:20]),
+    .RdE(RdE),
+    .ResultSrcE0(ResultSrcE[0]),
+    .StallF(StallF),
+    .StallD(StallD),
+    .PCSrcE(PCSrcE),
+    .FlushD(FlushD),
+    .FlushE(FlushE)
+  );
+
+  mux3 #(WIDTH)  fwdamux(
+    .d0(RD1E),
+    .d1(ResultW),
+    .d2(ALUResultM),
+    .s(ForwardAE),
+    .y(SrcAE)
+  );
+
+  mux3 #(WIDTH)  fwdbmux(
+    .d0(RD2E),
+    .d1(ResultW),
+    .d2(ALUResultM),
+    .s(ForwardBE),
+    .y(WriteDataE)
+  );
+
   // ALU logic
   mux2 #(WIDTH)  srcbmux(
-    .d0(WriteData), 
-    .d1(ImmExt), 
-    .s(ALUSrc), 
-    .y(SrcB)
+    .d0(WriteDataE),
+    .d1(ImmExtE),
+    .s(ALUSrcE),
+    .y(SrcBE)
   ); 
 
   alu         alu(
-    .a(SrcA), 
-    .b(SrcB), 
-    .alucontrol(ALUControl), 
-    .result(ALUResult), 
-    .zero(Zero)
+    .a(SrcAE),
+    .b(SrcBE),
+    .alucontrol(ALUControlE),
+    .result(ALUResultE),
+    .zero(ZeroE)
   ); 
 
   mux3 #(WIDTH)  resultmux(
-    .d0(ALUResult), 
-    .d1(ReadData), 
-    .d2(PCPlus4), 
-    .s(ResultSrc), 
-    .y(Result)
+    .d0(ALUResultW),
+    .d1(ReadDataW),
+    .d2(PCPlus4W),
+    .s(ResultSrcW),
+    .y(ResultW)
   ); 
 endmodule

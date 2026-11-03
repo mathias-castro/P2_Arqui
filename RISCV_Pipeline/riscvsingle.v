@@ -6,25 +6,21 @@ module riscvsingle(input  clk, reset,
                    output [31:0] WriteData,
                    input  [31:0] ReadData);
   
-  wire [31:0] ALUResult; 
+  wire [31:0] InstrD;
+  wire MemWriteD; 
   
-  wire       ALUSrc, RegWrite, Jump, Zero; 
+  wire       ALUSrc, RegWrite, Jump; 
   wire [1:0] ResultSrc, ImmSrc; 
   wire [2:0] ALUControl; 
-  wire       PCSrc; 
   wire Branch;
 
-  // DataAdr is connected to ALUResult
-  assign DataAdr = ALUResult;
 
   controller c(
-    .op(Instr[6:0]), 
-    .funct3(Instr[14:12]), 
-    .funct7b5(Instr[30]), 
-    .Zero(Zero),
+    .op(InstrD[6:0]), 
+    .funct3(InstrD[14:12]), 
+    .funct7b5(InstrD[30]), 
     .ResultSrc(ResultSrc), 
-    .MemWrite(MemWrite), 
-    .PCSrc(PCSrc),
+    .MemWrite(MemWriteD), 
     .ALUSrc(ALUSrc), 
     .RegWrite(RegWrite), 
     .Jump(Jump),
@@ -37,18 +33,18 @@ module riscvsingle(input  clk, reset,
     .clk(clk), 
     .reset(reset), 
     .ResultSrc(ResultSrc), 
-    .PCSrc(PCSrc),
     .ALUSrc(ALUSrc), 
     .RegWrite(RegWrite),
     .ImmSrc(ImmSrc), 
     .ALUControl(ALUControl),
-    .Zero(Zero), 
+    .InstrD(InstrD), 
     .PC(PC), 
     .Instr(Instr),
-    .ALUResult(ALUResult), 
-    .WriteData(WriteData), 
+    .ALUResultM(DataAdr), 
+    .WriteDataM(WriteData), 
     .ReadData(ReadData),
-    .MemWrite(MemWrite),
+    .MemWrite(MemWriteD),
+    .MemWriteM(MemWrite),
     .Jump(Jump),
     .Branch(Branch)
   ); 
