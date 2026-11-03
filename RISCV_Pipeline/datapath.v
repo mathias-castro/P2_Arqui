@@ -17,13 +17,48 @@ module datapath(input  clk, reset,
   wire [31:0] SrcA, SrcB; 
   wire [31:0] Result; 
 
+  // Señales de la etapa Decode
+  wire [31:0] InstrD, PCD, PCPlus4D;
+  wire        StallD = 1'b0;   // luego vendra de la Hazard Unit
+  wire        FlushD = 1'b0;   // luego vendra de la Hazard Unit
+
+  // Registro de pipeline F->D
+  flopenrc #(WIDTH) instrdreg(
+    .clk(clk),
+    .reset(reset),
+    .clr(FlushD),
+    .en(~StallD),
+    .d(Instr),
+    .q(InstrD)
+  );
+
+  flopenrc #(WIDTH) pcdreg(
+    .clk(clk),
+    .reset(reset),
+    .clr(FlushD),
+    .en(~StallD),
+    .d(PC),
+    .q(PCD)
+  );
+
+  flopenrc #(WIDTH) pcplus4dreg(
+    .clk(clk),
+    .reset(reset),
+    .clr(FlushD),
+    .en(~StallD),
+    .d(PCPlus4),
+    .q(PCPlus4D)
+  );
+
   // next PC logic
-  flopr #(WIDTH) pcreg(
-    .clk(clk), 
-    .reset(reset), 
-    .d(PCNext), 
+  flopenrc #(WIDTH) pcreg(
+    .clk(clk),
+    .reset(reset),
+    .clr(1'b0),
+    .en(1'b1),
+    .d(PCNext),
     .q(PC)
-  ); 
+  );
 
   adder       pcadd4(
     .a(PC), 
