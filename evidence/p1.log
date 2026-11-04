@@ -1,0 +1,6 @@
+VCD info: dumpfile build/p1.vcd opened for output.
+STORE t=185 ns Mem[0]=12
+FLUSH t=205 ns PCE=68 destino=80
+STORE t=275 ns Mem[252]=1
+PASS P1: ciclos=27 stalls=0 redirecciones=1 ciclos_forward=0 stores=2
+tests/tb_pipeline.v:191: $finish called at 276000 (1ps)

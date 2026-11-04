@@ -14,7 +14,7 @@ module datapath(input  clk, reset,
                 input Jump,
                 input Branch);
   
-  localparam WIDTH = 32; // Define a local parameter for bus width
+  localparam WIDTH = 32;
 
   wire [31:0] PCNext, PCPlus4, PCTarget; 
   wire [31:0] ImmExt; 
@@ -245,7 +245,7 @@ module datapath(input  clk, reset,
 
   adder       pcadd4(
     .a(PC), 
-    .b({WIDTH{1'b0}} + 4), // Using WIDTH parameter for constant 4
+    .b(32'd4),
     .y(PCPlus4)
   ); 
 

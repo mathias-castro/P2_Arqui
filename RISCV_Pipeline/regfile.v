@@ -8,7 +8,7 @@ module regfile(input  clk,
 
   // escribe en el flanco de bajada (A3/WD3/WE3)
   always @(negedge clk) begin 
-    if (we3) rf[a3] <= wd3; 
+    if (we3 && a3 != 0) rf[a3] <= wd3;
   end
   
   // read two ports combinationally (A1/RD1, A2/RD2)

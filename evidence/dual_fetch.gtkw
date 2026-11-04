@@ -1,0 +1,28 @@
+[timestart] 5000
+*-1.345316e+01 -1 35000 55000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[size] 1380 760
+[pos] 0 0
+[signals_width] 285
+[sst_expanded] 0
+@28
+tb_dual.clk
+@28
+tb_dual.Stall
+@24
+tb_dual.PC0[31:0]
+@24
+tb_dual.PC1[31:0]
+@22
+tb_dual.Instr0[31:0]
+@22
+tb_dual.Instr1[31:0]
+@24
+tb_dual.dut.dual.PC0D[31:0]
+@24
+tb_dual.dut.dual.PC1D[31:0]
+@22
+tb_dual.dut.dual.Instr0D[31:0]
+@22
+tb_dual.dut.dual.Instr1D[31:0]
+@28
+tb_dual.dut.dual.ValidE

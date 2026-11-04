@@ -1,41 +1,24 @@
+`timescale 1ns/1ps
+// Regresion del programa riscvtest de Harris y Harris, figura 7.64.
 module testbench;
-  reg          clk;
-  reg          reset;
-  wire [31:0]  WriteData;
-  wire [31:0]  DataAdr;
-  wire         MemWrite;
-  
-  // instantiate device to be tested
-  top dut(
-    .clk(clk), 
-    .reset(reset), 
-    .WriteData(WriteData), 
-    .DataAdr(DataAdr), 
-    .MemWrite(MemWrite)
-  );
-
-  // initialize test
-  initial begin
-    reset = 1; # 22;
-    reset = 0;
-  end
-
-  // generate clock to sequence tests
-  always begin
-    clk = 1;
-    # 5; clk = 0; # 5;
-  end
-
-  // check results
-  always @(negedge clk) begin
-    if(MemWrite) begin
-      if(DataAdr === 100 & WriteData === 25) begin
-        $display("Simulation succeeded");
-        $stop;
-      end else if (DataAdr !== 96) begin
-        $display("Simulation failed");
-        $stop;
-      end
+  reg clk = 0, reset = 1;
+  wire [31:0] WriteData, DataAdr;
+  wire MemWrite;
+  integer cycles = 0;
+  top dut(clk, reset, WriteData, DataAdr, MemWrite);
+  always #5 clk = ~clk;
+  initial #12 reset = 0;
+  always @(posedge clk) if (!reset) begin
+    cycles = cycles + 1;
+    if (cycles > 100) $fatal(1, "Timeout en riscvtest");
+    if (MemWrite) begin
+      if (DataAdr === 100 && WriteData === 25) begin
+        #1;
+        if (dut.dmem.RAM[25] !== 25) $fatal(1, "El store final no se escribio");
+        $display("PASS HARRIS: Mem[100]=25");
+        $finish;
+      end else if (DataAdr !== 96 || WriteData !== 7)
+        $fatal(1, "Escritura incorrecta en riscvtest");
     end
   end
 endmodule

@@ -1,4 +1,5 @@
-module top(input  clk, reset, 
+module top #(parameter MEMFILE = "RISCV_Pipeline/riscvtest.dat")
+           (input  clk, reset,
            output [31:0] WriteData, DataAdr, 
            output MemWrite);
   
@@ -16,7 +17,7 @@ module top(input  clk, reset,
     .ReadData(ReadData)
   ); 
 
-  imem imem(
+  imem #(.MEMFILE(MEMFILE)) imem(
     .a(PC), 
     .rd(Instr)
   ); 

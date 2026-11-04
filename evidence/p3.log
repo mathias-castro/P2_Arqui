@@ -1,0 +1,9 @@
+VCD info: dumpfile build/p3.vcd opened for output.
+STALL t=55 ns PCF=16 PCD=12 RdE=x2
+STORE t=55 ns Mem[0]=21
+STALL t=95 ns PCF=28 PCD=24 RdE=x4
+STORE t=95 ns Mem[4]=42
+STORE t=125 ns Mem[8]=42
+STORE t=145 ns Mem[252]=3
+PASS P3: ciclos=14 stalls=2 redirecciones=0 ciclos_forward=5 stores=4
+tests/tb_pipeline.v:191: $finish called at 146000 (1ps)

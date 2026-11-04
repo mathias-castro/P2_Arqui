@@ -1,0 +1,30 @@
+[timestart] 65000
+*-1.345316e+01 -1 85000 115000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[size] 1380 760
+[pos] 0 0
+[signals_width] 285
+[sst_expanded] 0
+@28
+tb_pipeline.clk
+@24
+tb_pipeline.dut.PC[31:0]
+@24
+tb_pipeline.dut.rvsingle.dp.PCE[31:0]
+@28
+tb_pipeline.dut.rvsingle.dp.BranchE
+@28
+tb_pipeline.dut.rvsingle.dp.JumpE
+@24
+tb_pipeline.dut.rvsingle.dp.PCTarget[31:0]
+@28
+tb_pipeline.dut.rvsingle.dp.PCSrcE
+@28
+tb_pipeline.dut.rvsingle.dp.FlushD
+@28
+tb_pipeline.dut.rvsingle.dp.FlushE
+@22
+tb_pipeline.dut.rvsingle.dp.InstrD[31:0]
+@28
+tb_pipeline.dut.rvsingle.dp.RegWriteE
+@28
+tb_pipeline.dut.rvsingle.dp.MemWriteM

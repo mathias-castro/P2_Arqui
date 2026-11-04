@@ -1,0 +1,9 @@
+VCD info: dumpfile build/dual.vcd opened for output.
+DECODE PC0D=0 PC1D=4 Instr0D=002082b3 Instr1D=40308333
+DECODE PC0D=8 PC1D=12 Instr0D=0080a383 Instr1D=00317433
+DECODE PC0D=16 PC1D=20 Instr0D=0020e4b3 Instr1D=0041a623
+DECODE PC0D=24 PC1D=28 Instr0D=00208863 Instr1D=ffc08593
+DECODE PC0D=32 PC1D=36 Instr0D=00112633 Instr1D=0040056f
+DECODE PC0D=40 PC1D=44 Instr0D=00100693 Instr1D=00200713
+PASS DUAL: 6 pares, Decode completo, 4 lecturas, 2 ALU y hold de 2 ciclos
+Superscalar_Dual_Issue/tb_dual.v:96: $finish called at 96000 (1ps)

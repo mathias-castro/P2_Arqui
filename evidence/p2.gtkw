@@ -1,0 +1,28 @@
+[timestart] 35000
+*-1.386819e+01 -1 45000 95000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[size] 1380 760
+[pos] 0 0
+[signals_width] 285
+[sst_expanded] 0
+@28
+tb_pipeline.clk
+@24
+tb_pipeline.dut.rvsingle.dp.PCE[31:0]
+@24
+tb_pipeline.dut.rvsingle.dp.Rs1E[4:0]
+@24
+tb_pipeline.dut.rvsingle.dp.Rs2E[4:0]
+@24
+tb_pipeline.dut.rvsingle.dp.RdM[4:0]
+@24
+tb_pipeline.dut.rvsingle.dp.RdW[4:0]
+@28
+tb_pipeline.dut.rvsingle.dp.ForwardAE[1:0]
+@28
+tb_pipeline.dut.rvsingle.dp.ForwardBE[1:0]
+@24
+tb_pipeline.dut.rvsingle.dp.SrcAE[31:0]
+@24
+tb_pipeline.dut.rvsingle.dp.SrcBE[31:0]
+@24
+tb_pipeline.dut.rvsingle.dp.ALUResultE[31:0]

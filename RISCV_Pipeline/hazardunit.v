@@ -9,6 +9,7 @@ module hazardunit(input      [4:0] Rs1E, Rs2E,
 
   wire lwStall;
 
+  // Condicion Load-Use de Harris: el load en EX produce un registro leido en ID.
   assign lwStall = ResultSrcE0 & ((Rs1D == RdE) | (Rs2D == RdE));
   assign StallF  = lwStall;
   assign StallD  = lwStall;

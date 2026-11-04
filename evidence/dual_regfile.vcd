@@ -1,0 +1,187 @@
+$date
+	Wed Nov  4 12:15:18 2026
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1ps
+$end
+$scope module tb_dual_regfile $end
+$var wire 32 ! rd21 [31:0] $end
+$var wire 32 " rd20 [31:0] $end
+$var wire 32 # rd11 [31:0] $end
+$var wire 32 $ rd10 [31:0] $end
+$var reg 1 % clk $end
+$var reg 5 & ra10 [4:0] $end
+$var reg 5 ' ra11 [4:0] $end
+$var reg 5 ( ra20 [4:0] $end
+$var reg 5 ) ra21 [4:0] $end
+$var reg 5 * wa0 [4:0] $end
+$var reg 5 + wa1 [4:0] $end
+$var reg 32 , wd0 [31:0] $end
+$var reg 32 - wd1 [31:0] $end
+$var reg 1 . we0 $end
+$var reg 1 / we1 $end
+$scope module dut $end
+$var wire 1 % clk $end
+$var wire 5 0 ra10 [4:0] $end
+$var wire 5 1 ra11 [4:0] $end
+$var wire 5 2 ra20 [4:0] $end
+$var wire 5 3 ra21 [4:0] $end
+$var wire 5 4 wa0 [4:0] $end
+$var wire 5 5 wa1 [4:0] $end
+$var wire 32 6 wd0 [31:0] $end
+$var wire 32 7 wd1 [31:0] $end
+$var wire 1 . we0 $end
+$var wire 1 / we1 $end
+$var wire 32 8 rd21 [31:0] $end
+$var wire 32 9 rd20 [31:0] $end
+$var wire 32 : rd11 [31:0] $end
+$var wire 32 ; rd10 [31:0] $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+$comment Show the parameter values. $end
+$dumpall
+$end
+#0
+$dumpvars
+b0 ;
+b0 :
+b0 9
+b0 8
+b0 7
+b0 6
+b0 5
+b0 4
+b0 3
+b0 2
+b0 1
+b0 0
+0/
+0.
+b0 -
+b0 ,
+b0 +
+b0 *
+b0 )
+b0 (
+b0 '
+b0 &
+0%
+b0 $
+b0 #
+b0 "
+b0 !
+$end
+#1000
+bx !
+bx 8
+bx #
+bx :
+bx "
+bx 9
+bx $
+bx ;
+b10 )
+b10 3
+b1 '
+b1 1
+b10 (
+b10 2
+b1 &
+b1 0
+b101 -
+b101 7
+b1100 ,
+b1100 6
+b10 +
+b10 5
+b1 *
+b1 4
+1/
+1.
+#5000
+1%
+#10000
+b101 "
+b101 9
+b101 !
+b101 8
+b1100 $
+b1100 ;
+b1100 #
+b1100 :
+0%
+#11000
+bx #
+bx :
+bx $
+bx ;
+b11 '
+b11 1
+b11 &
+b11 0
+b1001 -
+b1001 7
+b111 ,
+b111 6
+b11 +
+b11 5
+b11 *
+b11 4
+#15000
+1%
+#20000
+b1001 $
+b1001 ;
+b1001 #
+b1001 :
+0%
+#21000
+b0 !
+b0 8
+b0 #
+b0 :
+b0 "
+b0 9
+b0 $
+b0 ;
+b0 )
+b0 3
+b0 '
+b0 1
+b0 (
+b0 2
+b0 &
+b0 0
+b1011000 -
+b1011000 7
+b1100011 ,
+b1100011 6
+b0 +
+b0 5
+b0 *
+b0 4
+#25000
+1%
+#30000
+0%
+#31000
+bx $
+bx ;
+b100 &
+b100 0
+b10101 -
+b10101 7
+b100 +
+b100 5
+0.
+#35000
+1%
+#40000
+b10101 $
+b10101 ;
+0%
+#41000

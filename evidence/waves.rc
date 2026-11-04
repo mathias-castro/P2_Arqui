@@ -1,0 +1,24 @@
+hide_sst 1
+hier_max_level 1
+fontname_signals Monospace 16
+fontname_waves Monospace 15
+use_pango_fonts 1
+color_back ffffff
+color_0 163b61
+color_1 163b61
+color_vbox 163b61
+color_vtrans 163b61
+color_trans 163b61
+color_value 111111
+color_grid dddddd
+color_time 111111
+color_timeb f0f0f0
+color_mark a80000
+color_x 9b3b30
+color_xfill fbe9e7
+color_w 9b3b30
+color_u 9b3b30
+color_ufill fbe9e7
+wave_scrolling 0
+
+use_fat_lines 1

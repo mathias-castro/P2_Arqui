@@ -1,0 +1,3 @@
+VCD info: dumpfile build/dual_regfile.vcd opened for output.
+PASS REGFILE: 4R/2W, prioridad de la via joven, x0 y puerto 1 independiente
+tests/tb_dual_regfile.v:30: $finish called at 41000 (1ps)
