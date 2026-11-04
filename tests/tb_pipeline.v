@@ -14,6 +14,22 @@ module tb_pipeline;
   top #(.MEMFILE("")) dut(clk, reset, WriteData, DataAdr, MemWrite);
   always #5 clk = ~clk;
 
+  // Seguimiento de instrucciones para las waveforms; no controla el procesador.
+  wire [31:0] InstrF = dut.Instr;
+  wire [31:0] InstrD = dut.rvsingle.dp.InstrD;
+  reg [31:0] InstrE, InstrM, InstrW;
+  always @(posedge clk or posedge reset) begin
+    if (reset) begin
+      InstrE <= 0;
+      InstrM <= 0;
+      InstrW <= 0;
+    end else begin
+      InstrE <= dut.rvsingle.dp.FlushE ? 32'b0 : InstrD;
+      InstrM <= InstrE;
+      InstrW <= InstrM;
+    end
+  end
+
   task check;
     input condition;
     input [511:0] message;

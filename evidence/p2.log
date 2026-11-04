@@ -2,4 +2,4 @@ VCD info: dumpfile build/p2.vcd opened for output.
 STORE t=125 ns Mem[4]=18
 STORE t=165 ns Mem[252]=2
 PASS P2: ciclos=16 stalls=0 redirecciones=0 ciclos_forward=6 stores=2
-tests/tb_pipeline.v:191: $finish called at 166000 (1ps)
+tests/tb_pipeline.v:207: $finish called at 166000 (1ps)

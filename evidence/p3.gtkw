@@ -1,5 +1,5 @@
 [timestart] 35000
-*-1.319013e+01 -1 55000 65000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-1.345316e+01 -1 55000 65000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [size] 1380 760
 [pos] 0 0
 [signals_width] 285
@@ -8,12 +8,16 @@
 tb_pipeline.clk
 @24
 tb_pipeline.dut.PC[31:0]
-@24
-tb_pipeline.dut.rvsingle.dp.PCD[31:0]
-@24
-tb_pipeline.dut.rvsingle.dp.PCE[31:0]
 @22
-tb_pipeline.dut.rvsingle.dp.InstrD[31:0]
+tb_pipeline.InstrF[31:0]
+@22
+tb_pipeline.InstrD[31:0]
+@22
+tb_pipeline.InstrE[31:0]
+@22
+tb_pipeline.InstrM[31:0]
+@22
+tb_pipeline.InstrW[31:0]
 @28
 tb_pipeline.dut.rvsingle.dp.StallF
 @28
@@ -28,6 +32,8 @@ tb_pipeline.dut.rvsingle.dp.ForwardAE[1:0]
 tb_pipeline.dut.rvsingle.dp.ForwardBE[1:0]
 @24
 tb_pipeline.dut.rvsingle.dp.SrcAE[31:0]
+@24
+tb_pipeline.dut.rvsingle.dp.SrcBE[31:0]
 @24
 tb_pipeline.dut.rvsingle.dp.ALUResultE[31:0]
 @24

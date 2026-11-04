@@ -47,6 +47,8 @@ La ROM contiene 256 palabras y la RAM de datos 64. Las direcciones son de bytes;
 
 El RTL conserva los `don't care` del diseño del libro para campos no utilizados. Al leer una waveform, un resultado solo escribe el Register File si `RegWriteW=1`; el dato de una instrucción sin escritura no es un resultado arquitectónico.
 
+Las vistas de P1 a P4 incluyen `InstrF`, `InstrD`, `InstrE`, `InstrM` e `InstrW` para seguir cada instrucción por las cinco etapas. El testbench observa Fetch y Decode y conserva copias para EX, MEM y WB con los mismos flancos y `FlushE` del pipeline. Estas señales no controlan el procesador. `00000000` identifica una etapa limpiada; el `nop` del programa es `00000013`.
+
 ## Pruebas de E1
 
 | Programa | Qué comprueba | Resultado | Stalls | Redirecciones |

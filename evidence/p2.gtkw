@@ -8,6 +8,16 @@
 tb_pipeline.clk
 @24
 tb_pipeline.dut.rvsingle.dp.PCE[31:0]
+@22
+tb_pipeline.InstrF[31:0]
+@22
+tb_pipeline.InstrD[31:0]
+@22
+tb_pipeline.InstrE[31:0]
+@22
+tb_pipeline.InstrM[31:0]
+@22
+tb_pipeline.InstrW[31:0]
 @24
 tb_pipeline.dut.rvsingle.dp.Rs1E[4:0]
 @24
