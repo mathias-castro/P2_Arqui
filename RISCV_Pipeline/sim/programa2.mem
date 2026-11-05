@@ -1,0 +1,16 @@
+00500093  // PC=0: addi x1, x0, 5  # x1 = 5
+00700113  // PC=4: addi x2, x0, 7  # x2 = 7
+002081B3  // PC=8: add  x3, x1, x2  # x3 = 12, ForwardAE = 01 y ForwardBE = 10
+40118233  // PC=12: sub  x4, x3, x1  # x4 = 7, ForwardAE = 10
+003202B3  // PC=16: add  x5, x4, x3  # x5 = 19, ForwardAE = 10 y ForwardBE = 01
+00100313  // PC=20: addi x6, x0, 1  # x6 = 1
+00900313  // PC=24: addi x6, x0, 9  # x6 = 9
+006303B3  // PC=28: add  x7, x6, x6  # x7 = 18, MEM tiene prioridad sobre WB
+00702223  // PC=32: sw   x7, 4(x0)  # Mem[4] = 18, ForwardBE = 10
+06300013  // PC=36: addi x0, x0, 99  # intenta escribir en x0
+00000433  // PC=40: add  x8, x0, x0  # x8 = 0, x0 no se reenvia
+00200493  // PC=44: addi x9, x0, 2  # x9 = 2
+0E902E23  // PC=48: sw   x9, 252(x0)  # senal de fin, ForwardBE = 10
+00000013  // PC=52: nop  # evita activar el bucle final
+00000013  // PC=56: nop  # evita activar el bucle final
+00000063  // PC=60: beq  x0, x0, fin  # bucle final

@@ -1,0 +1,20 @@
+00500093  // PC=0: addi x1, x0, 5  # x1 = 5
+00500113  // PC=4: addi x2, x0, 5  # x2 = 5
+00300193  // PC=8: addi x3, x0, 3  # x3 = 3
+00000213  // PC=12: addi x4, x0, 0  # x4 debe quedar en 0
+00000293  // PC=16: addi x5, x0, 0  # x5 debe quedar en 0
+00208663  // PC=20: beq  x1, x2, salto1  # 5 = 5, salta
+00102823  // PC=24: sw   x1, 16(x0)  # trampa: se elimina
+06300213  // PC=28: addi x4, x0, 99  # trampa: se elimina
+00308463  // PC=32: beq  x1, x3, salto2  # 5 != 3, no salta
+00A00313  // PC=36: addi x6, x0, 10  # se ejecuta: x6 = 10
+00C003EF  // PC=40: jal  x7, salto3  # salta y guarda x7 = 44
+00102A23  // PC=44: sw   x1, 20(x0)  # trampa: se elimina
+06300293  // PC=48: addi x5, x0, 99  # trampa: se elimina
+00400413  // PC=52: addi x8, x0, 4  # x8 = 4
+00000013  // PC=56: nop  # separa la escritura de la lectura
+00000013  // PC=60: nop
+0E802E23  // PC=64: sw   x8, 252(x0)  # senal de fin
+00000013  // PC=68: nop  # evita activar el bucle final
+00000013  // PC=72: nop  # evita activar el bucle final
+00000063  // PC=76: beq  x0, x0, fin  # bucle final

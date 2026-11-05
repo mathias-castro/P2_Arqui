@@ -1,0 +1,27 @@
+00C00093  // PC=0: addi x1, x0, 12  # x1 = 12
+00500113  // PC=4: addi x2, x0, 5  # x2 = 5
+FFD00193  // PC=8: addi x3, x0, -3  # x3 = -3
+00000013  // PC=12: nop  # separa las escrituras de las lecturas
+00000013  // PC=16: nop
+00208233  // PC=20: add  x4, x1, x2  # x4 = 17
+402082B3  // PC=24: sub  x5, x1, x2  # x5 = 7
+0020F333  // PC=28: and  x6, x1, x2  # x6 = 4
+0020E3B3  // PC=32: or   x7, x1, x2  # x7 = 13
+0021A433  // PC=36: slt  x8, x3, x2  # -3 < 5, x8 = 1
+0001A493  // PC=40: slti x9, x3, 0  # -3 < 0, x9 = 1
+0070F513  // PC=44: andi x10, x1, 7  # x10 = 4
+00816593  // PC=48: ori  x11, x2, 8  # x11 = 13
+FFF18613  // PC=52: addi x12, x3, -1  # x12 = -4
+00102023  // PC=56: sw   x1, 0(x0)  # Mem[0] = 12
+00002683  // PC=60: lw   x13, 0(x0)  # x13 = 12
+02208463  // PC=64: beq  x1, x2, fin  # 12 != 5, no salta
+00C0076F  // PC=68: jal  x14, destino  # x14 = 72
+00000013  // PC=72: nop  # espacio del salto: no cambia el resultado
+00000013  // PC=76: nop  # espacio del salto: no cambia el resultado
+00100793  // PC=80: addi x15, x0, 1  # x15 = 1
+00000013  // PC=84: nop  # separa la escritura de la lectura
+00000013  // PC=88: nop
+0EF02E23  // PC=92: sw   x15, 252(x0)  # senal de fin
+00000013  // PC=96: nop  # evita activar el bucle final
+00000013  // PC=100: nop  # evita activar el bucle final
+00000063  // PC=104: beq  x0, x0, fin  # bucle final

@@ -1,0 +1,13 @@
+# Archivos generados por macOS, simuladores y Vivado
+.DS_Store
+*.vcd
+*.vvp
+*.jou
+*.log
+*.pb
+.Xil/
+*.cache/
+*.hw/
+*.ip_user_files/
+*.runs/
+*.sim/

@@ -233,6 +233,34 @@ module datapath(input  clk, reset,
 
 
 
+  // Senales para visualizar cada instruccion en las waveforms
+  wire [31:0] PCF    = PC;
+  wire [31:0] InstrF = Instr;
+  wire [31:0] InstrE, InstrM, InstrW;
+
+  flopenrc #(WIDTH) instrereg(
+    .clk(clk),
+    .reset(reset),
+    .clr(FlushE),
+    .en(1'b1),
+    .d(InstrD),
+    .q(InstrE)
+  );
+
+  flopr #(WIDTH) instrmreg(
+    .clk(clk),
+    .reset(reset),
+    .d(InstrE),
+    .q(InstrM)
+  );
+
+  flopr #(WIDTH) instrwreg(
+    .clk(clk),
+    .reset(reset),
+    .d(InstrM),
+    .q(InstrW)
+  );
+
   // next PC logic
   flopenrc #(WIDTH) pcreg(
     .clk(clk),
