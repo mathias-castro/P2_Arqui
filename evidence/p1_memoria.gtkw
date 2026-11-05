@@ -1,0 +1,30 @@
+[timestart] 125000
+*-14.04545985 -1 135000 175000 185000 195000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[size] 1250 980
+[pos] 0 0
+[signals_width] 285
+[sst_expanded] 0
+@28
+tb_pipeline.clk
+@22
+tb_pipeline.InstrE[31:0]
+@22
+tb_pipeline.InstrM[31:0]
+@22
+tb_pipeline.InstrW[31:0]
+@28
+tb_pipeline.dut.rvsingle.dp.RegWriteW
+@24
+tb_pipeline.dut.rvsingle.dp.RdW[4:0]
+@420
+tb_pipeline.dut.rvsingle.dp.ResultW[31:0]
+@28
+tb_pipeline.MemWrite
+@420
+tb_pipeline.DataAdr[31:0]
+@24
+tb_pipeline.WriteData[31:0]
+@24
+tb_pipeline.dut.ReadData[31:0]
+@24
+tb_pipeline.Mem0[31:0]

@@ -93,6 +93,7 @@ module tb_dual;
         if (pairs == 6) begin
             check(dut.dual.rf.rf[5] == 0 && dut.dual.rf.rf[6] == 0, "WB debe seguir desconectado");
             $display("PASS DUAL: 6 pares, Decode completo, 4 lecturas, 2 ALU y hold de 2 ciclos");
+            #4; // Dejar visible el resultado del ultimo par en la waveform.
             $finish;
         end
     end

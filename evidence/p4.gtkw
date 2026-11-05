@@ -1,6 +1,6 @@
-[timestart] 65000
-*-1.345316e+01 -1 85000 115000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
-[size] 1380 760
+[timestart] 45000
+*-14.04545985 -1 55000 75000 85000 115000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[size] 1250 980
 [pos] 0 0
 [signals_width] 285
 [sst_expanded] 0
@@ -8,6 +8,8 @@
 tb_pipeline.clk
 @24
 tb_pipeline.dut.PC[31:0]
+@24
+tb_pipeline.dut.rvsingle.dp.PCE[31:0]
 @22
 tb_pipeline.InstrF[31:0]
 @22
@@ -18,19 +20,21 @@ tb_pipeline.InstrE[31:0]
 tb_pipeline.InstrM[31:0]
 @22
 tb_pipeline.InstrW[31:0]
+@420
+tb_pipeline.dut.rvsingle.dp.SrcAE[31:0]
+@420
+tb_pipeline.dut.rvsingle.dp.SrcBE[31:0]
 @28
 tb_pipeline.dut.rvsingle.dp.BranchE
 @28
 tb_pipeline.dut.rvsingle.dp.JumpE
-@24
-tb_pipeline.dut.rvsingle.dp.PCTarget[31:0]
 @28
 tb_pipeline.dut.rvsingle.dp.PCSrcE
+@24
+tb_pipeline.dut.rvsingle.dp.PCTarget[31:0]
 @28
 tb_pipeline.dut.rvsingle.dp.FlushD
 @28
 tb_pipeline.dut.rvsingle.dp.FlushE
 @28
-tb_pipeline.dut.rvsingle.dp.RegWriteE
-@28
-tb_pipeline.dut.rvsingle.dp.MemWriteM
+tb_pipeline.MemWrite

@@ -6,4 +6,4 @@ DECODE PC0D=24 PC1D=28 Instr0D=00208863 Instr1D=ffc08593
 DECODE PC0D=32 PC1D=36 Instr0D=00112633 Instr1D=0040056f
 DECODE PC0D=40 PC1D=44 Instr0D=00100693 Instr1D=00200713
 PASS DUAL: 6 pares, Decode completo, 4 lecturas, 2 ALU y hold de 2 ciclos
-Superscalar_Dual_Issue/tb_dual.v:96: $finish called at 96000 (1ps)
+Superscalar_Dual_Issue/tb_dual.v:97: $finish called at 100000 (1ps)

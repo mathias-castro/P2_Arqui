@@ -1,0 +1,40 @@
+[timestart] 45000
+*-13.50489147 -1 55000 65000 75000 85000 95000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[size] 1250 980
+[pos] 0 0
+[signals_width] 285
+[sst_expanded] 0
+@28
+tb_dual.clk
+@24
+tb_dual.dut.dual.PC0D[31:0]
+@22
+tb_dual.dut.dual.Instr0D[31:0]
+@22
+tb_dual.dut.dual.Instr1D[31:0]
+@28
+tb_dual.dut.dual.ALUControl0D[2:0]
+@28
+tb_dual.dut.dual.ALUControl1D[2:0]
+@420
+tb_dual.dut.dual.ImmExt0D[31:0]
+@420
+tb_dual.dut.dual.ImmExt1D[31:0]
+@28
+tb_dual.dut.dual.MemWrite1D
+@28
+tb_dual.dut.dual.Branch0D
+@28
+tb_dual.dut.dual.Jump1D
+@24
+tb_dual.dut.dual.PC0E[31:0]
+@420
+tb_dual.ALUResult0E[31:0]
+@420
+tb_dual.ALUResult1E[31:0]
+@24
+tb_dual.dut.dual.WriteData1E[31:0]
+@28
+tb_dual.dut.dual.Jump1E
+@28
+tb_dual.dut.dual.ValidE

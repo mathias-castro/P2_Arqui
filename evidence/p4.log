@@ -6,4 +6,4 @@ FLUSH t=225 ns PCE=56 destino=72
 STORE t=265 ns Mem[12]=40
 STORE t=285 ns Mem[252]=4
 PASS P4: ciclos=28 stalls=0 redirecciones=4 ciclos_forward=6 stores=2
-tests/tb_pipeline.v:207: $finish called at 286000 (1ps)
+tests/tb_pipeline.v:212: $finish called at 286000 (1ps)

@@ -18,6 +18,11 @@ module tb_pipeline;
   wire [31:0] InstrF = dut.Instr;
   wire [31:0] InstrD = dut.rvsingle.dp.InstrD;
   reg [31:0] InstrE, InstrM, InstrW;
+  // Estado de datos que se muestra en las capturas de resultados.
+  wire [31:0] Mem0 = dut.dmem.RAM[0], Mem4 = dut.dmem.RAM[1];
+  wire [31:0] Mem8 = dut.dmem.RAM[2], Mem12 = dut.dmem.RAM[3];
+  wire [31:0] Mem16 = dut.dmem.RAM[4], Mem20 = dut.dmem.RAM[5];
+  wire [31:0] Mem24 = dut.dmem.RAM[6], x10 = dut.rvsingle.dp.rf.rf[10];
   always @(posedge clk or posedge reset) begin
     if (reset) begin
       InstrE <= 0;

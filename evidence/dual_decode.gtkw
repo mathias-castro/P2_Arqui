@@ -1,6 +1,6 @@
 [timestart] 15000
-*-1.386819e+01 -1 25000 55000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
-[size] 1380 760
+*-13.36738795 -1 25000 35000 55000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[size] 1250 980
 [pos] 0 0
 [signals_width] 285
 [sst_expanded] 0
@@ -8,21 +8,41 @@
 tb_dual.clk
 @24
 tb_dual.dut.dual.PC0D[31:0]
-@28
-tb_dual.dut.dual.RegWrite0D
-@28
-tb_dual.dut.dual.RegWrite1D
+@22
+tb_dual.dut.dual.Instr0D[31:0]
+@22
+tb_dual.dut.dual.Instr1D[31:0]
+@24
+tb_dual.dut.dual.RD10D[31:0]
+@24
+tb_dual.dut.dual.RD20D[31:0]
+@24
+tb_dual.dut.dual.RD11D[31:0]
+@24
+tb_dual.dut.dual.RD21D[31:0]
 @28
 tb_dual.dut.dual.ALUControl0D[2:0]
 @28
 tb_dual.dut.dual.ALUControl1D[2:0]
+@420
+tb_dual.dut.dual.ImmExt0D[31:0]
+@420
+tb_dual.dut.dual.ImmExt1D[31:0]
+@28
+tb_dual.dut.dual.ALUSrc0D
+@28
+tb_dual.dut.dual.ALUSrc1D
 @28
 tb_dual.dut.dual.ResultSrc0D[1:0]
 @28
 tb_dual.dut.dual.MemWrite1D
 @24
+tb_dual.dut.dual.PC0E[31:0]
+@420
 tb_dual.ALUResult0E[31:0]
-@24
+@420
 tb_dual.ALUResult1E[31:0]
+@24
+tb_dual.dut.dual.WriteData1E[31:0]
 @28
 tb_dual.dut.dual.ValidE

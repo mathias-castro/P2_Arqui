@@ -49,6 +49,19 @@ El RTL conserva los `don't care` del diseño del libro para campos no utilizados
 
 Las vistas de P1 a P4 incluyen `InstrF`, `InstrD`, `InstrE`, `InstrM` e `InstrW` para seguir cada instrucción por las cinco etapas. El testbench observa Fetch y Decode y conserva copias para EX, MEM y WB con los mismos flancos y `FlushE` del pipeline. Estas señales no controlan el procesador. `00000000` identifica una etapa limpiada; el `nop` del programa es `00000013`.
 
+Las capturas se dividen en los siguientes tramos. Cada nombre corresponde a un `.png` y una vista `.gtkw` en `evidence/`; las marcas rojas se explican con sus tiempos en el informe.
+
+| Traza | Vistas del informe |
+|---|---|
+| `p1.vcd` | `p1`, `p1_memoria`, `p1_salto` |
+| `p2.vcd` | `p2`, `p2_memoria` |
+| `p3.vcd` | `p3`, `p3_store` |
+| `p4.vcd` | `p4`, `p4_bucle`, `p4_final` |
+| `dual.vcd` | `dual_fetch`, `dual_decode`, `dual_control` |
+| `dual_regfile.vcd` | `dual_regfile`, `dual_regfile_final` |
+
+Por ejemplo: `gtkwave evidence/p1.vcd evidence/p1_memoria.gtkw -r evidence/waves.rc`. Las señales `Mem0`, `Mem4`, etc. y `x10` observan el estado de datos desde el testbench. Se usan para mostrar las escrituras y los destinos que deben permanecer sin cambios después del flushing.
+
 ## Pruebas de E1
 
 | Programa | Qué comprueba | Resultado | Stalls | Redirecciones |
@@ -81,7 +94,7 @@ La condición de stall es la de Harris: `ResultSrcE0 & ((Rs1D == RdE) | (Rs2D ==
 | Criterio | Puntos | Evidencia preparada |
 |---|---:|---|
 | Pipeline y Hazard Unit | 1.25 | RTL Single-Issue; P1-P4; secciones 3, 4 y 7 del informe. |
-| Dual Fetch y Dual Decode | 0.75 | Dos instrucciones, control e inmediatos; `tb_dual`; figuras 7 y 8. |
+| Dual Fetch y Dual Decode | 0.75 | Dos instrucciones, control e inmediatos; `tb_dual`; figuras 13, 14 y 15. |
 | Datapath Dual-Issue preliminar | 0.50 | IF/ID, Register File, dos ID/EX y dos ALU; figura 2. |
 | Programas, waveforms y resultados | 0.50 | Cuatro `.mem`, sus fuentes `.s`, testbench, VCD, capturas e interpretación. |
 | Pregunta individual | 1.00 | Cada integrante debe explicar el funcionamiento; preguntas de repaso más abajo. |

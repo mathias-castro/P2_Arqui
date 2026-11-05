@@ -1,0 +1,36 @@
+[timestart] 7500
+*-10.30849426 -1 10000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[size] 1250 980
+[pos] 0 0
+[signals_width] 285
+[sst_expanded] 0
+@28
+tb_dual_regfile.clk
+@28
+tb_dual_regfile.we0
+@28
+tb_dual_regfile.we1
+@24
+tb_dual_regfile.wa0[4:0]
+@24
+tb_dual_regfile.wa1[4:0]
+@24
+tb_dual_regfile.wd0[31:0]
+@24
+tb_dual_regfile.wd1[31:0]
+@24
+tb_dual_regfile.ra10[4:0]
+@24
+tb_dual_regfile.ra20[4:0]
+@24
+tb_dual_regfile.ra11[4:0]
+@24
+tb_dual_regfile.ra21[4:0]
+@24
+tb_dual_regfile.rd10[31:0]
+@24
+tb_dual_regfile.rd20[31:0]
+@24
+tb_dual_regfile.rd11[31:0]
+@24
+tb_dual_regfile.rd21[31:0]
