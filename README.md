@@ -6,7 +6,7 @@ Proyecto 2 de Arquitectura de Computadoras: procesador RISC-V Dual-Issue.
 
 - `RISCV_Pipeline/src/`: pipeline Single-Issue de cinco etapas con Hazard Unit.
 - `RISCV_Pipeline/sim/`: testbenches, programas y scripts de waveforms.
-- `Superscalar_Dual_Issue/src/`: Dual Fetch, Dual Decode, Register File 4R/2W y dos vias hasta EX. Reutiliza `controller`, `extend`, `alu`, `mux2` y `flopenrc` de `RISCV_Pipeline/src/`.
+- `Superscalar_Dual_Issue/src/`: Dual Fetch, Dual Decode, Register File 4R/2W y dos vias hasta EX. Incluye copias de `alu`, `aludec`, `controller`, `extend`, `flopenrc`, `maindec` y `mux2` para que la carpeta se pueda simular sin `RISCV_Pipeline/`.
 - `Superscalar_Dual_Issue/sim/`: testbenches, programa y scripts de waveforms del prototipo dual.
 - `Superscalar_Dual_Issue/docs/`: diagrama del datapath Dual-Issue preliminar.
 - `Dual_Issue + Optimization/`: procesador Dual-Issue con optimizacion.
@@ -38,7 +38,7 @@ El prototipo todavia no es un procesador Dual-Issue completo: no tiene Issue Uni
 Desde `Superscalar_Dual_Issue/sim`:
 
 ```bash
-iverilog -g2005 -o /tmp/dual -s tb_dual ../../RISCV_Pipeline/src/*.v ../src/*.v tb_dual.v
+iverilog -g2005 -o /tmp/dual -s tb_dual ../src/*.v tb_dual.v
 vvp -n /tmp/dual
 iverilog -g2005 -o /tmp/dual_regfile -s tb_dual_regfile ../src/dual_regfile.v tb_dual_regfile.v
 vvp -n /tmp/dual_regfile
