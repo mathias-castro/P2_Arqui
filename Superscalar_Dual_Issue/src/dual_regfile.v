@@ -30,11 +30,12 @@ module dual_regfile(
     assign rd21 = (ra21 == 0) ? 32'd0 : rf[ra21];
 
     // Escrituras síncronas
-    always @(posedge clk) begin
-        if (we0 && wa0 != 0)
+    always @(negedge clk) begin
+        if (we0 && wa0 != 0 && !(we1 && wa1 == wa0))
             rf[wa0] <= wd0;
 
-        if (we1 && wa1 != 0 && !(we0 && wa0 == wa1))
+        // La via 1 es la mas joven del par y conserva la ultima escritura.
+        if (we1 && wa1 != 0)
             rf[wa1] <= wd1;
     end
 
