@@ -1,8 +1,33 @@
-module top_dual(
-    input clk, reset, Stall,
-    output [31:0] PC0, PC1, Instr0, Instr1,
-    output [31:0] ALUResult0E, ALUResult1E
-);
-    dual_issue_prelim dual(clk, reset, Stall, PC0, PC1, Instr0, Instr1,
-                          ALUResult0E, ALUResult1E);
+module top_dual #(parameter MEMFILE = "e2_programa1.mem")
+                (input  clk, reset,
+                 output [31:0] WriteDataM, DataAdrM,
+                 output        MemWriteM);
+
+  wire [31:0] FetchAddrF, InstrF0, InstrF1, ReadDataM;
+
+  riscvdual rvdual(
+    .clk(clk),
+    .reset(reset),
+    .FetchAddrF(FetchAddrF),
+    .InstrF0(InstrF0),
+    .InstrF1(InstrF1),
+    .MemWriteM(MemWriteM),
+    .DataAdrM(DataAdrM),
+    .WriteDataM(WriteDataM),
+    .ReadDataM(ReadDataM)
+  );
+
+  imem_dual #(.MEMFILE(MEMFILE)) imem(
+    .a(FetchAddrF),
+    .rd0(InstrF0),
+    .rd1(InstrF1)
+  );
+
+  dmem dmem(
+    .clk(clk),
+    .we(MemWriteM),
+    .a(DataAdrM),
+    .wd(WriteDataM),
+    .rd(ReadDataM)
+  );
 endmodule

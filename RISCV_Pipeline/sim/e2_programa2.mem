@@ -1,0 +1,64 @@
+00500093  // pc=0: addi x1, x0, 5  # x1 = 5
+00308113  // pc=4: addi x2, x1, 3  # RAW con el slot 0: se emite sola en el ciclo siguiente; x2 = 8
+00700193  // pc=8: addi x3, x0, 7  # x3 = 7; se reagrupa con addi x2
+00310233  // pc=12: add  x4, x2, x3  # x2 desde MEM via 0 y x3 desde MEM via 1; x4 = 15
+00100293  // pc=16: addi x5, x0, 1  # x5 = 1
+00300693  // pc=20: addi x13, x0, 3  # x13 = 3
+00018333  // pc=24: add  x6, x3, x0  # x3 desde WB via 1; x6 = 7
+005203b3  // pc=28: add  x7, x4, x5  # x4 desde WB via 0 y x5 desde WB via 1; x7 = 16
+00600713  // pc=32: addi x14, x0, 6  # x14 = 6; alinea el par siguiente
+00100493  // pc=36: addi x9, x0, 1  # las dos vias escriben x9 en el mismo ciclo
+00900493  // pc=40: addi x9, x0, 9  # gana la via 1: x9 = 9
+00948533  // pc=44: add  x10, x9, x9  # x9 en MEM via 0 y MEM via 1: se usa la via 1; x10 = 18
+00400613  // pc=48: addi x12, x0, 4  # x12 = 4
+0ea02e23  // pc=52: sw   x10, 252(x0)  # dato desde MEM via 0; senal de fin
+00000063  // pc=56: beq  x0, x0, fin
+00000013
+00000013
+00000013
+00000013
+00000013
+00000013
+00000013
+00000013
+00000013
+00000013
+00000013
+00000013
+00000013
+00000013
+00000013
+00000013
+00000013
+00000013
+00000013
+00000013
+00000013
+00000013
+00000013
+00000013
+00000013
+00000013
+00000013
+00000013
+00000013
+00000013
+00000013
+00000013
+00000013
+00000013
+00000013
+00000013
+00000013
+00000013
+00000013
+00000013
+00000013
+00000013
+00000013
+00000013
+00000013
+00000013
+00000013
+00000013
+00000013

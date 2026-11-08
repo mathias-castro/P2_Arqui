@@ -1,0 +1,64 @@
+00100093  // pc=0: addi x1, x0, 1  # x1 = 1
+00200113  // pc=4: addi x2, x0, 2  # x2 = 2
+02208863  // pc=8: beq  x1, x2, trampa  # slot 0, no se toma
+00300193  // pc=12: addi x3, x0, 3  # slot 1, se ejecuta: x3 = 3
+00108863  // pc=16: beq  x1, x1, salto1  # slot 0, se toma
+06300213  // pc=20: addi x4, x0, 99  # slot 1 del mismo par: se anula en EX
+06200213  // pc=24: addi x4, x0, 98  # se anula en Decode
+06100213  // pc=28: addi x4, x0, 97  # se anula en Decode
+00500293  // pc=32: addi x5, x0, 5  # slot 0 del par: se conserva, x5 = 5
+00000663  // pc=36: beq  x0, x0, salto2  # slot 1, se toma
+06300313  // pc=40: addi x6, x0, 99  # se anula
+06300313  // pc=44: addi x6, x0, 99  # se anula
+010003ef  // pc=48: jal  x7, salto3  # slot 0: x7 = 52 y se anula la via 1
+06300413  // pc=52: addi x8, x0, 99  # se anula en EX
+06200413  // pc=56: addi x8, x0, 98  # no debe ejecutarse
+06100413  // pc=60: addi x8, x0, 97
+00038493  // pc=64: addi x9, x7, 0  # x9 = 52
+0080076f  // pc=68: jal  x14, sigue  # slot 1: x14 = 72; el slot 0 se conserva
+06300793  // pc=72: addi x15, x0, 99  # se anula
+00300513  // pc=76: addi x10, x0, 3  # contador del bucle
+00000593  // pc=80: addi x11, x0, 0  # x11 = 0
+fff50513  // pc=84: addi x10, x10, -1
+00258593  // pc=88: addi x11, x11, 2  # x11 = 6 al terminar
+00050463  // pc=92: beq  x10, x0, salida
+fe000ae3  // pc=96: beq  x0, x0, bucle  # dos saltos en el mismo par: se emiten por separado
+0eb02e23  // pc=100: sw   x11, 252(x0)  # senal de fin
+00000063  // pc=104: beq  x0, x0, fin
+00000013
+00000013
+00000013
+00000013
+00000013
+00000013
+00000013
+00000013
+00000013
+00000013
+00000013
+00000013
+00000013
+00000013
+00000013
+00000013
+00000013
+00000013
+00000013
+00000013
+00000013
+00000013
+00000013
+00000013
+00000013
+00000013
+00000013
+00000013
+00000013
+00000013
+00000013
+00000013
+00000013
+00000013
+00000013
+00000013
+00000013
