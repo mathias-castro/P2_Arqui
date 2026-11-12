@@ -6,8 +6,8 @@
     lw   x3, 0(x2)       # x3 = 21; otro conflicto con el sw anterior
     add  x4, x3, x1      # RAW con lw y luego Load-Use; x4 = 42
     addi x5, x0, 3       # ALU + lw en el mismo par
-    lw   x6, 4(x2)       # lw en la via 1; x6 = 8
-    add  x7, x6, x4      # Load-Use con el lw de la via 1; x7 = 50
+    lw   x6, 4(x2)       # lw en la via 0; x6 = 8
+    add  x7, x6, x4      # Load-Use en el slot 0: un stall; x7 = 50
     addi x10, x0, 1      # x10 = 1
     lw   x9, 0(x2)       # lw + ALU en el mismo par; x9 = 21
     addi x11, x0, 2      # x11 = 2

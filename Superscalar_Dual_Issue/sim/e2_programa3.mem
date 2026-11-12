@@ -5,8 +5,8 @@
 00012183  // pc=16: lw   x3, 0(x2)  # x3 = 21; otro conflicto con el sw anterior
 00118233  // pc=20: add  x4, x3, x1  # RAW con lw y luego Load-Use; x4 = 42
 00300293  // pc=24: addi x5, x0, 3  # ALU + lw en el mismo par
-00412303  // pc=28: lw   x6, 4(x2)  # lw en la via 1; x6 = 8
-004303b3  // pc=32: add  x7, x6, x4  # Load-Use con el lw de la via 1; x7 = 50
+00412303  // pc=28: lw   x6, 4(x2)  # lw en la via 0; x6 = 8
+004303b3  // pc=32: add  x7, x6, x4  # Load-Use en el slot 0: un stall; x7 = 50
 00100513  // pc=36: addi x10, x0, 1  # x10 = 1
 00012483  // pc=40: lw   x9, 0(x2)  # lw + ALU en el mismo par; x9 = 21
 00200593  // pc=44: addi x11, x0, 2  # x11 = 2
