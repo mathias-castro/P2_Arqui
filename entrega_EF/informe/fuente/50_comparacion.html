@@ -1,0 +1,298 @@
+<h1>9. Programas de comparación</h1>
+
+<p>Para comparar las tres arquitecturas usamos el programa del profesor y uno propio, que corren sin cambios en A, B y C con el mismo <code>.mem</code>. En esta sección revisamos que den el resultado correcto, y en la sección 10 comparamos su rendimiento.</p>
+
+<h2>9.1 Programa del profesor</h2>
+
+<p>El programa del profesor (<code>profesor.s</code>) tiene 90 instrucciones en cuatro etapas, y el enunciado da el estado que se espera al final de cada una. La etapa A prueba la doble emisión y las dependencias, la B los accesos a memoria, la C tres bucles de 12 vueltas y la D todo junto, con saltos que deben evitar dos <code>sw</code>. Como sus datos empiezan en la dirección 1536, usamos una memoria de datos de 512 palabras.</p>
+
+<h2>9.2 Comprobación de las etapas</h2>
+
+<p>Los testbenches <code>tb_profesor</code> (A), <code>tb_profesor_dual</code> (B) y <code>tb_profesor_opt</code> (C) comprueban cada etapa cuando su último <code>sw</code> llega a Writeback. En ese ciclo ya están escritos todos los registros y la memoria de la etapa, y el testbench los compara con el estado del enunciado. En la waveform, <code>chk</code> es la señal de comprobación y vale 1 en ese ciclo. <code>etapa</code> es la letra de la etapa, <code>ok</code> vale 1 si todo coincidió y <code>pasadas</code> cuenta las etapas correctas. Las cuatro etapas pasan en las tres arquitecturas (Tabla [[tab:prof_estados]]).</p>
+
+<table>
+  <tr><th>Etapa</th><th>Registros</th><th>Memoria</th><th class="c" style="white-space: nowrap">Ciclo en<br>A / B / C</th></tr>
+  <tr><td>A</td><td>x1 = 1536, x2 = 1, x3 = 8, x4 = 3, x5 = 11, x6 = 5, x7 = 16, x8 = 2, x9 = 7, x10 = 12</td><td>M[x1+0] = 11, M[x1+4] = 5, M[x1+8] = 12</td><td class="c" style="white-space: nowrap">18 / 12 / 12</td></tr>
+  <tr><td>B</td><td>Los de A y x11 = 11, x12 = 16, x13 = 5, x14 = 12, x15 = 7, x16 = 7, x17 = 16, x18 = 23</td><td>Lo de A y M[x1+12] = 7, M[x1+16] = 16, M[x1+20] = 23</td><td class="c" style="white-space: nowrap">32 / 25 / 25</td></tr>
+  <tr><td>C</td><td>Los de B y x19 = 12, x20 = 12, x21 = 24, x22 = 18, x24 = 24, x26 = 6</td><td>Lo de B y M[x1+24] = 24, M[x1+28] = 18, M[x1+32] = 24</td><td class="c" style="white-space: nowrap">362 / 312 / 220</td></tr>
+  <tr><td>D</td><td>Los de C, salvo x19 = 6, x20 = 6, x26 = 4, y además x25 = 4, x27 = 1560, x28 = 74, x29 = 4, x30 = 23, x31 = 1</td><td>Lo de C y M[x1+36] = 74, M[x1+40] = 4, M[x1+44] = 0, M[x1+48] = 1, M[x1+52] = 1</td><td class="c" style="white-space: nowrap">459 / 387 / 292</td></tr>
+</table>
+<p class="pie">Tabla [[TAB:prof_estados]]. Estado al final de cada etapa, igual en el enunciado y en A, B y C. Los registros que no aparecen valen 0. El ciclo de D es el total de ciclos del programa.</p>
+
+<p>Las Figuras [[fig:w_pA]] a [[fig:w_pD]] muestran las comprobaciones en la versión C. En morado están las señales del testbench, en amarillo los valores comprobados y en naranja la palabra que escribe el último <code>sw</code> de la etapa.</p>
+
+<figure><img src="figuras/r_prof_A.png" style="width: 100%" alt="waveform"></figure>
+<p class="pie">Figura [[FIG:w_pA]]. Comprobación de la etapa A (ciclo 12, a los 130 ns).</p>
+
+<p>x9 = 7 muestra el orden de escrituras. <code>add x9</code> y <code>addi x9</code> escriben x9 en el mismo ciclo, y queda el dato de la vía 1, que es la instrucción más joven.</p>
+
+<figure><img src="figuras/r_prof_B.png" style="width: 100%" alt="waveform"></figure>
+<p class="pie">Figura [[FIG:w_pB]]. Comprobación de la etapa B (ciclo 25, a los 260 ns).</p>
+
+<p>Ahora <code>pasadas</code> = 2. Están encerrados x18 y las tres palabras que guarda la etapa B.</p>
+
+<figure><img src="figuras/r_prof_C.png" style="width: 100%" alt="waveform"></figure>
+<p class="pie">Figura [[FIG:w_pC]]. Comprobación de la etapa C (ciclo 220, a los 2210 ns).</p>
+
+<p>Después de los tres bucles, x21, x22 y x24 tienen las sumas que da el enunciado.</p>
+
+<figure><img src="figuras/r_prof_D.png" style="width: 100%" alt="waveform"></figure>
+<p class="pie">Figura [[FIG:w_pD]]. Comprobación de la etapa D (ciclo 292, a los 2930 ns): final del programa.</p>
+
+<p>M[x1+44] (en rojo) sigue en 0, así que los dos <code>sw</code> que debían saltarse no se ejecutaron. En este mismo ciclo <code>fin</code> llega a Writeback.</p>
+
+<h2>9.3 Dos casos clave</h2>
+
+<p>El enunciado del profesor también pide al menos dos waveforms de casos importantes. Elegimos la etapa A, con doble emisión y dependencias, y la etapa B, con el puerto único de memoria y el Load-Use. Las dos son de la versión C, pero en estas etapas no hay saltos y B se comporta igual.</p>
+
+<pre>  0  addi x1, x0, 1536
+  4  addi x2, x0, 1
+
+  8  addi x3, x0, 8
+ 12  addi x4, x0, 3
+
+ 16  add  x5, x3, x4       # x5 = 11
+ 20  sub  x6, x3, x4       # x6 = 5
+
+ 24  add  x7, x5, x6       # x7 = 16
+ 28  addi x8, x0, 2
+
+ 32  add  x9, x7, x8       # x9 = 18
+ 36  addi x9, x0, 7        # x9 = 7, el mismo destino
+
+ 40  add  x10, x9, x6      # x10 = 12, usa el x9 mas reciente
+ 44  sw   x5, 0(x1)
+
+ 48  sw   x6, 4(x1)
+
+ 52  sw   x10, 8(x1)</pre>
+<p class="pie">Código [[COD:prof_A]]. Etapa A del programa del profesor. Una línea en blanco separa los grupos que salen juntos de Decode.</p>
+
+<figure><img src="figuras/r_prof_k1.png" style="width: 100%" alt="waveform"></figure>
+<p class="pie">Figura [[FIG:w_pk1]]. Etapa A, ciclos 4 a 8 (de 50 a 100 ns): doble emisión con dependencias.</p>
+
+<ol>
+  <li>Ciclo 5. <code>add x5</code> y <code>sub x6</code> están juntas en Execute y toman x3 y x4 de Memory, uno de cada vía (011 y 100).</li>
+  <li>Ciclo 6. <code>add x9</code> y <code>addi x9</code> escriben el mismo registro, pero esa WAW no impide que salgan juntas (<code>Issue1</code> = 1).</li>
+  <li>Ciclo 8. <code>add x10</code> necesita x9, que está en Memory en las dos vías, y toma el de la vía 1 (100), que es el más reciente. En Decode hay dos <code>sw</code> y sale solo el primero (<code>Issue1</code> = 0).</li>
+</ol>
+
+<p>En la etapa B casi todas las instrucciones usan memoria (Código [[cod:prof_B]]), así que solo <code>add x12</code> y <code>lw x13</code> salen juntas.</p>
+
+<pre> 56  lw   x11, 0(x1)
+ 60  add  x12, x11, x6     # espera un ciclo por Load-Use
+ 64  lw   x13, 4(x1)       # sale junto con el add
+ 68  lw   x14, 8(x1)
+ 72  sub  x15, x14, x13    # espera un ciclo por Load-Use
+ 76  sw   x15, 12(x1)      # M[x1+12] = 7
+ 80  lw   x16, 12(x1)      # lee lo que acaba de guardar el sw
+ 84  sw   x12, 16(x1)      # M[x1+16] = 16
+ 88  lw   x17, 16(x1)
+ 92  add  x18, x16, x17    # espera un ciclo por Load-Use
+ 96  sw   x18, 20(x1)      # M[x1+20] = 23</pre>
+<p class="pie">Código [[COD:prof_B]]. Etapa B del programa del profesor.</p>
+
+<figure><img src="figuras/r_prof_k2.png" style="width: 100%" alt="waveform"></figure>
+<p class="pie">Figura [[FIG:w_pk2]]. Etapa B, ciclos 15 a 21 (de 160 a 230 ns): puerto único de memoria y Load-Use.</p>
+
+<ol>
+  <li>Ciclo 16. <code>sw x15</code> y <code>lw x16</code> usan memoria y sale solo el <code>sw</code>. Lo mismo pasa en los tres ciclos siguientes; en el último, porque <code>add x18</code> usa el dato de <code>lw x17</code>.</li>
+  <li>Ciclo 18. <code>sw x15</code> escribe 7 en M[x1+12].</li>
+  <li>Ciclo 19. <code>lw x16</code> lee esa dirección y obtiene el 7, porque también en el pipeline va detrás del <code>sw</code>.</li>
+  <li>Ciclo 20. <code>add x18</code> depende de <code>lw x17</code>, que está en Execute. Es un Load-Use y no sale ninguna (<code>Issue0</code> = 0).</li>
+  <li>Ciclo 21. <code>lw x17</code> lee el 16, que <code>add x18</code> recibe por forwarding en el ciclo siguiente.</li>
+</ol>
+
+<h2>9.4 Programa propio</h2>
+
+<p>El programa propio trabaja con un arreglo de 16 números (Código [[cod:propio]]). El bucle <code>gen</code> lo llena con los números del 0 al 15 desordenados. El bucle <code>rec</code> lo recorre con <code>lw</code>, suma todos los números, cuenta los menores que 8 y suma los demás. Los tres resultados son iguales en A, B y C.</p>
+
+<pre>  0          addi x1, x0, 0       # direccion del elemento i
+  4          addi x2, x0, 64      # direccion final (16 palabras)
+  8          addi x3, x0, 3       # v = 3
+ 12  gen:    addi x3, x3, 5       # v = v + 5
+ 16          andi x4, x3, 15      # A[i] = v mod 16
+ 20          sw   x4, 0(x1)       # guarda A[i]
+ 24          addi x1, x1, 4       # siguiente elemento
+ 28          beq  x1, x2, sigue   # termino de llenar
+ 32          jal  x0, gen         # vuelve a gen
+ 36  sigue:  addi x1, x0, 0       # direccion del elemento i
+ 40          addi x5, x0, 0       # suma total
+ 44          addi x6, x0, 0       # cuantos son menores que 8
+ 48          addi x7, x0, 0       # suma de los mayores o iguales a 8
+ 52  rec:    lw   x8, 0(x1)       # x8 = A[i]
+ 56          addi x1, x1, 4       # siguiente elemento
+ 60          add  x5, x5, x8      # suma total
+ 64          slti x9, x8, 8       # x9 = 1 si A[i] &lt; 8
+ 68          beq  x9, x0, grande  # A[i] &gt;= 8
+ 72          addi x6, x6, 1       # uno menor que 8 mas
+ 76          jal  x0, prox
+ 80  grande: add  x7, x7, x8      # suma de los mayores o iguales a 8
+ 84  prox:   beq  x1, x2, listo   # termino de recorrer
+ 88          jal  x0, rec         # vuelve a rec
+ 92  listo:  sw   x5, 100(x0)     # Mem[100] = 120
+ 96          sw   x6, 104(x0)     # Mem[104] = 8
+100          sw   x7, 108(x0)     # Mem[108] = 92
+104  fin:    beq  x0, x0, fin     # fin del programa</pre>
+<p class="pie">Código [[COD:propio]]. Programa propio (<code>propio.s</code>), con la dirección de cada instrucción.</p>
+
+<p>Tiene pares independientes, dependencias con el <code>lw</code> y tres tipos de saltos: los <code>jal</code> que cierran los bucles, que siempre se toman; los <code>beq</code> de salida, que se toman una vez; y <code>beq x9, x0, grande</code>, que depende del dato. De sus 240 instrucciones, 86 son saltos.</p>
+
+<h1>10. Comparación de las tres arquitecturas</h1>
+
+<h2>10.1 Cómo medimos</h2>
+
+<p>Usamos el criterio del enunciado del profesor en todos los programas. Todo programa termina en <code>fin</code>, un salto a sí mismo que no se cuenta. Los ciclos van desde el reset hasta que la última instrucción antes de <code>fin</code> está en Writeback. Las instrucciones retiradas son las que llegan a Writeback, sin burbujas ni instrucciones anuladas. IPC = instrucciones / ciclos, CPI = ciclos / instrucciones y speedup = ciclos de la arquitectura base / ciclos de la evaluada.</p>
+
+<p>Lo miden <code>tb_comparacion</code>, <code>tb_comparacion_dual</code> y <code>tb_comparacion_opt</code>, que el script <code>comparar.sh</code> corre juntos. También cuentan stalls, flushes y la precisión del predictor. Para el speedup suponemos el mismo reloj; el tiempo real está en la sección 10.6.</p>
+
+<h2>10.2 Resultados</h2>
+
+<p>La Tabla [[tab:comp_final]] tiene los indicadores en el formato del enunciado, más una fila con el speedup frente al Dual-Issue. Las tres versiones retiran las mismas instrucciones; solo cambian los ciclos.</p>
+
+<table>
+  <tr><th rowspan="2">Indicador</th><th colspan="3" class="c">Programa del profesor</th><th colspan="3" class="c">Programa propio</th></tr>
+  <tr><th class="c">Pipeline</th><th class="c">Dual-Issue</th><th class="c">Optimizado</th><th class="c">Pipeline</th><th class="c">Dual-Issue</th><th class="c">Optimizado</th></tr>
+  <tr><td>Ciclos totales</td><td class="c">459</td><td class="c">387</td><td class="c">292</td><td class="c">340</td><td class="c">289</td><td class="c">204</td></tr>
+  <tr><td>Instrucciones retiradas</td><td class="c">312</td><td class="c">312</td><td class="c">312</td><td class="c">240</td><td class="c">240</td><td class="c">240</td></tr>
+  <tr><td>CPI</td><td class="c">1.47</td><td class="c">1.24</td><td class="c">0.94</td><td class="c">1.42</td><td class="c">1.20</td><td class="c">0.85</td></tr>
+  <tr><td>IPC</td><td class="c">0.68</td><td class="c">0.81</td><td class="c">1.07</td><td class="c">0.71</td><td class="c">0.83</td><td class="c">1.18</td></tr>
+  <tr><td>Speedup vs. pipeline</td><td class="c">1.00</td><td class="c">1.19</td><td class="c">1.57</td><td class="c">1.00</td><td class="c">1.18</td><td class="c">1.67</td></tr>
+  <tr><td>Speedup vs. Dual-Issue</td><td class="c">-</td><td class="c">1.00</td><td class="c">1.33</td><td class="c">-</td><td class="c">1.00</td><td class="c">1.42</td></tr>
+</table>
+<p class="pie">Tabla [[TAB:comp_final]]. Indicadores de rendimiento. Pipeline es la arquitectura A, Dual-Issue la B y Optimizado la C.</p>
+
+<p>La Figura [[fig:ciclos_prog]] muestra de dónde sale la diferencia. El pipeline y el Dual-Issue pierden los mismos ciclos en flushes, porque toman los mismos saltos. La predicción recupera más de la mitad de esos ciclos.</p>
+
+<figure><img src="figuras/ciclos_programas.svg" style="width: 12.5cm" alt="Ciclos de los dos programas"></figure>
+<p class="pie">Figura [[FIG:ciclos_prog]]. Ciclos de los dos programas. En rojo, los ciclos perdidos en flushes por saltos (2 por cada flush).</p>
+
+<h2>10.3 Programas de prueba</h2>
+
+<p>La Tabla [[tab:comp_pruebas]] tiene los programas de prueba, que dan el mismo resultado en A, B y C. El Dual-Issue gana más con instrucciones independientes (Dual 1 y 5) y nada cuando cada instrucción depende de la anterior (Pipeline 3). C solo mejora en las dos pruebas con bucles.</p>
+
+<table>
+  <tr><th rowspan="2">Programa</th><th rowspan="2" class="c">Instr.</th><th colspan="3" class="c">Ciclos</th><th colspan="3" class="c">IPC</th><th colspan="2" class="c">Speedup</th></tr>
+  <tr><th class="c">A</th><th class="c">B</th><th class="c">C</th><th class="c">A</th><th class="c">B</th><th class="c">C</th><th class="c">A a B</th><th class="c">B a C</th></tr>
+  <tr><td>Pipeline 1: ISA</td><td class="c">18</td><td class="c">24</td><td class="c">16</td><td class="c">16</td><td class="c">0.75</td><td class="c">1.12</td><td class="c">1.12</td><td class="c">1.50</td><td class="c">1.00</td></tr>
+  <tr><td>Pipeline 2: forwarding</td><td class="c">8</td><td class="c">12</td><td class="c">11</td><td class="c">11</td><td class="c">0.67</td><td class="c">0.73</td><td class="c">0.73</td><td class="c">1.09</td><td class="c">1.00</td></tr>
+  <tr><td>Pipeline 3: stalling</td><td class="c">7</td><td class="c">13</td><td class="c">13</td><td class="c">13</td><td class="c">0.54</td><td class="c">0.54</td><td class="c">0.54</td><td class="c">1.00</td><td class="c">1.00</td></tr>
+  <tr><td>Pipeline 4: flushing</td><td class="c">8</td><td class="c">16</td><td class="c">14</td><td class="c">14</td><td class="c">0.50</td><td class="c">0.57</td><td class="c">0.57</td><td class="c">1.14</td><td class="c">1.00</td></tr>
+  <tr><td>Dual 1: ALU independientes</td><td class="c">15</td><td class="c">19</td><td class="c">12</td><td class="c">12</td><td class="c">0.79</td><td class="c">1.25</td><td class="c">1.25</td><td class="c">1.58</td><td class="c">1.00</td></tr>
+  <tr><td>Dual 2: RAW y forwarding</td><td class="c">13</td><td class="c">17</td><td class="c">12</td><td class="c">12</td><td class="c">0.76</td><td class="c">1.08</td><td class="c">1.08</td><td class="c">1.42</td><td class="c">1.00</td></tr>
+  <tr><td>Dual 3: Load-Use y memoria</td><td class="c">13</td><td class="c">18</td><td class="c">14</td><td class="c">14</td><td class="c">0.72</td><td class="c">0.93</td><td class="c">0.93</td><td class="c">1.29</td><td class="c">1.00</td></tr>
+  <tr><td>Dual 4: branches</td><td class="c">14</td><td class="c">26</td><td class="c">21</td><td class="c">21</td><td class="c">0.54</td><td class="c">0.67</td><td class="c">0.67</td><td class="c">1.24</td><td class="c">1.00</td></tr>
+  <tr><td>Dual 5: Register File</td><td class="c">15</td><td class="c">19</td><td class="c">12</td><td class="c">12</td><td class="c">0.79</td><td class="c">1.25</td><td class="c">1.25</td><td class="c">1.58</td><td class="c">1.00</td></tr>
+  <tr><td>Dual 6: reagrupamiento</td><td class="c">12</td><td class="c">16</td><td class="c">13</td><td class="c">13</td><td class="c">0.75</td><td class="c">0.92</td><td class="c">0.92</td><td class="c">1.23</td><td class="c">1.00</td></tr>
+  <tr><td><code>riscvtest</code></td><td class="c">18</td><td class="c">27</td><td class="c">24</td><td class="c">24</td><td class="c">0.67</td><td class="c">0.75</td><td class="c">0.75</td><td class="c">1.12</td><td class="c">1.00</td></tr>
+  <tr><td>EF 1: bucle</td><td class="c">44</td><td class="c">66</td><td class="c">53</td><td class="c">40</td><td class="c">0.67</td><td class="c">0.83</td><td class="c">1.10</td><td class="c">1.25</td><td class="c">1.32</td></tr>
+  <tr><td>EF 2: dos vías</td><td class="c">40</td><td class="c">62</td><td class="c">48</td><td class="c">38</td><td class="c">0.65</td><td class="c">0.83</td><td class="c">1.05</td><td class="c">1.29</td><td class="c">1.26</td></tr>
+</table>
+<p class="pie">Tabla [[TAB:comp_pruebas]]. Ciclos, IPC y speedup de los programas de prueba en las tres arquitecturas.</p>
+
+<h2>10.4 Dual-Issue frente al pipeline</h2>
+
+<p>En el programa del profesor el Dual-Issue es 1.19 veces más rápido que el pipeline, lejos del 2 ideal. Para ver por qué, contamos qué pasa en Decode en cada ciclo de B (Tabla [[tab:decode]]) y cuánto tarda cada etapa del programa (Tabla [[tab:prof_ciclos]]). Con eso se ven las cuatro causas que lo alejan de IPC = 2.</p>
+
+<table>
+  <tr><th>En Decode</th><th class="c">Ciclos</th></tr>
+  <tr><td>Sale un par completo</td><td class="c">140</td></tr>
+  <tr><td>Sale una sola instrucción</td><td class="c">99</td></tr>
+  <tr><td>Stall por Load-Use</td><td class="c">10</td></tr>
+  <tr><td>Flush por los 67 saltos tomados</td><td class="c">134</td></tr>
+  <tr><td>Llenado y vaciado del pipeline</td><td class="c">4</td></tr>
+  <tr class="sep"><td>Total</td><td class="c">387</td></tr>
+</table>
+<p class="pie">Tabla [[TAB:decode]]. En qué se van los ciclos del Dual-Issue en el programa del profesor. Un par cuenta aunque después se anule.</p>
+
+<table>
+  <tr><th>Etapa</th><th class="c">Instrucciones</th><th class="c">Ciclos A</th><th class="c">Ciclos B</th><th class="c">Ciclos C</th><th class="c">Speedup A a B</th><th class="c">Speedup B a C</th></tr>
+  <tr><td>A</td><td class="c">14</td><td class="c">18</td><td class="c">12</td><td class="c">12</td><td class="c">1.50</td><td class="c">1.00</td></tr>
+  <tr><td>B</td><td class="c">11</td><td class="c">14</td><td class="c">13</td><td class="c">13</td><td class="c">1.08</td><td class="c">1.00</td></tr>
+  <tr><td>C</td><td class="c">216</td><td class="c">330</td><td class="c">287</td><td class="c">195</td><td class="c">1.15</td><td class="c">1.47</td></tr>
+  <tr><td>D</td><td class="c">71</td><td class="c">97</td><td class="c">75</td><td class="c">72</td><td class="c">1.29</td><td class="c">1.04</td></tr>
+  <tr class="sep"><td>Total</td><td class="c">312</td><td class="c">459</td><td class="c">387</td><td class="c">292</td><td class="c">1.19</td><td class="c">1.33</td></tr>
+</table>
+<p class="pie">Tabla [[TAB:prof_ciclos]]. Ciclos de cada etapa del programa del profesor. La etapa A incluye los 4 ciclos en que se llena el pipeline.</p>
+
+<ul>
+  <li>Las dependencias entre instrucciones seguidas, que obligan a emisiones parciales. La etapa A tiene operaciones que se resuelven con forwarding desde las dos vías (Figura [[fig:w_pk1]]) y gana 1.50 veces. En la etapa C cada vuelta es una cadena de dependencias y gana solo 1.15.</li>
+  <li>El puerto único de memoria y el Load-Use, que dejan la etapa B casi igual que en el pipeline (Figura [[fig:w_pk2]]). Los stalls son casi los mismos en las tres versiones.</li>
+  <li>Los saltos tomados, que se llevan un tercio de los ciclos. Es lo que ataca la optimización, que en la etapa C es 1.47 veces más rápida que B.</li>
+  <li>En programas cortos, los 4 ciclos de llenado y vaciado. Dual 1 y 5 sacan todos sus pares completos y aun así quedan en IPC 1.25.</li>
+</ul>
+
+<h2>10.5 Efecto de la predicción</h2>
+
+<p>La Tabla [[tab:metricas]] junta los stalls, los saltos, la precisión del predictor y cuántas instrucciones salieron en pares. C quita algo más de la mitad de los flushes en el programa del profesor y dos tercios en el propio. Además, sin esos flushes se arman más pares. Por eso en el programa del profesor C ahorra 95 ciclos frente a B, aunque los flushes evitados suman solo 70.</p>
+
+<table>
+  <tr><th>Programa</th><th>Arquitectura</th><th class="c">Stalls</th><th class="c">Saltos</th><th class="c">Flushes</th><th class="c">Precisión del predictor</th><th class="c">Ciclos con dos en Writeback</th><th class="c">Retiradas en pares</th></tr>
+  <tr><td rowspan="3">Profesor</td><td>A</td><td class="c">9</td><td class="c">89</td><td class="c">67</td><td class="c">-</td><td class="c">-</td><td class="c">-</td></tr>
+  <tr><td>B</td><td class="c">10</td><td class="c">89</td><td class="c">67</td><td class="c">-</td><td class="c">73</td><td class="c">47 %</td></tr>
+  <tr><td>C</td><td class="c">10</td><td class="c">89</td><td class="c">32</td><td class="c">64.0 %</td><td class="c">98</td><td class="c">63 %</td></tr>
+  <tr class="sep"><td rowspan="3">Propio</td><td>A</td><td class="c">0</td><td class="c">86</td><td class="c">48</td><td class="c">-</td><td class="c">-</td><td class="c">-</td></tr>
+  <tr><td>B</td><td class="c">16</td><td class="c">86</td><td class="c">48</td><td class="c">-</td><td class="c">67</td><td class="c">56 %</td></tr>
+  <tr><td>C</td><td class="c">9</td><td class="c">86</td><td class="c">16</td><td class="c">81.4 %</td><td class="c">81</td><td class="c">68 %</td></tr>
+</table>
+<p class="pie">Tabla [[TAB:metricas]]. Métricas de los saltos y de la doble emisión. En A y B cada salto tomado es un flush; en C, cada predicción fallida. Retiradas en pares = 2 × ciclos con dos instrucciones en Writeback / instrucciones retiradas.</p>
+
+<p>En el programa propio también cambian los stalls. En el pipeline <code>addi x1</code> separa a <code>lw x8</code> de <code>add x5</code>, pero en el Dual-Issue salen juntas y <code>add x5</code> espera al <code>lw</code> en cada vuelta. En C los pares se arman distinto y en algunas vueltas ese stall desaparece.</p>
+
+<p>La Tabla [[tab:por_salto]] separa los saltos del programa del profesor según cómo se comportan. Con ella se ve cuándo la predicción mejora, mantiene o empeora el desempeño.</p>
+
+<table>
+  <tr><th>Salto</th><th>Cómo se comporta</th><th class="c">Ejecutado</th><th class="c">Tomado</th><th class="c">Flushes en B</th><th class="c">Fallos en C</th></tr>
+  <tr><td style="white-space: nowrap"><code>beq</code> de C1, C2 y C3</td><td style="white-space: nowrap">Cierran bucles de 12 vueltas</td><td class="c">36</td><td class="c">33</td><td class="c">33</td><td class="c">6</td></tr>
+  <tr><td style="white-space: nowrap"><code>beq</code> de D1</td><td>Cierra un bucle de 6 vueltas</td><td class="c">6</td><td class="c">5</td><td class="c">5</td><td class="c">2</td></tr>
+  <tr><td style="white-space: nowrap"><code>jal</code> de C2 y C3</td><td>Saltan el otro lado del if/else</td><td class="c">12</td><td class="c">12</td><td class="c">12</td><td class="c">2</td></tr>
+  <tr><td style="white-space: nowrap"><code>beq x23, x2, C2a</code></td><td>Alterna: sí, no, sí, no...</td><td class="c">12</td><td class="c">6</td><td class="c">6</td><td class="c">12</td></tr>
+  <tr><td style="white-space: nowrap"><code>beq x25, x2, C3a</code></td><td>6 veces sí y después no</td><td class="c">12</td><td class="c">6</td><td class="c">6</td><td class="c">3</td></tr>
+  <tr><td style="white-space: nowrap"><code>beq x25, x2, D2</code></td><td>Depende del dato</td><td class="c">6</td><td class="c">2</td><td class="c">2</td><td class="c">4</td></tr>
+  <tr><td style="white-space: nowrap">5 <code>beq</code> del final de D</td><td>Se ejecutan una sola vez</td><td class="c">5</td><td class="c">3</td><td class="c">3</td><td class="c">3</td></tr>
+  <tr class="sep"><td>Total</td><td></td><td class="c">89</td><td class="c">67</td><td class="c">67</td><td class="c">32</td></tr>
+</table>
+<p class="pie">Tabla [[TAB:por_salto]]. Saltos del programa del profesor. En B cada salto tomado es un flush; en C, cada fallo de predicción.</p>
+
+<ul>
+  <li>Mejora con los saltos de bucle y los <code>jal</code>. Fallan solo la primera vez, porque todavía no están en la tabla, y los <code>beq</code> también al salir del bucle. El <code>beq</code> de C3, que cambia de sentido una sola vez, falla 3 veces en lugar de 6.</li>
+  <li>Se mantiene igual con saltos que se ejecutan una sola vez y en código sin saltos, porque el salto nunca está en la tabla cuando se necesita.</li>
+  <li>Empeora con saltos que alternan o que dependen del dato. El <code>beq</code> de C2 se toma una vuelta sí y otra no, y su contador queda siempre del lado contrario: falla las 12 veces, contra 6 flushes sin predictor. El <code>beq</code> de D2 y <code>beq x9, x0, grande</code> del programa propio también fallan más veces de las que se toman.</li>
+</ul>
+
+<p>Aun así C gana en los dos programas, porque los saltos de bucle se ejecutan muchas más veces que los demás.</p>
+
+<h2>10.6 Costo en hardware y tiempo real</h2>
+
+<p>Sintetizamos cada procesador en Vivado para la Basys 3, sin las memorias (Tabla [[tab:sintesis]]). El periodo mínimo es 10 ns menos el slack del peor camino.</p>
+
+<table>
+  <tr><th rowspan="2">Arquitectura</th><th rowspan="2" class="c">LUTs</th><th rowspan="2" class="c" style="white-space: nowrap">Flip-flops</th><th rowspan="2" class="c">Periodo mínimo</th><th rowspan="2" class="c">Frecuencia máxima</th><th colspan="2" class="c">Tiempo de ejecución</th></tr>
+  <tr><th class="c">Profesor</th><th class="c">Propio</th></tr>
+  <tr><td>A Single-Issue</td><td class="c">738</td><td class="c">507</td><td class="c">11.43 ns</td><td class="c">87.5 MHz</td><td class="c">5.25 µs</td><td class="c">3.89 µs</td></tr>
+  <tr><td>B Dual-Issue</td><td class="c">4197</td><td class="c">1978</td><td class="c">14.14 ns</td><td class="c">70.7 MHz</td><td class="c">5.47 µs</td><td class="c">4.09 µs</td></tr>
+  <tr><td style="white-space: nowrap">C Dual-Issue con predicción</td><td class="c">5170</td><td class="c">3060</td><td class="c">13.66 ns</td><td class="c">73.2 MHz</td><td class="c">3.99 µs</td><td class="c">2.79 µs</td></tr>
+</table>
+<p class="pie">Tabla [[TAB:sintesis]]. Recursos y frecuencia después de place and route en Vivado, y tiempo de ejecución con esa frecuencia.</p>
+
+<p>El Dual-Issue usa casi seis veces las LUTs del pipeline, sobre todo por el Register File de cuatro lecturas y los muxes de forwarding. C agrega un 23&nbsp;% de LUTs, casi todo por la tabla del predictor. El predictor no está en el camino crítico, que va del forwarding a la decisión del salto, así que C no es más lento que B.</p>
+
+<p>En tiempo real B es un poco más lento que A, con un speedup de 0.96 en el programa del profesor. Gana 19&nbsp;% en ciclos, pero pierde lo mismo en frecuencia. C sí gana: es 1.32 veces más rápido que A y 1.37 veces más que B, porque baja los ciclos sin alargar el periodo.</p>
+
+<h2>10.7 Limitaciones de la optimización</h2>
+
+<ul>
+  <li>Un contador de 2 bits no aprende un patrón como el de C2, porque no recuerda la historia del salto.</li>
+  <li>Con 16 entradas, dos saltos separados por un múltiplo de 64 bytes comparten entrada. Pasa con el <code>jal</code> de C2 y el <code>beq</code> de C3, pero como no se ejecutan a la vez no hay fallos extra.</li>
+  <li>No cambia las dependencias, el puerto de memoria ni el Load-Use, por eso C tampoco llega a IPC = 2.</li>
+</ul>
+
+<h1>11. Conclusiones</h1>
+
+<p>Las tres arquitecturas dan los mismos resultados en todos los programas, incluidos 10&nbsp;000 programas al azar, y las cuatro etapas del programa del profesor pasan en A, B y C. En ese programa el Dual-Issue es 1.19 veces más rápido que el pipeline, y lo alejan de IPC = 2 las dependencias, el puerto único de memoria y los saltos tomados.</p>
+
+<p>La predicción de saltos ataca los saltos tomados. En el programa del profesor C es 1.33 veces más rápido que B en ciclos y 1.37 veces en tiempo real. La mejora viene de los bucles; con saltos que alternan o dependen del dato puede ser peor que no predecir. Lo más difícil fue combinarla con el reagrupamiento y con el caso del <code>jal</code>, que encontramos con las pruebas al azar. Un predictor que recuerde la historia de cada salto mejoraría casos como el de C2.</p>
+
+<h1>Referencia</h1>
+
+<p>Harris, S. L. y Harris, D. M. (2021). Digital Design and Computer Architecture, RISC-V Edition. Morgan Kaufmann.</p>

@@ -1,0 +1,73 @@
+{
+ "sources": [
+  "/home/juanpedrovv/Desktop/Proyecto Arch/entrega_EF/dual_issue_opt/src/*.v",
+  "/home/juanpedrovv/Desktop/Proyecto Arch/entrega_EF/dual_issue_opt/tb/tb_profesor_opt.v"
+ ],
+ "memdir": "/home/juanpedrovv/Desktop/Proyecto Arch/entrega_EF/programas",
+ "top": "tb_profesor_opt",
+ "run": "3000ns",
+ "t0_ns": 110,
+ "t1_ns": 150,
+ "width": 1300,
+ "scale": 150,
+ "show_range": false,
+ "cursor_ns": 110,
+ "signals": [
+  {
+   "path": "/tb_profesor_opt/chk"
+  },
+  {
+   "path": "/tb_profesor_opt/etapa",
+   "radix": "ascii"
+  },
+  {
+   "path": "/tb_profesor_opt/ok"
+  },
+  {
+   "path": "/tb_profesor_opt/pasadas",
+   "radix": "unsigned"
+  },
+  {
+   "path": "/tb_profesor_opt/dut/rvdual/dp/rf/rf[5]",
+   "radix": "dec",
+   "name": "x5"
+  },
+  {
+   "path": "/tb_profesor_opt/dut/rvdual/dp/rf/rf[6]",
+   "radix": "dec",
+   "name": "x6"
+  },
+  {
+   "path": "/tb_profesor_opt/dut/rvdual/dp/rf/rf[9]",
+   "radix": "dec",
+   "name": "x9"
+  },
+  {
+   "path": "/tb_profesor_opt/dut/rvdual/dp/rf/rf[10]",
+   "radix": "dec",
+   "name": "x10"
+  },
+  {
+   "path": "/tb_profesor_opt/dut/dmem/RAM[384]",
+   "radix": "dec",
+   "name": "M[x1+0]"
+  },
+  {
+   "path": "/tb_profesor_opt/dut/dmem/RAM[385]",
+   "radix": "dec",
+   "name": "M[x1+4]"
+  },
+  {
+   "path": "/tb_profesor_opt/dut/dmem/RAM[386]",
+   "radix": "dec",
+   "name": "M[x1+8]"
+  }
+ ],
+ "markers": [
+  {
+   "t_ns": 131.2,
+   "label": "1"
+  }
+ ],
+ "out": "/home/juanpedrovv/Desktop/Proyecto Arch/entrega_EF/informe/figuras/wave_prof_A.png"
+}

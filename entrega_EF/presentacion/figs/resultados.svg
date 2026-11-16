@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 420" width="760" height="420" font-family="Arial, Liberation Sans, sans-serif">
+<rect x="190" y="14" width="16" height="16" fill="#9e9e9e"/><text x="212" y="27" font-size="16">A Single-Issue</text>
+<rect x="380" y="14" width="16" height="16" fill="#64b5f6"/><text x="402" y="27" font-size="16">B Dual-Issue</text>
+<rect x="570" y="14" width="16" height="16" fill="#1565c0"/><text x="592" y="27" font-size="16">C con predicción</text>
+<text x="175" y="132" font-size="18" text-anchor="end" font-weight="bold">Programa propio</text>
+<rect x="190" y="70" width="470.0" height="32" fill="#9e9e9e"/>
+<text x="666.0" y="93" font-size="17">341 ciclos</text>
+<rect x="190" y="110" width="398.3" height="32" fill="#64b5f6"/>
+<text x="594.3" y="133" font-size="17">289 ciclos</text>
+<rect x="190" y="150" width="281.2" height="32" fill="#1565c0"/>
+<text x="477.2" y="173" font-size="17">204 ciclos</text>
+<text x="175" y="282" font-size="18" text-anchor="end" font-weight="bold">riscvtest</text>
+<rect x="190" y="220" width="38.6" height="32" fill="#9e9e9e"/>
+<text x="234.6" y="243" font-size="17">28 ciclos</text>
+<rect x="190" y="260" width="33.1" height="32" fill="#64b5f6"/>
+<text x="229.1" y="283" font-size="17">24 ciclos</text>
+<rect x="190" y="300" width="33.1" height="32" fill="#1565c0"/>
+<text x="229.1" y="323" font-size="17">24 ciclos</text>
+</svg>

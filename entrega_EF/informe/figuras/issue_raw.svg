@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 956 178" width="956" height="178" aria-label="Diagrama de pipeline">
+<style>
+  text { font-family: 'Liberation Mono', 'DejaVu Sans Mono', monospace; font-size: 14px; fill: #111; }
+  .cyc { font-family: Arial, 'Liberation Sans', sans-serif; font-size: 13px; fill: #5b6470; }
+  .cell { fill: #fff; stroke: #5b6470; stroke-width: 1.2; }
+  .st { font-family: Arial, 'Liberation Sans', sans-serif; font-size: 13px; font-weight: bold; }
+  .cell.w { fill: #e3eefb; stroke: #1565c0; stroke-width: 2.5; }
+  .cell.fw { fill: #fff0e0; stroke: #d9480f; stroke-width: 2.5; }
+  .cell.bad { fill: #ffe3e3; stroke: #c92a2a; stroke-width: 2.5; }
+  .cell.ok { fill: #e3f6e8; stroke: #2b8a3e; stroke-width: 2.5; }
+  .cell.off { stroke-dasharray: 4 3; }
+  .asm.off { fill: #5b6470; font-style: italic; }
+  .halo { stroke: #fff; stroke-width: 7; }
+  .ar { stroke-width: 2.5; fill: none; }
+  .ar.fw { stroke: #d9480f; } .ah.fw { fill: #d9480f; }
+  .ar.bad { stroke: #c92a2a; stroke-dasharray: 7 4; } .ah.bad { fill: #c92a2a; }
+  .ar.ok { stroke: #2b8a3e; } .ah.ok { fill: #2b8a3e; }
+  .ar.w { stroke: #1565c0; } .ah.w { fill: #1565c0; }
+  .ar.off { stroke: #5b6470; stroke-dasharray: 4 4; } .ah.off { fill: #5b6470; }
+  .nt { font-family: Arial, 'Liberation Sans', sans-serif; font-size: 14.5px; font-weight: bold; }
+  .nt.w { fill: #1565c0; } .nt.fw { fill: #d9480f; } .nt.bad { fill: #c92a2a; } .nt.ok { fill: #2b8a3e; } .nt.off { fill: #5b6470; }
+</style><defs>
+<marker id="ir-fw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="ah fw"/></marker>
+<marker id="ir-bad" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="ah bad"/></marker>
+<marker id="ir-ok" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="ah ok"/></marker>
+<marker id="ir-off" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="ah off"/></marker>
+<marker id="ir-w" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="ah w"/></marker>
+</defs>
+<text class="cyc" x="219.0" y="20" text-anchor="middle">1</text>
+<text class="cyc" x="277.0" y="20" text-anchor="middle">2</text>
+<text class="cyc" x="335.0" y="20" text-anchor="middle">3</text>
+<text class="cyc" x="393.0" y="20" text-anchor="middle">4</text>
+<text class="cyc" x="451.0" y="20" text-anchor="middle">5</text>
+<text class="cyc" x="509.0" y="20" text-anchor="middle">6</text>
+<text class="cyc" x="567.0" y="20" text-anchor="middle">7</text>
+<text class="cyc" x="178" y="20" text-anchor="end">ciclo</text>
+<text class="asm" x="8" y="62.0">addi x1, x0, 5</text>
+<rect class="cell " x="195.0" y="42.0" width="48" height="30" rx="4"/>
+<text class="st " x="219.0" y="62.0" text-anchor="middle">F</text>
+<rect class="cell " x="253.0" y="42.0" width="48" height="30" rx="4"/>
+<text class="st " x="277.0" y="62.0" text-anchor="middle">D</text>
+<rect class="cell " x="311.0" y="42.0" width="48" height="30" rx="4"/>
+<text class="st " x="335.0" y="62.0" text-anchor="middle">E</text>
+<rect class="cell fw" x="369.0" y="42.0" width="48" height="30" rx="4"/>
+<text class="st fw" x="393.0" y="62.0" text-anchor="middle">M</text>
+<rect class="cell " x="427.0" y="42.0" width="48" height="30" rx="4"/>
+<text class="st " x="451.0" y="62.0" text-anchor="middle">W</text>
+<text class="asm" x="8" y="108.0">addi x2, x1, 3</text>
+<rect class="cell " x="195.0" y="88.0" width="48" height="30" rx="4"/>
+<text class="st " x="219.0" y="108.0" text-anchor="middle">F</text>
+<rect class="cell " x="253.0" y="88.0" width="48" height="30" rx="4"/>
+<text class="st " x="277.0" y="108.0" text-anchor="middle">D</text>
+<rect class="cell bad" x="311.0" y="88.0" width="48" height="30" rx="4"/>
+<text class="st bad" x="335.0" y="108.0" text-anchor="middle">D</text>
+<rect class="cell w" x="369.0" y="88.0" width="48" height="30" rx="4"/>
+<text class="st w" x="393.0" y="108.0" text-anchor="middle">E</text>
+<rect class="cell " x="427.0" y="88.0" width="48" height="30" rx="4"/>
+<text class="st " x="451.0" y="108.0" text-anchor="middle">M</text>
+<rect class="cell " x="485.0" y="88.0" width="48" height="30" rx="4"/>
+<text class="st " x="509.0" y="108.0" text-anchor="middle">W</text>
+<text class="asm" x="8" y="154.0">addi x3, x0, 7</text>
+<rect class="cell " x="253.0" y="134.0" width="48" height="30" rx="4"/>
+<text class="st " x="277.0" y="154.0" text-anchor="middle">F</text>
+<rect class="cell ok" x="311.0" y="134.0" width="48" height="30" rx="4"/>
+<text class="st ok" x="335.0" y="154.0" text-anchor="middle">D</text>
+<rect class="cell " x="369.0" y="134.0" width="48" height="30" rx="4"/>
+<text class="st " x="393.0" y="154.0" text-anchor="middle">E</text>
+<rect class="cell " x="427.0" y="134.0" width="48" height="30" rx="4"/>
+<text class="st " x="451.0" y="154.0" text-anchor="middle">M</text>
+<rect class="cell " x="485.0" y="134.0" width="48" height="30" rx="4"/>
+<text class="st " x="509.0" y="154.0" text-anchor="middle">W</text>
+<line class="halo" x1="379.0" y1="72.0" x2="379.0" y2="88.0"/>
+<line class="ar fw" x1="379.0" y1="72.0" x2="379.0" y2="88.0" marker-end="url(#ir-fw)"/>
+<text class="nt w" x="610" y="62.0">vía 0: sale sola (Issue1 = 0)</text>
+<text class="nt bad" x="610" y="108.0">vía 1: lee x1, espera en Decode</text>
+<text class="nt ok" x="610" y="154.0">entra a su lado y salen juntas</text>
+</svg>

@@ -1,0 +1,158 @@
+{
+ "sources": [
+  "/home/juanpedrovv/Desktop/Proyecto Arch/entrega_E2/dual_issue/src/*.v",
+  "/home/juanpedrovv/Desktop/Proyecto Arch/entrega_E2/dual_issue/tb/tb_e2_p3.v"
+ ],
+ "memdir": "/home/juanpedrovv/Desktop/Proyecto Arch/entrega_E2/programas",
+ "top": "tb_e2_p3",
+ "run": "400ns",
+ "run_extra": "30ns",
+ "t0_ns": 80,
+ "t1_ns": 160,
+ "width": 2000,
+ "scale": 150,
+ "show_range": false,
+ "cursor_ns": 80,
+ "signals": [
+  {
+   "path": "/tb_e2_p3/clk"
+  },
+  {
+   "divider": "Fetch"
+  },
+  {
+   "path": "/tb_e2_p3/dut/rvdual/dp/PCF",
+   "radix": "unsigned"
+  },
+  {
+   "path": "/tb_e2_p3/dut/rvdual/dp/InstrF0",
+   "radix": "hex"
+  },
+  {
+   "path": "/tb_e2_p3/dut/rvdual/dp/InstrF1",
+   "radix": "hex"
+  },
+  {
+   "divider": "Decode"
+  },
+  {
+   "path": "/tb_e2_p3/dut/rvdual/dp/InstrD0",
+   "radix": "hex"
+  },
+  {
+   "path": "/tb_e2_p3/dut/rvdual/dp/InstrD1",
+   "radix": "hex"
+  },
+  {
+   "path": "/tb_e2_p3/dut/rvdual/dp/Issue0"
+  },
+  {
+   "path": "/tb_e2_p3/dut/rvdual/dp/Issue1"
+  },
+  {
+   "path": "/tb_e2_p3/dut/rvdual/dp/StallF"
+  },
+  {
+   "path": "/tb_e2_p3/dut/rvdual/dp/FlushE0"
+  },
+  {
+   "path": "/tb_e2_p3/dut/rvdual/dp/FlushE1"
+  },
+  {
+   "divider": "Execute"
+  },
+  {
+   "path": "/tb_e2_p3/dut/rvdual/dp/InstrE0",
+   "radix": "hex"
+  },
+  {
+   "path": "/tb_e2_p3/dut/rvdual/dp/InstrE1",
+   "radix": "hex"
+  },
+  {
+   "divider": "Memory"
+  },
+  {
+   "path": "/tb_e2_p3/dut/rvdual/dp/InstrM0",
+   "radix": "hex"
+  },
+  {
+   "path": "/tb_e2_p3/dut/rvdual/dp/InstrM1",
+   "radix": "hex"
+  },
+  {
+   "path": "/tb_e2_p3/dut/rvdual/dp/MemSelM"
+  },
+  {
+   "path": "/tb_e2_p3/dut/rvdual/dp/MemWriteM"
+  },
+  {
+   "path": "/tb_e2_p3/dut/rvdual/dp/DataAdrM",
+   "radix": "dec"
+  },
+  {
+   "path": "/tb_e2_p3/dut/rvdual/dp/WriteDataM",
+   "radix": "dec"
+  },
+  {
+   "path": "/tb_e2_p3/dut/rvdual/dp/ReadDataM",
+   "radix": "dec"
+  },
+  {
+   "divider": "Writeback"
+  },
+  {
+   "path": "/tb_e2_p3/dut/rvdual/dp/InstrW0",
+   "radix": "hex"
+  },
+  {
+   "path": "/tb_e2_p3/dut/rvdual/dp/InstrW1",
+   "radix": "hex"
+  },
+  {
+   "path": "/tb_e2_p3/dut/rvdual/dp/RegWriteW0"
+  },
+  {
+   "path": "/tb_e2_p3/dut/rvdual/dp/RdW0",
+   "radix": "unsigned"
+  },
+  {
+   "path": "/tb_e2_p3/dut/rvdual/dp/ResultW0",
+   "radix": "dec"
+  },
+  {
+   "path": "/tb_e2_p3/dut/rvdual/dp/RegWriteW1"
+  },
+  {
+   "path": "/tb_e2_p3/dut/rvdual/dp/RdW1",
+   "radix": "unsigned"
+  },
+  {
+   "path": "/tb_e2_p3/dut/rvdual/dp/ResultW1",
+   "radix": "dec"
+  }
+ ],
+ "markers": [
+  {
+   "t_ns": 91.2,
+   "label": "6"
+  },
+  {
+   "t_ns": 101.2,
+   "label": "7"
+  },
+  {
+   "t_ns": 121.2,
+   "label": "8"
+  },
+  {
+   "t_ns": 131.2,
+   "label": "9"
+  },
+  {
+   "t_ns": 141.2,
+   "label": "10"
+  }
+ ],
+ "out": "/home/juanpedrovv/Desktop/Proyecto Arch/entrega_E2/informe/figuras/wave_p3b.png"
+}

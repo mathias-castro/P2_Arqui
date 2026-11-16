@@ -1,0 +1,107 @@
+<h1>4. Issue Unit</h1>
+
+<p>La Issue Unit está en Decode y calcula <code>Issue0</code> (sale la primera instrucción) e <code>Issue1</code> (sale también la segunda). La Tabla [[tab:issue]] resume qué revisa.</p>
+
+<h2>4.1 Condiciones de emisión</h2>
+
+<table>
+  <tr><th>Situación</th><th>Señal</th><th>Qué sale</th></tr>
+  <tr><td>La primera usa el resultado de un <code>lw</code> que está en Execute</td><td><code>lwStall0</code></td><td>Ninguna</td></tr>
+  <tr><td>La segunda usa el resultado de un <code>lw</code> que está en Execute</td><td><code>lwStall1</code></td><td>Solo la primera</td></tr>
+  <tr><td>La segunda lee el registro que escribe la primera</td><td><code>RAW</code></td><td>Solo la primera</td></tr>
+  <tr><td>Las dos son <code>lw</code> o <code>sw</code></td><td><code>MemConflict</code></td><td>Solo la primera</td></tr>
+  <tr><td>Las dos son <code>beq</code> o <code>jal</code></td><td><code>BranchConflict</code></td><td>Solo la primera</td></tr>
+  <tr><td>Ninguna de las anteriores</td><td></td><td>Las dos</td></tr>
+</table>
+<p class="pie">Tabla [[TAB:issue]]. Condiciones que revisa la Issue Unit.</p>
+
+<p><i>RAW dentro del par.</i> Si la segunda instrucción lee el registro que escribe la primera, ese dato todavía no existe cuando las dos están en Execute, así que no hay de dónde hacer forwarding. Sale solo la primera, y en el ciclo siguiente la segunda recibe el dato desde Memory (Figura [[fig:issue_raw]]).</p>
+
+<figure><img src="figuras/issue_raw.svg" style="width: 14.5cm" alt="RAW dentro del par"></figure>
+<p class="pie">Figura [[FIG:issue_raw]]. RAW dentro del par: la segunda espera en Decode y se reagrupa con la siguiente.</p>
+
+<p>Las dependencias WAR y WAW no impiden que el par salga junto. En una WAW queda el dato de la vía 1, tanto en el Register File como en el forwarding.</p>
+
+<p><i>Load-Use.</i> Es el <code>lwStall</code> del pipeline, pero ahora el <code>lw</code> puede estar en cualquiera de las dos vías de Execute. Si depende la primera instrucción no sale ninguna, porque la emisión es en orden. Si solo depende la segunda, sale la primera.</p>
+
+<p><i>Recursos compartidos.</i> Si las dos instrucciones usan memoria o las dos son saltos, sale solo la primera.</p>
+
+<pre>  assign lwStall0 = (LoadE0 &amp; ((Rs1D0 == RdE0) | (Rs2D0 == RdE0))) |
+                    (LoadE1 &amp; ((Rs1D0 == RdE1) | (Rs2D0 == RdE1)));
+  assign lwStall1 = (LoadE0 &amp; ((Rs1D1 == RdE0) | (Rs2D1 == RdE0))) |
+                    (LoadE1 &amp; ((Rs1D1 == RdE1) | (Rs2D1 == RdE1)));
+
+  assign RAW = RegWriteD0 &amp; (RdD0 != 0) &amp; ((Rs1D1 == RdD0) | (Rs2D1 == RdD0));
+
+  assign MemConflict    = (MemWriteD0 | LoadD0) &amp; (MemWriteD1 | LoadD1);
+  assign BranchConflict = (BranchD0 | JumpD0) &amp; (BranchD1 | JumpD1);
+
+  assign Issue0 = ~lwStall0;
+  assign Issue1 = Issue0 &amp; ~lwStall1 &amp; ~RAW &amp; ~MemConflict &amp; ~BranchConflict;</pre>
+<p class="pie">Código [[COD:issue]]. Lógica de <code>issueunit.v</code>. <code>LoadD</code> y <code>LoadE</code> son el bit 0 de ResultSrc, que vale 1 solo en un <code>lw</code>.</p>
+
+<h2>4.2 Asignación de recursos</h2>
+
+<p>En un par hay como máximo un acceso a memoria y un salto, así que el recurso compartido va a la vía que lo pide y no hay que decidir quién gana. Por eso un <code>lw</code>, un <code>sw</code> o un salto puede salir junto con una operación ALU en cualquier posición del par.</p>
+
+<h2>4.3 Reagrupamiento</h2>
+
+<p>Cuando sale solo la primera, la segunda pasa a la vía 0 y se agrupa con la siguiente del programa (sección 3.2). La pendiente siempre queda delante de la que entra desde Fetch y el PC avanza solo por las instrucciones que entraron, así que ninguna se pierde ni se repite. El programa 6 de la sección 6 lo prueba.</p>
+
+<h1>5. Hazard Unit</h1>
+
+<p>Respecto al pipeline, la Hazard Unit cambia en cuatro cosas: el forwarding tiene cuatro fuentes, el <code>lwStall</code> pasó a la Issue Unit, un salto tomado manda sobre un stall y hay flushes por vía.</p>
+
+<h2>5.1 Forwarding entre vías y etapas</h2>
+
+<p>El dato que necesita una instrucción en Execute puede estar en Memory o en Writeback de cualquiera de las dos vías. Por eso los cuatro muxes de forwarding son de cinco entradas (Tabla [[tab:fwd]]). Si el registro está en varios lugares se toma el valor más reciente: Memory antes que Writeback y, dentro de la misma etapa, la vía 1 antes que la vía 0.</p>
+
+<table>
+  <tr><th class="c">Forward</th><th>Dato elegido</th><th>De dónde viene</th></tr>
+  <tr><td class="c">000</td><td>RD del Register File</td><td>No hay dependencia</td></tr>
+  <tr><td class="c">001</td><td><code>ResultW0</code></td><td>Writeback, vía 0</td></tr>
+  <tr><td class="c">010</td><td><code>ResultW1</code></td><td>Writeback, vía 1</td></tr>
+  <tr><td class="c">011</td><td><code>ALUResultM0</code></td><td>Memory, vía 0</td></tr>
+  <tr><td class="c">100</td><td><code>ALUResultM1</code></td><td>Memory, vía 1</td></tr>
+</table>
+<p class="pie">Tabla [[TAB:fwd]]. Codificación de ForwardAE0, ForwardBE0, ForwardAE1 y ForwardBE1.</p>
+
+<pre>    if      ((Rs1E0 == RdM1) &amp; RegWriteM1 &amp; (Rs1E0 != 0)) ForwardAE0 = 3'b100;
+    else if ((Rs1E0 == RdM0) &amp; RegWriteM0 &amp; (Rs1E0 != 0)) ForwardAE0 = 3'b011;
+    else if ((Rs1E0 == RdW1) &amp; RegWriteW1 &amp; (Rs1E0 != 0)) ForwardAE0 = 3'b010;
+    else if ((Rs1E0 == RdW0) &amp; RegWriteW0 &amp; (Rs1E0 != 0)) ForwardAE0 = 3'b001;
+    else                                                  ForwardAE0 = 3'b000;</pre>
+<p class="pie">Código [[COD:fwd]]. Forwarding del operando A de la vía 0 en <code>hazardunit_dual.v</code>. Los otros tres son iguales cambiando el registro fuente (Rs2E0, Rs1E1 y Rs2E1).</p>
+
+<p>Entre las dos instrucciones que están juntas en Execute no hay forwarding, porque la Issue Unit no deja salir juntas dos instrucciones con RAW. Hacerlo pondría las dos ALU una detrás de otra en el mismo ciclo y alargaría el camino crítico.</p>
+
+<h2>5.2 Stalls</h2>
+
+<p>Si no sale ninguna instrucción (<code>Issue0</code> = 0), <code>StallF</code> y <code>StallD</code> detienen el PC y el registro F/D, y entra una burbuja en las dos vías de Execute. Si sale solo la primera, nada se detiene y solo entra una burbuja en la vía 1.</p>
+
+<p>Un caso nuevo es tener un Load-Use en Decode y un salto tomado en Execute en el mismo ciclo, por ejemplo con un <code>lw</code> y un <code>beq</code> juntos en Execute. Manda el salto, porque lo que está en Decode se va a anular. Por eso <code>StallF</code> y <code>StallD</code> llevan <code>~PCSrcE</code>.</p>
+
+<h2>5.3 Branches y flushing</h2>
+
+<p>Como en el pipeline, el salto se resuelve en Execute, y si se toma se anulan las instrucciones más jóvenes:</p>
+<ul>
+  <li><code>FlushD</code> anula el par que viene de Fetch.</li>
+  <li><code>FlushE0</code> y <code>FlushE1</code> anulan el par que está en Decode.</li>
+  <li>Si el salto está en la vía 0, su pareja de la vía 1 también es más joven. <code>FlushM1</code> la anula en el registro E/M, antes de que escriba algo. Antes no se puede, porque en Decode todavía no se sabe si el salto se toma.</li>
+  <li>Si el salto está en la vía 1, la instrucción de la vía 0 es más antigua y sigue.</li>
+</ul>
+
+<p>La penalidad sigue siendo de 2 ciclos, pero ahora se pierden hasta cuatro instrucciones además de la pareja (Figura [[fig:flush_dual]]). La Tabla [[tab:flush]] junta las señales de stall y flush.</p>
+
+<figure><img src="figuras/flush_dual.svg" style="width: 15.5cm" alt="Flush en el Dual-Issue"></figure>
+<p class="pie">Figura [[FIG:flush_dual]]. Salto tomado en la vía 0 (programa 4 de la sección 6).</p>
+
+<table>
+  <tr><th>Señal</th><th>Ecuación</th><th>En el pipeline</th><th>Efecto</th></tr>
+  <tr><td><code>StallF</code>, <code>StallD</code></td><td><code>~Issue0 &amp; ~PCSrcE</code></td><td><code>lwStall</code></td><td>Se mantienen el PC y el par que está en Decode</td></tr>
+  <tr><td><code>FlushD</code></td><td><code>PCSrcE</code></td><td><code>PCSrcE</code></td><td>Anula el par que venía de Fetch</td></tr>
+  <tr><td><code>FlushE0</code></td><td><code>~Issue0 | PCSrcE</code></td><td><code>lwStall | PCSrcE</code></td><td>Burbuja en Execute, vía 0</td></tr>
+  <tr><td><code>FlushE1</code></td><td><code>~Issue1 | PCSrcE</code></td><td class="c">no existe</td><td>Burbuja en Execute, vía 1</td></tr>
+  <tr><td><code>FlushM1</code></td><td><code>PCSrcE &amp; ~BranchSelE</code></td><td class="c">no existe</td><td>Anula la instrucción de la vía 1 cuando el salto tomado está en la vía 0</td></tr>
+</table>
+<p class="pie">Tabla [[TAB:flush]]. Señales de stall y flush de <code>hazardunit_dual.v</code>.</p>

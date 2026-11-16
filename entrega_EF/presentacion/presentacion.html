@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Proyecto 2 - Presentación final</title>
+<style>
+  @page { size: 1280px 720px; margin: 0; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: Arial, "Liberation Sans", sans-serif; color: #111; }
+  .s { width: 1280px; height: 720px; padding: 46px 60px 40px 60px; position: relative; break-after: page; overflow: hidden; }
+  .s h1 { font-size: 34px; margin: 0 0 22px 0; color: #1565c0; }
+  .s h2 { font-size: 22px; margin: 0 0 10px 0; }
+  .s p, .s li { font-size: 21px; line-height: 1.38; }
+  .s ul { margin: 0; padding-left: 26px; }
+  .s li { margin-bottom: 9px; }
+  .s code { font-family: "Liberation Mono", "DejaVu Sans Mono", monospace; font-size: 0.9em; }
+  .s pre { font-family: "Liberation Mono", "DejaVu Sans Mono", monospace; font-size: 15px; line-height: 1.32;
+           background: #f6f6f6; border: 1px solid #c8c8c8; padding: 10px 14px; margin: 0; }
+  .num { position: absolute; right: 30px; bottom: 18px; font-size: 14px; color: #777; }
+  .dos { display: flex; gap: 34px; align-items: flex-start; }
+  .dos > div { flex: 1; }
+  .fig { text-align: center; }
+  .fig img { max-width: 100%; }
+  .pie { font-size: 15px; color: #444; text-align: center; margin-top: 4px; }
+  table { border-collapse: collapse; font-size: 19px; margin: 0 auto; }
+  th, td { border: 1px solid #808080; padding: 6px 12px; text-align: left; }
+  th { background: #e6e6e6; }
+  td.c, th.c { text-align: center; }
+  .portada { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+  .portada img { width: 210px; }
+  .portada .t1 { font-size: 22px; margin-top: 18px; }
+  .portada .t2 { font-size: 38px; font-weight: bold; color: #1565c0; margin-top: 28px; line-height: 1.25; }
+  .portada .t3 { font-size: 21px; margin-top: 34px; line-height: 1.6; }
+  .chico li, .chico p { font-size: 18px; }
+</style>
+</head>
+<body>
+
+<section class="s portada">
+  <img src="../informe/figuras/utec.png" alt="UTEC">
+  <div class="t1">Arquitectura de Computadoras · Proyecto 2</div>
+  <div class="t2">Procesador RISC-V superescalar Dual-Issue<br>con predicción dinámica de saltos</div>
+  <div class="t3">Adriana Lucia Castro Quiñones<br>Mathias Castro Alva<br>Juan Pedro Vásquez Vilchez</div>
+</section>
+
+<section class="s">
+  <h1>Objetivo</h1>
+  <ul>
+    <li>Llevar el pipeline RISC-V de cinco etapas a un Dual-Issue in-order: hasta dos instrucciones por ciclo, en orden.</li>
+    <li>Recursos: dos ALU, Register File de 4 lecturas y 2 escrituras, un solo puerto de memoria y un solo recurso de saltos.</li>
+    <li>Optimización: predicción dinámica de saltos (contador de 2 bits y BTB).</li>
+  </ul>
+  <table style="margin-top: 30px">
+    <tr><th>Arquitectura</th><th>Qué es</th></tr>
+    <tr><td>A</td><td>Pipeline Single-Issue</td></tr>
+    <tr><td>B</td><td>Dual-Issue</td></tr>
+    <tr><td>C</td><td>Dual-Issue con predicción de saltos</td></tr>
+  </table>
+  <div class="num">2</div>
+</section>
+
+<section class="s">
+  <h1>Pipeline Single-Issue</h1>
+  <div class="fig"><img src="../informe/figuras/datapath_single.png" style="height: 470px"></div>
+  <p class="chico" style="margin-top: 10px">Hazard Unit: forwarding desde Memory y Writeback, stall de 1 ciclo en Load-Use y flush de 2 instrucciones cuando se toma un salto.</p>
+  <div class="num">3</div>
+</section>
+
+<section class="s">
+  <h1>Datapath Dual-Issue</h1>
+  <div class="fig" style="margin-top: -10px"><img src="../informe/figuras/datapath_dual.png" style="height: 552px"></div>
+  <p class="chico" style="margin: 2px 0 0 0">Vía 0 arriba (la instrucción más antigua del par), vía 1 abajo. Al medio, lo compartido: Register File, recurso de saltos y puerto de memoria.</p>
+  <div class="num">4</div>
+</section>
+
+<section class="s">
+  <h1>Fetch y reagrupamiento</h1>
+  <div class="dos">
+    <div class="fig" style="flex: 1.3"><img src="../informe/figuras/casos_fd.svg" style="width: 100%"></div>
+    <div class="chico"><ul>
+      <li>Salen las dos: entra el par nuevo y el PC avanza 8.</li>
+      <li>Sale una: la pendiente pasa a la vía 0, se junta con <code>InstrF0</code> y el PC avanza 4.</li>
+      <li>No sale ninguna: stall.</li>
+      <li>Dos muxes en el registro F/D, controlados por <code>Issue1</code>.</li>
+    </ul></div>
+  </div>
+  <div class="num">5</div>
+</section>
+
+<section class="s">
+  <h1>Demostración: reagrupamiento</h1>
+  <div class="fig"><img src="../informe/figuras/r_p6.png" style="width: 1080px"></div>
+  <div class="chico" style="margin-top: 16px"><ul>
+      <li>1: dos <code>addi x1, x1, 1</code> seguidos, el segundo depende del primero: <code>Issue1</code> = 0.</li>
+      <li>2: el segundo pasa a la vía 0 y se junta con <code>addi x2</code>. El PC avanza solo 4 (16 a 20).</li>
+      <li>3: cuatro emisiones parciales seguidas.</li>
+      <li>Ninguna instrucción se pierde ni se repite.</li>
+    </ul></div>
+  <div class="num">6</div>
+</section>
+
+<section class="s">
+  <h1>Issue Unit</h1>
+  <table>
+    <tr><th>Situación</th><th>Señal</th><th>Qué sale</th></tr>
+    <tr><td>La primera usa un <code>lw</code> que está en Execute</td><td><code>lwStall0</code></td><td>Ninguna</td></tr>
+    <tr><td>La segunda usa un <code>lw</code> que está en Execute</td><td><code>lwStall1</code></td><td>Solo la primera</td></tr>
+    <tr><td>La segunda lee lo que escribe la primera</td><td><code>RAW</code></td><td>Solo la primera</td></tr>
+    <tr><td>Las dos son <code>lw</code> o <code>sw</code></td><td><code>MemConflict</code></td><td>Solo la primera</td></tr>
+    <tr><td>Las dos son saltos</td><td><code>BranchConflict</code></td><td>Solo la primera</td></tr>
+    <tr><td>Ninguna de las anteriores</td><td></td><td>Las dos</td></tr>
+  </table>
+  <p style="margin-top: 26px">Como nunca salen dos accesos a memoria ni dos saltos juntos, a cada recurso compartido le basta un mux (<code>memmux</code>, <code>branchmux</code>).</p>
+  <div class="num">7</div>
+</section>
+
+<section class="s">
+  <h1>Forwarding desde cuatro lugares</h1>
+  <div class="dos">
+    <div class="fig" style="flex: 2"><img src="../informe/figuras/r_p2.png" style="width: 100%"></div>
+    <div class="chico"><ul>
+      <li>Un operando puede venir de Memory o Writeback de cualquiera de las dos vías: muxes de cinco entradas.</li>
+      <li>3: <code>add x4</code> toma de Memory vía 0 y vía 1 (011, 100).</li>
+      <li>4: se usan las cuatro fuentes: 011, 001, 100 y 010.</li>
+      <li>5: x8 está en Memory en las dos vías: gana la vía 1 (100).</li>
+      <li>Si hay varias, gana la más reciente: Memory vía 1, Memory vía 0, Writeback vía 1, Writeback vía 0.</li>
+    </ul></div>
+  </div>
+  <div class="num">8</div>
+</section>
+
+<section class="s">
+  <h1>Saltos en el Dual-Issue</h1>
+  <div class="fig"><img src="../informe/figuras/flush_dual.svg" style="width: 900px"></div>
+  <div class="chico" style="margin-top: 10px"><ul>
+      <li>El <code>beq</code> de la vía 0 se toma en Execute: <code>FlushD</code>, <code>FlushE0</code> y <code>FlushE1</code> anulan lo que venía detrás.</li>
+      <li>Su pareja de la vía 1 es más joven: <code>FlushM1</code> la anula antes de Memory.</li>
+      <li>Si el salto está en la vía 1, la de la vía 0 es más antigua y sigue.</li>
+    </ul></div>
+  <div class="num">9</div>
+</section>
+
+<section class="s">
+  <h1>Limitación: los saltos tomados</h1>
+  <div class="fig"><img src="../informe/figuras/pred_sin.svg" style="width: 900px"></div>
+  <p style="margin-top: 14px">En cada vuelta de un bucle se pierden 2 ciclos y hasta 5 instrucciones. En el programa del profesor son 134 de los 387 ciclos del Dual-Issue.</p>
+  <div class="num">10</div>
+</section>
+
+<section class="s">
+  <h1>Idea: predecir el salto en Fetch</h1>
+  <div class="fig"><img src="../informe/figuras/pred_con.svg" style="width: 880px"></div>
+  <div class="dos" style="margin-top: 14px; align-items: center">
+    <div class="fig" style="flex: 1.1"><img src="../informe/figuras/dos_bits.svg" style="width: 100%"></div>
+    <div class="chico"><ul>
+      <li>BTB: tabla de 16 entradas con el PC del salto y su destino.</li>
+      <li>Contador de 2 bits: desde 11 hacen falta dos fallos seguidos para cambiar la predicción.</li>
+    </ul></div>
+  </div>
+  <div class="num">11</div>
+</section>
+
+<section class="s">
+  <h1>Fetch con predicción</h1>
+  <div class="dos">
+    <div class="fig" style="flex: 1.5"><img src="../informe/figuras/detalle_fetch_opt_anot.png" style="height: 600px"></div>
+    <div class="chico"><ol>
+      <li>Predictor: se consulta con <code>PCF</code> y <code>PCF + 4</code>.</li>
+      <li><code>seqmux</code>: +4 o +8, como antes.</li>
+      <li><code>predmux</code>: destino predicho, solo si esa instrucción entra al F/D.</li>
+      <li><code>pcmux</code>: PC correcto si la predicción falló.</li>
+      <li>Si <code>InstrF0</code> se predice tomada, en lugar de <code>InstrF1</code> entra una burbuja.</li>
+      <li>El bit de predicción viaja con la instrucción.</li>
+    </ol></div>
+  </div>
+  <div class="num">12</div>
+</section>
+
+<section class="s">
+  <h1>Execute: ¿acertó la predicción?</h1>
+  <div class="fig"><img src="../informe/figuras/detalle_branch_opt_anot.png" style="width: 820px"></div>
+  <p class="chico" style="text-align: center; margin: 4px 0 8px 0">1: <code>TakenE</code>, si el salto se tomó. 2: <code>MispredE</code>, si la predicción falló. 3: <code>correctmux</code>, el PC correcto.</p>
+  <table style="font-size: 17px">
+    <tr><th>Predicho</th><th>Real</th><th>MispredE</th><th>Acción</th></tr>
+    <tr><td>No tomado</td><td>No tomado</td><td class="c">0</td><td>Nada</td></tr>
+    <tr><td>No tomado</td><td>Tomado</td><td class="c">1</td><td>Flush, PC = <code>PCTargetE</code></td></tr>
+    <tr><td>Tomado</td><td>Tomado</td><td class="c">0</td><td>Nada: 0 ciclos perdidos</td></tr>
+    <tr><td>Tomado</td><td>No tomado</td><td class="c">1</td><td>Flush, PC = salto + 4</td></tr>
+  </table>
+  <div class="num">13</div>
+</section>
+
+<section class="s">
+  <h1>Un problema que apareció: el jal</h1>
+  <div class="fig"><img src="../informe/figuras/jal_fw.svg" style="width: 820px"></div>
+  <ul style="margin-top: 14px">
+    <li>Sin flush, la instrucción que usa el rd del <code>jal</code> llega a Execute con el <code>jal</code> en Memory, y el forwarding le daba <code>ALUResultM</code>.</li>
+    <li>Lo encontramos con programas al azar. Solución: un mux en Memory que adelanta <code>PCPlus4M</code> si es un <code>jal</code>.</li>
+  </ul>
+  <div class="num">14</div>
+</section>
+
+<section class="s">
+  <h1>Demostración: el predictor aprende un bucle</h1>
+  <div class="dos">
+    <div class="fig" style="flex: 2.4"><img src="../informe/figuras/r_o1a.png" style="width: 100%"></div>
+    <div class="chico"><ul>
+      <li>El <code>beq</code> está en la dirección 24.</li>
+      <li>1: primera vez, no está en la tabla: flush, como en B.</li>
+      <li>2: en Fetch <code>PredF0</code> = 1 y el PC salta a 12.</li>
+      <li>3: al lado del <code>beq</code> entra una burbuja.</li>
+      <li>4: acertó: <code>MispredE</code> = 0, sin ciclos perdidos.</li>
+    </ul></div>
+  </div>
+  <div class="num">15</div>
+</section>
+
+<section class="s">
+  <h1>Demostración: salto predicho en la vía 1</h1>
+  <div class="dos">
+    <div class="fig" style="flex: 2.2"><img src="../informe/figuras/r_o2.png" style="width: 100%"></div>
+    <div class="chico"><ul>
+      <li>El <code>jal</code> (dirección 56) está en <code>InstrF1</code>.</li>
+      <li>1: <code>PredF1</code> = 1 e <code>Issue1</code> = 1: el PC salta a 44.</li>
+      <li>2: en Decode, <code>PredD1</code> = 1.</li>
+      <li>3: en Execute en la vía 1 (<code>BranchSelE</code> = 1), acertó: sin flush.</li>
+      <li>El bucle de 4 instrucciones sale en 2 ciclos.</li>
+    </ul></div>
+  </div>
+  <div class="num">16</div>
+</section>
+
+<section class="s">
+  <h1>Programa del profesor</h1>
+  <table style="font-size: 20px">
+    <tr><th>Etapa</th><th>Qué revisa</th><th class="c">Instrucciones ejecutadas</th></tr>
+    <tr><td>A. Emisión y dependencias</td><td>Operaciones ALU con RAW; x9 se escribe dos veces seguidas</td><td class="c">14</td></tr>
+    <tr><td>B. Memoria</td><td>8 de 11 son <code>lw</code>/<code>sw</code>; Load-Use; <code>lw</code> que lee lo que guardó un <code>sw</code></td><td class="c">11</td></tr>
+    <tr><td>C. Secuencias iterativas</td><td>Tres bucles de 12 vueltas; un <code>beq</code> que alterna y un if/else</td><td class="c">216</td></tr>
+    <tr><td>D. Integración</td><td>Bucle con <code>lw</code> y un salto que depende del dato; saltos que evitan <code>sw</code> indebidos</td><td class="c">71</td></tr>
+  </table>
+  <ul style="margin-top: 30px">
+    <li>Datos desde la dirección 1536: memoria de datos de 2 KB y de instrucciones de 128 palabras.</li>
+    <li>El Register File empieza en 0 ("registros no indicados = 0"). Termina en <code>fin: jal x0, fin</code>, que no se cuenta.</li>
+  </ul>
+  <div class="num">17</div>
+</section>
+
+<section class="s">
+  <h1>Comprobación de las etapas</h1>
+  <div class="dos">
+    <div class="fig" style="flex: 1.45"><img src="../informe/figuras/r_prof_A.png" style="width: 100%"></div>
+    <div class="chico">
+      <ul>
+        <li>El testbench revisa los 32 registros y la memoria cuando el último <code>sw</code> de la etapa llega a Writeback.</li>
+        <li><code>chk</code> marca ese ciclo; <code>etapa</code>, <code>ok</code> y <code>pasadas</code> dan el resultado.</li>
+        <li>Etapa A: x9 = 7, quedó la escritura de la vía 1.</li>
+      </ul>
+      <table style="font-size: 17px; margin-top: 10px">
+        <tr><th>Etapa</th><th class="c">Pipeline</th><th class="c">Dual-Issue</th><th class="c">Optimizado</th></tr>
+        <tr><td>A</td><td class="c">18</td><td class="c">12</td><td class="c">12</td></tr>
+        <tr><td>B</td><td class="c">32</td><td class="c">25</td><td class="c">25</td></tr>
+        <tr><td>C</td><td class="c">362</td><td class="c">312</td><td class="c">220</td></tr>
+        <tr><td>D</td><td class="c">459</td><td class="c">387</td><td class="c">292</td></tr>
+      </table>
+      <p style="margin-top: 8px">Ciclo de cada comprobación. Las 4 etapas pasan en las tres arquitecturas.</p>
+    </div>
+  </div>
+  <div class="num">18</div>
+</section>
+
+<section class="s">
+  <h1>Caso clave 1: doble emisión (etapa A)</h1>
+  <div class="dos">
+    <div class="fig" style="flex: 2.6"><img src="../informe/figuras/r_prof_k1.png" style="width: 100%"></div>
+    <div class="chico"><ul>
+      <li>1, ciclo 5: <code>add x5</code> | <code>sub x6</code> juntas. x3 llega desde Memory vía 0 (011) y x4 desde Memory vía 1 (100).</li>
+      <li>2, ciclo 6: <code>add x9</code> | <code>addi x9</code> tienen el mismo destino (WAW) y salen juntas.</li>
+      <li>3, ciclo 8: <code>add x10</code> toma el x9 de la vía 1 (100): 7 + 5 = 12. Dos <code>sw</code> seguidos: sale solo uno.</li>
+    </ul></div>
+  </div>
+  <div class="num">19</div>
+</section>
+
+<section class="s">
+  <h1>Caso clave 2: memoria y Load-Use (etapa B)</h1>
+  <div class="fig"><img src="../informe/figuras/r_prof_k2.png" style="width: 1150px"></div>
+  <div class="chico" style="margin-top: 8px"><ul>
+    <li>1, ciclo 16: un solo puerto de memoria, así que <code>sw</code> | <code>lw</code> no salen juntos (<code>Issue1</code> = 0).</li>
+    <li>2 y 3, ciclos 18 y 19: <code>sw x15</code> escribe 7 en 1548 y un ciclo después <code>lw x16</code> lee ese 7.</li>
+    <li>4 y 5, ciclos 20 y 21: Load-Use. <code>add x18</code> espera a <code>lw x17</code> (<code>StallF</code> = 1), que lee 16.</li>
+  </ul></div>
+  <div class="num">20</div>
+</section>
+
+<section class="s">
+  <h1>Programa propio</h1>
+  <div class="dos">
+    <div style="flex: 1.1">
+<pre style="font-size: 13.5px">gen:    addi x3, x3, 5        # v = v + 5
+        andi x4, x3, 15       # A[i] = v mod 16
+        sw   x4, 0(x1)
+        addi x1, x1, 4
+        beq  x1, x2, sigue
+        jal  x0, gen
+        ...
+rec:    lw   x8, 0(x1)        # x8 = A[i]
+        addi x1, x1, 4
+        add  x5, x5, x8       # suma total
+        slti x9, x8, 8
+        beq  x9, x0, grande   # depende del dato
+        addi x6, x6, 1        # cuantos &lt; 8
+        jal  x0, prox
+grande: add  x7, x7, x8       # suma de los &gt;= 8
+prox:   beq  x1, x2, listo
+        jal  x0, rec</pre>
+    </div>
+    <div class="chico"><ul>
+      <li>Llena un arreglo de 16 números y lo recorre.</li>
+      <li>Resultado: Mem[100] = 120, Mem[104] = 8, Mem[108] = 92 en A, B y C.</li>
+      <li>Saltos que cierran bucles, saltos de salida y uno que depende del dato.</li>
+      <li>240 instrucciones, 86 saltos, 48 tomados.</li>
+    </ul></div>
+  </div>
+  <div class="num">21</div>
+</section>
+
+<section class="s">
+  <h1>Resultados</h1>
+  <table style="font-size: 17px">
+    <tr><th rowspan="2">Indicador</th><th colspan="3" class="c">Programa del profesor</th><th colspan="3" class="c">Programa propio</th></tr>
+    <tr><th class="c">Pipeline</th><th class="c">Dual-Issue</th><th class="c">Optimizado</th><th class="c">Pipeline</th><th class="c">Dual-Issue</th><th class="c">Optimizado</th></tr>
+    <tr><td>Ciclos totales</td><td class="c">459</td><td class="c">387</td><td class="c">292</td><td class="c">340</td><td class="c">289</td><td class="c">204</td></tr>
+    <tr><td>Instrucciones retiradas</td><td class="c">312</td><td class="c">312</td><td class="c">312</td><td class="c">240</td><td class="c">240</td><td class="c">240</td></tr>
+    <tr><td>CPI</td><td class="c">1.47</td><td class="c">1.24</td><td class="c">0.94</td><td class="c">1.42</td><td class="c">1.20</td><td class="c">0.85</td></tr>
+    <tr><td>IPC</td><td class="c">0.68</td><td class="c">0.81</td><td class="c">1.07</td><td class="c">0.71</td><td class="c">0.83</td><td class="c">1.18</td></tr>
+    <tr><td>Speedup vs. pipeline</td><td class="c">1.00</td><td class="c">1.19</td><td class="c">1.57</td><td class="c">1.00</td><td class="c">1.18</td><td class="c">1.67</td></tr>
+    <tr><td>Speedup vs. Dual-Issue</td><td class="c">-</td><td class="c">1.00</td><td class="c">1.33</td><td class="c">-</td><td class="c">1.00</td><td class="c">1.42</td></tr>
+  </table>
+  <div class="fig" style="margin-top: 14px"><img src="../informe/figuras/ciclos_programas.svg" style="width: 760px"></div>
+  <div class="num">22</div>
+</section>
+
+<section class="s">
+  <h1>Programa del profesor por etapas</h1>
+  <div class="dos">
+    <div>
+      <table style="font-size: 22px">
+        <tr><th rowspan="2">Etapa</th><th colspan="3" class="c">Ciclos</th><th colspan="2" class="c">Speedup</th></tr>
+        <tr><th class="c">A</th><th class="c">B</th><th class="c">C</th><th class="c" style="white-space: nowrap">A a B</th><th class="c" style="white-space: nowrap">B a C</th></tr>
+        <tr><td>A</td><td class="c">18</td><td class="c">12</td><td class="c">12</td><td class="c">1.50</td><td class="c">1.00</td></tr>
+        <tr><td>B</td><td class="c">14</td><td class="c">13</td><td class="c">13</td><td class="c">1.08</td><td class="c">1.00</td></tr>
+        <tr><td>C</td><td class="c">330</td><td class="c">287</td><td class="c">195</td><td class="c">1.15</td><td class="c">1.47</td></tr>
+        <tr><td>D</td><td class="c">97</td><td class="c">75</td><td class="c">72</td><td class="c">1.29</td><td class="c">1.04</td></tr>
+      </table>
+    </div>
+    <div><ul>
+      <li>A: ALU con forwarding desde las dos vías: el Dual-Issue gana más.</li>
+      <li>B: un solo puerto de memoria y Load-Use: casi igual que el pipeline.</li>
+      <li>C: bucles. El Dual-Issue pierde 2 ciclos por vuelta; la predicción recupera la mayoría (no los del <code>beq</code> de C2).</li>
+      <li>D: bucle corto, salto que depende del dato y saltos de una sola vez: la predicción casi no ayuda.</li>
+      <li>Stalls: 9, 10 y 10. Vienen del Load-Use, que no lo quita ninguna de las dos mejoras.</li>
+    </ul></div>
+  </div>
+  <div class="num">23</div>
+</section>
+
+<section class="s">
+  <h1>¿Cuándo mejora la predicción?</h1>
+  <div class="dos">
+    <div><ul>
+      <li>Mejora: saltos de bucle, fallan 2 veces como mucho. En el profesor, 50 flushes de B pasan a 10.</li>
+      <li>Mantiene: sin saltos o saltos de una sola vez (etapas A y B, programas de prueba).</li>
+      <li>Empeora: el <code>beq</code> de C2 alterna y falla 12 veces (B: 6 flushes). El de D2 depende del dato: 4 fallos contra 2.</li>
+      <li>En total gana: flushes de 67 a 32, 1.33 veces más rápido que B.</li>
+    </ul></div>
+    <div>
+      <table style="font-size: 19px">
+        <tr><th>Vuelta de C2</th><th class="c">1</th><th class="c">2</th><th class="c">3</th><th class="c">4</th></tr>
+        <tr><td>Contador</td><td class="c">no está</td><td class="c">10</td><td class="c">01</td><td class="c">10</td></tr>
+        <tr><td>Predicción</td><td class="c">no</td><td class="c">sí</td><td class="c">no</td><td class="c">sí</td></tr>
+        <tr><td>Resultado</td><td class="c">sí</td><td class="c">no</td><td class="c">sí</td><td class="c">no</td></tr>
+        <tr><td>¿Acierta?</td><td class="c">no</td><td class="c">no</td><td class="c">no</td><td class="c">no</td></tr>
+      </table>
+      <p style="margin-top: 14px">El contador de 2 bits no aprende un patrón que alterna: haría falta recordar la historia del salto.</p>
+    </div>
+  </div>
+  <div class="num">24</div>
+</section>
+
+<section class="s">
+  <h1>Costo y tiempo real</h1>
+  <div class="dos">
+    <div>
+      <table style="font-size: 21px">
+        <tr><th></th><th class="c">LUTs</th><th class="c">FFs</th><th class="c">Fmax</th></tr>
+        <tr><td>A</td><td class="c">738</td><td class="c">507</td><td class="c">87.5 MHz</td></tr>
+        <tr><td>B</td><td class="c">4197</td><td class="c">1978</td><td class="c">70.7 MHz</td></tr>
+        <tr><td>C</td><td class="c">5170</td><td class="c">3060</td><td class="c">73.2 MHz</td></tr>
+      </table>
+      <table style="font-size: 21px; margin-top: 24px">
+        <tr><th>Tiempo</th><th class="c">A</th><th class="c">B</th><th class="c">C</th></tr>
+        <tr><td>Profesor</td><td class="c">5.25 µs</td><td class="c">5.47 µs</td><td class="c">3.99 µs</td></tr>
+        <tr><td>Propio</td><td class="c">3.89 µs</td><td class="c">4.09 µs</td><td class="c">2.79 µs</td></tr>
+      </table>
+    </div>
+    <div><ul>
+      <li>Vivado, Basys 3, procesador sin memorias.</li>
+      <li>C usa 23 % más LUTs que B, casi todo la tabla del predictor, que no está en el camino crítico.</li>
+      <li>B es un poco más lento que A en tiempo real: gana 18-19 % en ciclos y pierde 19 % de frecuencia.</li>
+      <li>C es el más rápido: 1.37 veces B en el programa del profesor.</li>
+    </ul></div>
+  </div>
+  <div class="num">25</div>
+</section>
+
+<section class="s">
+  <h1>Conclusiones</h1>
+  <ul>
+    <li>Las tres arquitecturas funcionan: las 4 etapas del programa del profesor pasan en A, B y C, y dan lo mismo en 10 000 programas al azar.</li>
+    <li>El Dual-Issue aprovecha las instrucciones independientes; lo frenan las dependencias, el puerto único de memoria, el Load-Use y los saltos.</li>
+    <li>La predicción quita casi todos los flushes de los bucles: en el programa del profesor C es 1.33 veces más rápido que B y 1.57 veces más rápido que A, en ciclos.</li>
+    <li>Su límite: saltos que alternan o dependen del dato.</li>
+    <li>Mejora futura: un predictor que recuerde la historia del salto y una tabla más grande.</li>
+  </ul>
+  <div class="num">26</div>
+</section>
+
+</body>
+</html>

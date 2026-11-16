@@ -1,0 +1,116 @@
+<h1>7. Optimización: predicción dinámica de saltos</h1>
+
+<h2>7.1 Limitación que buscamos resolver</h2>
+
+<p>En el Dual-Issue un salto tomado anula todo lo que entró detrás. En el <code>beq</code> que cierra un bucle eso cuesta 2 ciclos y hasta cinco instrucciones en cada vuelta (Figura [[fig:pred_sin]]).</p>
+
+<figure><img src="figuras/pred_sin.svg" style="width: 15.5cm" alt="Salto sin prediccion"></figure>
+<p class="pie">Figura [[FIG:pred_sin]]. Salto que cierra un bucle en el Dual-Issue: el destino recién entra en el ciclo 4.</p>
+
+<p>En el Dual-Issue esto pesa más que en el pipeline, porque en cada ciclo perdido podían haber salido dos instrucciones. En el programa del profesor, por ejemplo, el Dual-Issue pierde así 134 de sus 387 ciclos.</p>
+
+<h2>7.2 Idea</h2>
+
+<p>La idea es decidir ya en Fetch si el salto se toma y a dónde va. Si se acierta, el destino entra en el ciclo siguiente y no se pierde nada (Figura [[fig:pred_con]]). Si se falla, se hace el mismo flush de antes.</p>
+
+<figure><img src="figuras/pred_con.svg" style="width: 15.5cm" alt="Salto con prediccion"></figure>
+<p class="pie">Figura [[FIG:pred_con]]. El mismo salto con predicción: el destino entra en el ciclo 2.</p>
+
+<p>En Fetch la instrucción todavía no se decodificó, así que hacen falta dos cosas.</p>
+<ul>
+  <li>Un branch target buffer (BTB), que es una tabla con la dirección y el destino de los saltos ya ejecutados. El destino de un <code>beq</code> o un <code>jal</code> siempre es PC + inmediato, así que el guardado siempre es correcto.</li>
+  <li>Un contador de 2 bits por salto, que sube cuando el salto se toma y baja cuando no (Figura [[fig:dos_bits]]). Con 10 u 11 se predice tomado. Desde 11 hacen falta dos fallos seguidos para cambiar la predicción, así que la salida de un bucle no la cambia.</li>
+</ul>
+
+<figure><img src="figuras/dos_bits.svg" style="width: 14cm" alt="Contador de 2 bits"></figure>
+<p class="pie">Figura [[FIG:dos_bits]]. Estados del contador de 2 bits.</p>
+
+<h2>7.3 Predictor</h2>
+
+<p>El módulo nuevo <code>predictor.v</code> tiene 16 entradas indexadas con <code>PC[5:2]</code>. Cada entrada guarda un bit de válido, el PC del salto, su destino y su contador. Como Fetch lee dos instrucciones, se consulta dos veces, con <code>PCF</code> y con <code>PCF + 4</code>.</p>
+
+<pre>  wire hit0 = valid[i0] &amp; (pc[i0] == PCF0);    // i0 = PCF0[5:2]
+  assign PredF0       = hit0 &amp; cnt[i0][1];     // se predice tomado
+  assign PredTargetF0 = target[i0];             // destino guardado
+  // igual para PCF1 = PCF + 4: PredF1 y PredTargetF1</pre>
+<p class="pie">Código [[COD:pred_consulta]]. Consulta del predictor en <code>predictor.v</code>.</p>
+
+<p>La tabla se actualiza cuando el salto llega a Execute. Si el salto ya estaba, su contador sube o baja. Si no, se guarda con el contador en 10 o en 01, según se haya tomado o no.</p>
+
+<h2>7.4 Cambios en Fetch</h2>
+
+<p>La Figura [[fig:det_fetch_opt]] muestra el Fetch nuevo, numerado en el orden en que se usa cada parte.</p>
+
+<figure><img src="figuras/detalle_fetch_opt_anot.png" style="width: 12.5cm" alt="Fetch con predictor"></figure>
+<p class="pie">Figura [[FIG:det_fetch_opt]]. Fetch de la versión optimizada.</p>
+
+<ol>
+  <li>El predictor recibe <code>PCF</code> y <code>PCF + 4</code> y entrega <code>PredF0</code>, <code>PredF1</code> y sus destinos.</li>
+  <li><code>seqmux</code> da el PC sin predicción: avanza 8 si salieron las dos instrucciones y 4 si no.</li>
+  <li><code>predmux</code> salta al destino de <code>InstrF0</code> si se predice tomada. Si no, salta al de <code>InstrF1</code>, pero solo con <code>Issue1</code> = 1, porque si no <code>InstrF1</code> no entra al registro F/D.</li>
+  <li><code>pcmux</code> toma <code>PCCorrectE</code> cuando en Execute la predicción falló.</li>
+  <li>Si <code>InstrF0</code> se predice tomada, <code>InstrF1</code> es del camino que no se sigue y se cambia por una burbuja. Si solo se le impidiera salir, quedaría pendiente y se reagruparía con el par siguiente.</li>
+  <li>Cada posición del registro F/D guarda también la predicción, que viaja con su instrucción hasta Execute.</li>
+</ol>
+
+<pre>  mux2 #(32) seqmux(.d0(PCPlus4F), .d1(PCPlus8F), .s(Issue1), .y(PCSeqF));
+  mux3 #(32) predmux(.d0(PCSeqF), .d1(PredTargetF1), .d2(PredTargetF0),
+                     .s({PredF0, Issue1 &amp; PredF1}), .y(PCPredF));
+  mux2 #(32) pcmux(.d0(PCPredF), .d1(PCCorrectE), .s(MispredE), .y(PCNextF));
+  assign InstrF1S = PredF0 ? 32'b0 : InstrF1;</pre>
+<p class="pie">Código [[COD:fetch_opt]]. Siguiente PC y segunda instrucción en <code>datapath_dual.v</code> (versión optimizada).</p>
+
+<h2>7.5 Cambios en Execute y en la Hazard Unit</h2>
+
+<p>En Execute el recurso de branches compara la predicción con lo que pasó (Figura [[fig:det_branch_opt]]).</p>
+
+<figure><img src="figuras/detalle_branch_opt_anot.png" style="width: 14cm" alt="Recurso de branches con prediccion"></figure>
+<p class="pie">Figura [[FIG:det_branch_opt]]. Recurso de branches de la versión optimizada.</p>
+
+<ol>
+  <li><code>TakenE</code> indica si el salto se tomó. Es lo que antes era <code>PCSrcE</code>.</li>
+  <li><code>MispredE</code> indica que la predicción falló.</li>
+  <li><code>correctmux</code> da el PC correcto: el destino si el salto se tomó, o la instrucción que le sigue si no.</li>
+</ol>
+
+<pre>  assign TakenE   = (BranchE &amp; ZeroE) | JumpE;
+  assign MispredE = (BranchE | JumpE) &amp; (TakenE != PredE);
+  mux2 #(32) correctmux(.d0(BranchPCPlus4E), .d1(PCTargetE), .s(TakenE), .y(PCCorrectE));</pre>
+<p class="pie">Código [[COD:exec_opt]]. Comparación de la predicción en Execute.</p>
+
+<p>Con esto quedan los cuatro casos de la Tabla [[tab:casos_pred]]. En la Hazard Unit los flushes ahora dependen de <code>MispredE</code> en lugar de <code>PCSrcE</code>. Así <code>FlushM1</code> anula la pareja de un salto de la vía 0 solo si la predicción falló.</p>
+
+<table>
+  <tr><th>Predicción</th><th>Resultado</th><th class="c">MispredE</th><th>Qué pasa</th></tr>
+  <tr><td>No tomado</td><td>No tomado</td><td class="c">0</td><td>Nada</td></tr>
+  <tr><td>No tomado</td><td>Tomado</td><td class="c">1</td><td>Flush y el PC carga <code>PCTargetE</code></td></tr>
+  <tr><td>Tomado</td><td>Tomado</td><td class="c">0</td><td>Nada: no se pierde ningún ciclo</td></tr>
+  <tr><td>Tomado</td><td>No tomado</td><td class="c">1</td><td>Flush y el PC carga <code>BranchPCPlus4E</code></td></tr>
+</table>
+<p class="pie">Tabla [[TAB:casos_pred]]. Los cuatro casos de la predicción.</p>
+
+<h2>7.6 Forwarding del resultado de un jal</h2>
+
+<p>Las pruebas al azar (sección 8) encontraron un caso nuevo. Un <code>jal</code> escribe PC + 4 en rd, pero el forwarding desde Memory solo traía <code>ALUResultM</code>. Sin predicción no importaba, porque el flush retrasaba al destino hasta que el <code>jal</code> estaba en Writeback. Con la predicción, la instrucción que usa rd llega a Execute con el <code>jal</code> todavía en Memory (Figura [[fig:jal_fw]]).</p>
+
+<figure><img src="figuras/jal_fw.svg" style="width: 14.5cm" alt="Forwarding de un jal"></figure>
+<p class="pie">Figura [[FIG:jal_fw]]. Un <code>jal</code> predicho y una instrucción del destino que usa rd.</p>
+
+<p>Lo corregimos con un mux por vía en Memory, que deja pasar <code>PCPlus4M</code> si la instrucción es un <code>jal</code>. Su salida, <code>ResultM0</code> o <code>ResultM1</code>, reemplaza a <code>ALUResultM</code> en los muxes de forwarding. Un <code>lw</code> no necesita este camino, porque antes de usar su dato siempre hay un stall.</p>
+
+<pre>  mux2 #(32) resultmmux0(.d0(ALUResultM0), .d1(PCPlus4M0), .s(ResultSrcM0[1]), .y(ResultM0));
+  mux2 #(32) resultmmux1(.d0(ALUResultM1), .d1(PCPlus4M1), .s(ResultSrcM1[1]), .y(ResultM1));</pre>
+<p class="pie">Código [[COD:resultm]]. Dato que se adelanta desde Memory.</p>
+
+<h2>7.7 Módulos modificados</h2>
+
+<p>La Tabla [[tab:mod_opt]] resume los cambios y la Figura [[fig:dp_opt]] muestra el datapath completo.</p>
+
+<table>
+  <tr><th>Módulo</th><th>Estado</th><th>Cambio</th></tr>
+  <tr><td><code>predictor</code></td><td>Nuevo</td><td>Tabla de 16 entradas: dos consultas en Fetch y una actualización en Execute</td></tr>
+  <tr><td><code>datapath_dual</code></td><td>Modificado</td><td>Predictor y muxes del PC en Fetch, burbuja en lugar de <code>InstrF1</code>, bit de predicción en F/D y D/E, <code>TakenE</code>, <code>MispredE</code> y <code>correctmux</code> en Execute, <code>resultmmux0/1</code> en Memory</td></tr>
+  <tr><td><code>hazardunit_dual</code></td><td>Modificado</td><td>Los flushes dependen de <code>MispredE</code></td></tr>
+  <tr><td><code>issueunit</code> y los demás</td><td>Sin cambios</td><td></td></tr>
+</table>
+<p class="pie">Tabla [[TAB:mod_opt]]. Módulos de la versión optimizada.</p>

@@ -1,0 +1,84 @@
+<h1>8. Pruebas de la optimización</h1>
+
+<p>Probamos la versión optimizada de tres formas.</p>
+<ul>
+  <li>Con los programas de las secciones 2 y 6 y <code>riscvtest</code>. Dan el mismo resultado y tardan lo mismo que en el Dual-Issue, porque en ellos cada salto se ejecuta una sola vez y nunca está en la tabla.</li>
+  <li>Con programas al azar (carpeta <code>pruebas_aleatorias</code>) que tienen bucles, saltos en las dos vías y dependencias con <code>lw</code>. Cada uno corre en A, B y C, y se comparan los registros, la memoria y las instrucciones retiradas. Así encontramos el caso del <code>jal</code> de la sección 7.6. Después de corregirlo, 10&nbsp;000 programas dieron lo mismo en las tres.</li>
+  <li>Con dos programas con bucles, para ver la predicción en las waveforms (Tabla [[tab:pruebas_opt]]).</li>
+</ul>
+
+<table>
+  <tr><th>Prueba</th><th>Qué revisa</th><th class="c">Resultado</th></tr>
+  <tr><td><code>ef_p1_bucle</code></td><td>Un bucle de 10 vueltas cerrado con un <code>beq</code>: cómo aprende el predictor, un acierto sin flush y el fallo de la última vuelta</td><td class="c">Mem[100] = 55</td></tr>
+  <tr><td><code>ef_p2_vias</code></td><td>Dos bucles cerrados con un <code>jal</code>, uno en la vía 0 y otro en la vía 1. La instrucción que sigue a cada <code>jal</code> suma 1 a x9 y no debe ejecutarse nunca</td><td class="c">Mem[100] = 18, x9 = 0</td></tr>
+</table>
+<p class="pie">Tabla [[TAB:pruebas_opt]]. Pruebas de la optimización (testbenches <code>tb_ef_p1</code> y <code>tb_ef_p2</code>).</p>
+
+<div class="apaisada">
+<figure><img src="figuras/datapath_opt.svg" style="height: 16.9cm; max-height: none" alt="Datapath optimizado"></figure>
+<p class="pie">Figura [[FIG:dp_opt]]. Datapath del Dual-Issue con predicción de saltos.</p>
+</div>
+
+<h2>8.1 Prueba 1: el predictor aprende un bucle</h2>
+
+<pre>  0  addi x1, x0, 0         # i = 0
+  4  addi x2, x0, 0         # suma = 0
+  8  addi x9, x0, 1         # constante 1
+ 12  bucle: addi x1, x1, 1  # i = i + 1
+ 16  add  x2, x2, x1        # suma = suma + i
+ 20  slti x3, x1, 10        # x3 = 1 mientras i &lt; 10
+ 24  beq  x3, x9, bucle     # vuelve mientras i &lt; 10
+ 28  sw   x2, 100(x0)       # Mem[100] = 55
+ 32  fin: beq x0, x0, fin</pre>
+<p class="pie">Código [[COD:ef_p1]]. Prueba 1 (<code>ef_p1_bucle.s</code>). El salto está en la dirección 24.</p>
+
+<p>La Figura [[fig:w_o1a]] muestra las dos primeras vueltas y la Figura [[fig:w_o1b]] la última.</p>
+
+<figure><img src="figuras/r_o1a.png" style="width: 100%" alt="waveform"></figure>
+<p class="pie">Figura [[FIG:w_o1a]]. Prueba 1, de 60 a 130 ns: la primera vuelta se predice mal y la segunda ya bien.</p>
+
+<ol>
+  <li>En la primera vuelta el <code>beq</code> no está en la tabla y se toma, así que hay flush como en el Dual-Issue. Ahí entra a la tabla.</li>
+  <li>En la segunda vuelta el <code>beq</code> se predice tomado en Fetch y el siguiente PC ya es el destino. Un ciclo antes estaba en la vía 1, pero con <code>Issue1</code> = 0 esa predicción no se usa.</li>
+  <li>Al lado del <code>beq</code> entra una burbuja en lugar del <code>sw</code>.</li>
+  <li>En Execute la predicción acierta (<code>MispredE</code> = 0) y no se pierde ningún ciclo.</li>
+</ol>
+
+<figure><img src="figuras/r_o1b.png" style="width: 100%" alt="waveform"></figure>
+<p class="pie">Figura [[FIG:w_o1b]]. Prueba 1, de 330 a 390 ns: la última vuelta.</p>
+
+<ol>
+  <li>En la última vuelta el <code>beq</code> también se predice tomado.</li>
+  <li>Pero ya no se toma, así que <code>MispredE</code> = 1 y el PC vuelve a la instrucción que sigue al salto. El contador baja de 11 a 10.</li>
+  <li>Fetch lee el <code>sw</code> y <code>fin</code>, y en Decode quedan las burbujas del flush.</li>
+</ol>
+
+<p>El <code>beq</code> falla solo en la primera y en la última vuelta. Por eso la prueba tarda 40 ciclos, contra 53 en el Dual-Issue.</p>
+
+<h2>8.2 Prueba 2: un salto predicho en la vía 1</h2>
+
+<pre> 20  L1: addi x1, x1, 1
+ 24  beq  x1, x2, sale1
+ 28  addi x5, x5, 2
+ 32  jal  x0, L1            # el jal queda en la via 0
+ 36  addi x9, x9, 1         # no debe ejecutarse
+ 40  sale1: addi x1, x0, 0
+ 44  L2: beq x1, x2, sale2
+ 48  addi x1, x1, 1
+ 52  addi x7, x7, 3
+ 56  jal  x0, L2            # el jal queda en la via 1
+ 60  addi x9, x9, 1         # no debe ejecutarse</pre>
+<p class="pie">Código [[COD:ef_p2]]. Los dos bucles de la prueba 2 (<code>ef_p2_vias.s</code>).</p>
+
+<p>En el segundo bucle el <code>jal</code> queda en <code>InstrF1</code>, es decir, en la vía 1 (Figura [[fig:w_o2]]).</p>
+
+<figure><img src="figuras/r_o2.png" style="width: 100%" alt="waveform"></figure>
+<p class="pie">Figura [[FIG:w_o2]]. Prueba 2, de 240 a 290 ns: el <code>jal</code> de la dirección 56 se predice desde la vía 1.</p>
+
+<ol>
+  <li>El <code>jal</code> se predice desde la vía 1 (<code>PredF1</code> = 1). Como salen las dos instrucciones, el siguiente PC es su destino.</li>
+  <li>El par <code>addi x7</code> | <code>jal</code> llega a Decode con la predicción guardada.</li>
+  <li>En Execute la predicción acierta y no hay flush. El <code>addi x7</code> de la vía 0 sigue normal.</li>
+</ol>
+
+<p>Al final x9 = 0, así que ninguna instrucción que sigue a un <code>jal</code> se ejecutó.</p>

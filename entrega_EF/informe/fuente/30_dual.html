@@ -1,0 +1,137 @@
+<h1>3. Arquitectura del procesador Dual-Issue</h1>
+
+<h2>3.1 Idea general</h2>
+
+<p>El Dual-Issue mantiene las cinco etapas del pipeline, pero por cada una pueden pasar dos instrucciones. Llamamos par a las dos instrucciones seguidas que están en Decode. La primera, que es la más antigua, va por la vía 0 y la segunda por la vía 1. Por eso en el código las señales terminan en 0 o en 1, como <code>InstrD0</code> e <code>InstrD1</code>.</p>
+
+<p>Cuando una instrucción pasa de Decode a Execute decimos que se emite. La emisión es en orden: en cada ciclo salen las dos, solo la primera o ninguna, según decida la Issue Unit (sección 4). Si sale solo la primera es una emisión parcial, y a la otra instrucción del par la llamamos su pareja.</p>
+
+<p>La Tabla [[tab:recursos]] resume qué recursos se duplican y cuáles se comparten, y la Figura [[fig:dp_dual]] muestra el datapath completo.</p>
+
+<table>
+  <tr><th>Recurso</th><th class="c">Cantidad</th><th>Comentario</th></tr>
+  <tr><td>Memoria de instrucciones</td><td class="c">1</td><td>Una dirección (<code>PCF</code>) y dos lecturas: <code>InstrF0</code> e <code>InstrF1</code></td></tr>
+  <tr><td>Control Unit y Extend</td><td class="c">2</td><td>Uno por vía, los mismos módulos del pipeline</td></tr>
+  <tr><td>Register File</td><td class="c">1</td><td>Cuatro lecturas y dos escrituras</td></tr>
+  <tr><td>ALU</td><td class="c">2</td><td>Una por vía</td></tr>
+  <tr><td>Muxes de forwarding</td><td class="c">4</td><td>Dos por vía (operandos A y B), de cinco entradas</td></tr>
+  <tr><td>Recurso de branches</td><td class="c">1</td><td>Compartido: un sumador de PCTarget y una lógica de PCSrc</td></tr>
+  <tr><td>Memoria de datos</td><td class="c">1 puerto</td><td>Compartido: un solo <code>lw</code> o <code>sw</code> por ciclo</td></tr>
+</table>
+<p class="pie">Tabla [[TAB:recursos]]. Recursos del procesador Dual-Issue.</p>
+
+<div class="apaisada">
+<figure><img src="figuras/datapath_dual.svg" style="height: 16.9cm; max-height: none" alt="Datapath Dual-Issue"></figure>
+<p class="pie">Figura [[FIG:dp_dual]]. Datapath completo del procesador Dual-Issue. En azul están las señales de control y las de las unidades Issue y Hazard. Una etiqueta con borde está conectada al cable que tiene ese nombre.</p>
+</div>
+
+<h2>3.2 Fetch y registro F/D</h2>
+
+<p>La memoria de instrucciones entrega la instrucción de <code>PCF</code> (<code>InstrF0</code>) y la siguiente (<code>InstrF1</code>). El PC ya no avanza siempre 4, sino según cuántas instrucciones salieron de Decode (Figura [[fig:casos_fd]]):</p>
+<ul>
+  <li>Si salen las dos, entra el par nuevo y el PC avanza 8.</li>
+  <li>Si sale solo la primera, la segunda pasa a la primera posición del registro F/D y a su lado entra <code>InstrF0</code>. El PC avanza 4. Así la instrucción pendiente se reagrupa con la que le sigue en el programa.</li>
+  <li>Si no sale ninguna, el PC y el registro F/D no cambian.</li>
+</ul>
+
+<figure><img src="figuras/casos_fd.svg" style="width: 13cm" alt="Casos del registro F/D"></figure>
+<p class="pie">Figura [[FIG:casos_fd]]. Qué hay en cada etapa en el ciclo siguiente, según cuántas instrucciones salieron de Decode. I1 a I6 son instrucciones seguidas, con I1 en la dirección 0.</p>
+
+<figure><img src="figuras/detalle_fetch.svg" style="width: 10.5cm" alt="Detalle de Fetch"></figure>
+<p class="pie">Figura [[FIG:det_fetch]]. Detalle de Fetch en la Figura [[fig:dp_dual]]: el mux del PC (<code>pcmux</code>) y los dos muxes del registro F/D (<code>fdmux0</code> y <code>fdmux1</code>).</p>
+
+<p>Para esto hay un mux delante de cada posición del registro F/D, controlados por <code>Issue1</code>, y el mux del PC tiene tres entradas (Figura [[fig:det_fetch]]). Con <code>{PCSrcE, Issue1}</code> = 00 elige <code>PCPlus4F</code>, con 01 <code>PCPlus8F</code> y con un salto tomado (1x) <code>PCTargetE</code>.</p>
+
+<pre>  mux3 #(32) pcmux(.d0(PCPlus4F), .d1(PCPlus8F), .d2(PCTargetE),
+                   .s({PCSrcE, Issue1}), .y(PCNextF));
+
+  mux2 #(96) fdmux0(.d0({InstrD1, PCD1, PCPlus4D1}), .d1({InstrF0, PCF, PCPlus4F}),
+                    .s(Issue1), .y(FD0));
+  mux2 #(96) fdmux1(.d0({InstrF0, PCF, PCPlus4F}), .d1({InstrF1, PCPlus4F, PCPlus8F}),
+                    .s(Issue1), .y(FD1));
+
+  flopenrc #(96) fdreg0(.clk(clk), .reset(reset), .clr(FlushD), .en(~StallD),
+                        .d(FD0), .q({InstrD0, PCD0, PCPlus4D0}));
+  flopenrc #(96) fdreg1(.clk(clk), .reset(reset), .clr(FlushD), .en(~StallD),
+                        .d(FD1), .q({InstrD1, PCD1, PCPlus4D1}));</pre>
+<p class="pie">Código [[COD:fetch]]. Siguiente PC y registro F/D en <code>datapath_dual.v</code>.</p>
+
+<p>Cada posición del registro F/D guarda lo mismo que el registro F/D del pipeline, así que de Decode en adelante cada vía funciona como el pipeline de la sección 2.</p>
+
+<h2>3.3 Decode</h2>
+
+<p>Cada vía tiene su propia Control Unit y su propio Extend, que son los módulos del pipeline instanciados dos veces. El Register File tiene cuatro lecturas y dos escrituras. Si las dos vías escriben el mismo registro en el mismo ciclo, queda el dato de la vía 1, que es la instrucción más joven.</p>
+
+<pre>  always @(negedge clk) begin
+    if (we3 &amp; ~(we6 &amp; (a6 == a3))) rf[a3] &lt;= wd3;
+    if (we6)                       rf[a6] &lt;= wd6;
+  end</pre>
+<p class="pie">Código [[COD:rf]]. Las dos escrituras del Register File en <code>regfile_dual.v</code>.</p>
+
+<p>La Figura [[fig:w_dfd]] muestra el Dual Fetch y el Dual Decode con el programa 1 de la sección 6.</p>
+
+<figure><img src="figuras/r_dfd.png" style="width: 100%" alt="waveform"></figure>
+<p class="pie">Figura [[FIG:w_dfd]]. Dual Fetch y Dual Decode, de 20 a 70 ns.</p>
+
+<ol>
+  <li>Con <code>PCF</code> = 0 la memoria entrega <code>addi x1</code> y <code>addi x2</code>.</li>
+  <li>Las dos están en Decode con <code>PCD0</code> = 0 y <code>PCD1</code> = 4. <code>Rs2D0</code> y <code>Rs2D1</code> valen 0 porque <code>addi</code> no lee rs2.</li>
+  <li>Las dos Control Unit decodifican <code>add x5</code> y <code>sub x6</code> en el mismo ciclo y dan dos <code>ALUControl</code> distintos.</li>
+  <li>Lo mismo pasa con <code>and x7</code> y <code>or x8</code>.</li>
+</ol>
+
+<p>También cambia cómo se sacan los registros fuente. En <code>addi</code> o <code>lw</code> los bits 24:20 son parte del inmediato y no rs2, y en <code>jal</code> los bits 19:15 no son rs1. Si se comparan igual aparecen dependencias falsas y salen menos pares. Por eso, si la instrucción no lee el registro, usamos x0, que nunca genera una dependencia.</p>
+
+<pre>  assign UsaRs2D0 = (opD0 == 7'b0110011) | (opD0 == 7'b0100011) | (opD0 == 7'b1100011);
+
+  assign Rs1D0 = (opD0 == 7'b1101111) ? 5'b0 : InstrD0[19:15];
+  assign Rs2D0 = UsaRs2D0 ? InstrD0[24:20] : 5'b0;</pre>
+<p class="pie">Código [[COD:rs]]. Registros fuente de la vía 0 en <code>datapath_dual.v</code>. La vía 1 es igual.</p>
+
+<h2>3.4 Execute</h2>
+
+<p>Cada vía tiene su ALU y sus muxes de forwarding (sección 5.1), así que dos operaciones ALU se ejecutan en el mismo ciclo. Para los saltos hay un solo recurso, un sumador de <code>PCTargetE</code> y una lógica de <code>PCSrcE</code>, porque la Issue Unit no deja salir dos saltos juntos. <code>BranchSelE</code> indica en qué vía está el salto, y con esa señal <code>branchmux</code> le pasa al recurso los datos de esa vía (Figura [[fig:det_comp]]).</p>
+
+<pre>  assign BranchSelE = BranchE1 | JumpE1;
+
+  mux2 #(67) branchmux(.d0({BranchE0, JumpE0, ZeroE0, PCE0, ImmExtE0}),
+                       .d1({BranchE1, JumpE1, ZeroE1, PCE1, ImmExtE1}),
+                       .s(BranchSelE),
+                       .y({BranchE, JumpE, ZeroE, BranchPCE, BranchImmE}));
+
+  adder pcaddbranch(.a(BranchPCE), .b(BranchImmE), .y(PCTargetE));
+
+  assign PCSrcE = (BranchE &amp; ZeroE) | JumpE;</pre>
+<p class="pie">Código [[COD:branch]]. Recurso único de resolución de branches en <code>datapath_dual.v</code>.</p>
+
+<h2>3.5 Memory y Writeback</h2>
+
+<p>La memoria de datos tiene un solo puerto, y la Issue Unit tampoco deja salir dos accesos a memoria juntos. <code>MemSelM</code> indica si el acceso está en la vía 1, y con esa señal <code>memmux</code> elige la dirección y el dato. En Writeback cada vía escribe su resultado por su propio puerto del Register File.</p>
+
+<pre>  assign MemSelM   = MemWriteM1 | ResultSrcM1[0];
+  assign MemWriteM = MemWriteM0 | MemWriteM1;
+
+  mux2 #(64) memmux(.d0({ALUResultM0, WriteDataM0}), .d1({ALUResultM1, WriteDataM1}),
+                    .s(MemSelM), .y({DataAdrM, WriteDataM}));</pre>
+<p class="pie">Código [[COD:mem]]. Asignación del puerto único de memoria de datos en <code>datapath_dual.v</code>.</p>
+
+<figure><img src="figuras/detalle_compartidos.svg" style="width: 100%" alt="Recursos compartidos"></figure>
+<p class="pie">Figura [[FIG:det_comp]]. Recursos compartidos en la Figura [[fig:dp_dual]]: el recurso de branches (<code>branchmux</code>) y el puerto de memoria de datos (<code>memmux</code>).</p>
+
+<h2>3.6 Módulos</h2>
+
+<p>La Tabla [[tab:modulos_dual]] resume qué módulos cambiaron respecto al pipeline.</p>
+
+<table>
+  <tr><th>Módulo</th><th>Estado</th><th>Función</th></tr>
+  <tr><td><code>top_dual</code></td><td>Modificado</td><td>Une el procesador con la memoria de instrucciones y la de datos</td></tr>
+  <tr><td><code>riscvdual</code></td><td>Modificado</td><td>Las dos Control Unit y el datapath</td></tr>
+  <tr><td><code>datapath_dual</code></td><td>Modificado</td><td>Datapath de dos vías con los recursos compartidos</td></tr>
+  <tr><td><code>imem_dual</code></td><td>Modificado</td><td>Memoria de instrucciones con dos lecturas</td></tr>
+  <tr><td><code>regfile_dual</code></td><td>Modificado</td><td>Register File de cuatro lecturas y dos escrituras</td></tr>
+  <tr><td><code>issueunit</code></td><td>Nuevo</td><td>Decide si salen dos instrucciones, una o ninguna</td></tr>
+  <tr><td><code>hazardunit_dual</code></td><td>Modificado</td><td>Forwarding entre vías, stalls y flushes</td></tr>
+  <tr><td><code>mux5</code></td><td>Nuevo</td><td>Mux de forwarding de cinco entradas</td></tr>
+  <tr><td>Los demás</td><td>Sin cambios</td><td><code>controller</code>, <code>maindec</code>, <code>aludec</code> (una Control Unit por vía), <code>alu</code>, <code>extend</code>, <code>adder</code>, <code>mux2</code>, <code>mux3</code>, <code>flopr</code>, <code>flopenrc</code>, <code>dmem</code></td></tr>
+</table>
+<p class="pie">Tabla [[TAB:modulos_dual]]. Módulos del procesador Dual-Issue.</p>

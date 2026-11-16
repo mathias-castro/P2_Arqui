@@ -11,3 +11,10 @@
 *.ip_user_files/
 *.runs/
 *.sim/
+
+# Archivos generados por los scripts de la entrega final
+__pycache__/
+*.pyc
+entrega_EF/pruebas_aleatorias/build/
+entrega_EF/pruebas_aleatorias/work/
+entrega_EF/pruebas_aleatorias/logs/

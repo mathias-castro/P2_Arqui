@@ -1,0 +1,149 @@
+{
+  "sources": [
+    "/home/juanpedrovv/Desktop/Proyecto Arch/P2_Arqui/Superscalar_Dual_Issue/src/*.v",
+    "/home/juanpedrovv/Desktop/Proyecto Arch/P2_Arqui/Superscalar_Dual_Issue/sim/tb_e2_programa3.v"
+  ],
+  "memdir": "/home/juanpedrovv/Desktop/Proyecto Arch/P2_Arqui/Superscalar_Dual_Issue/sim",
+  "top": "tb_e2_programa3",
+  "run": "400ns",
+  "t0_ns": 0,
+  "t1_ns": 140,
+  "width": 1700,
+  "signals": [
+    {
+      "path": "/tb_e2_programa3/clk"
+    },
+    {
+      "path": "/tb_e2_programa3/reset"
+    },
+    {
+      "divider": "Fetch / Decode"
+    },
+    {
+      "path": "/tb_e2_programa3/dut/rvdual/dp/PCF",
+      "radix": "hex"
+    },
+    {
+      "path": "/tb_e2_programa3/dut/rvdual/dp/FetchAddrF",
+      "radix": "unsigned"
+    },
+    {
+      "path": "/tb_e2_programa3/dut/rvdual/dp/PCD",
+      "radix": "unsigned"
+    },
+    {
+      "path": "/tb_e2_programa3/dut/rvdual/dp/InstrF0",
+      "radix": "hex"
+    },
+    {
+      "path": "/tb_e2_programa3/dut/rvdual/dp/InstrF1",
+      "radix": "hex"
+    },
+    {
+      "path": "/tb_e2_programa3/dut/rvdual/dp/InstrD0",
+      "radix": "hex"
+    },
+    {
+      "path": "/tb_e2_programa3/dut/rvdual/dp/InstrD1",
+      "radix": "hex"
+    },
+    {
+      "path": "/tb_e2_programa3/dut/rvdual/dp/InstrE0",
+      "radix": "hex"
+    },
+    {
+      "path": "/tb_e2_programa3/dut/rvdual/dp/InstrE1",
+      "radix": "hex"
+    },
+    {
+      "divider": "Issue Unit"
+    },
+    {
+      "path": "/tb_e2_programa3/dut/rvdual/dp/iu/RAWpar",
+      "radix": "bin"
+    },
+    {
+      "path": "/tb_e2_programa3/dut/rvdual/dp/iu/MemConflict",
+      "radix": "bin"
+    },
+    {
+      "path": "/tb_e2_programa3/dut/rvdual/dp/iu/Issue0",
+      "radix": "bin"
+    },
+    {
+      "path": "/tb_e2_programa3/dut/rvdual/dp/iu/Issue1",
+      "radix": "bin"
+    },
+    {
+      "divider": "Hazard Unit"
+    },
+    {
+      "path": "/tb_e2_programa3/dut/rvdual/dp/hu/StallF",
+      "radix": "bin"
+    },
+    {
+      "path": "/tb_e2_programa3/dut/rvdual/dp/hu/StallD",
+      "radix": "bin"
+    },
+    {
+      "path": "/tb_e2_programa3/dut/rvdual/dp/hu/ForwardAE0",
+      "radix": "bin"
+    },
+    {
+      "path": "/tb_e2_programa3/dut/rvdual/dp/hu/ForwardBE0",
+      "radix": "bin"
+    },
+    {
+      "divider": "Writeback"
+    },
+    {
+      "path": "/tb_e2_programa3/dut/rvdual/dp/RegWriteW0",
+      "radix": "bin"
+    },
+    {
+      "path": "/tb_e2_programa3/dut/rvdual/dp/RdW0",
+      "radix": "unsigned"
+    },
+    {
+      "path": "/tb_e2_programa3/dut/rvdual/dp/ResultW0",
+      "radix": "dec"
+    },
+    {
+      "path": "/tb_e2_programa3/dut/rvdual/dp/RdW1",
+      "radix": "unsigned"
+    },
+    {
+      "path": "/tb_e2_programa3/dut/rvdual/dp/ResultW1",
+      "radix": "dec"
+    }
+  ],
+  "markers": [
+    {
+      "t_ns": 65,
+      "label": "1"
+    },
+    {
+      "t_ns": 85,
+      "label": "2"
+    },
+    {
+      "t_ns": 110,
+      "label": "3"
+    }
+  ],
+  "boxes": [
+    {
+      "signal": "InstrD1",
+      "t0_ns": 30,
+      "t1_ns": 40,
+      "label": "A"
+    },
+    {
+      "signal": "ResultW0",
+      "t0_ns": 70,
+      "t1_ns": 90,
+      "label": "B"
+    }
+  ],
+  "out": "salida/ejemplo.png"
+}

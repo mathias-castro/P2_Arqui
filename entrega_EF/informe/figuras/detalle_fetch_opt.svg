@@ -1,0 +1,1124 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 420 1215 1140" width="1215" height="1140" font-family="Arial, 'Liberation Sans', Helvetica, sans-serif">
+<rect x="0" y="0" width="3625" height="2175" fill="#ffffff"/>
+<g id="tint">
+<g transform="translate(0,0)">
+<rect x="40" y="70" width="680" height="264" rx="6" fill="none" stroke="#9a9a9a" stroke-width="1"/>
+</g>
+<g transform="translate(260,0)">
+</g>
+<g transform="translate(410,0)">
+</g>
+</g>
+<g id="wire">
+<g transform="translate(0,0)">
+<polyline points="54,156 132,156" fill="none" stroke="#000000" stroke-width="7.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="85.92,1079.92 85.92,1103" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="96,1040 200,1040" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="225.92,1025.08 225.92,987" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="206,983 206,950 128,950" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="187.5,900 230,900 230,983" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="140,887 128,887" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="140,913 128,913" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="200,1070 155,1070 155,1125" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="200,1100 185,1100 185,1125" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="236,1070 330,1070" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="355.92,1055.08 355.92,1030" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="330,1120 312,1120 312,1140" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="366,1095 450,1095" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="465,1146 465,1166" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="480,1095 550,1095" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="505,1095 505,877 580,877" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="505,1095 505,1313 580,1313" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="505,877 505,660 560,660" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="505,980 830,980" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="560,933 580,933" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="560,1257 580,1257" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="640,905 900,905 900,1300 930,1300" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="660,905 660,825 40,825 40,1015 60,1015" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="750,905 750,950 830,950" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="530,825 530,700 560,700" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="640,1285 850,1285 850,1344 930,1344" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="660,1285 660,1395 20,1395 20,1065 60,1065" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="710,1040 830,1040" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="710,1150 785,1150" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="770,1190 785,1190" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="806.6,1138.06 806.6,1124" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="815,1170 875,1170 875,1322 930,1322" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="800,1400 788,1400" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="785,1440 800,1440" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="821.6,1447.94 821.6,1466" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="830,1420 915,1420 915,1366 930,1366" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="830,1005 815,1005" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="836,995 960,995" fill="none" stroke="#000000" stroke-width="7.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1010,850 960,850 960,1280 1010,1280" fill="none" stroke="#000000" stroke-width="7.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="936,1340 1010,1340" fill="none" stroke="#000000" stroke-width="7.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1035.92,835.08 1035.92,812" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1035.92,1354.92 1035.92,1378" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1046,880 1100,880" fill="none" stroke="#000000" stroke-width="7.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1046,1310 1100,1310" fill="none" stroke="#000000" stroke-width="7.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1153,1310 1153,1040 985,1040 985,910 1010,910" fill="none" stroke="#000000" stroke-width="7.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="820,660 832,660" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="820,690 832,690" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="820,730 832,730" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="820,760 832,760" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="670,540 670,528" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="710,540 710,528" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="750,540 750,528" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="547.14,483 528,483" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="547.14,509 528,509" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="594.6,496 630,496 630,540" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+</g>
+<g transform="translate(260,0)">
+<polyline points="848,946 848,960 836,960" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="862,935 862,990 874,990" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1515,935 1515,950" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="848,1966 848,2100" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="862,1955 862,2100" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1515,1955 1515,2100" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="870,880 915,880" fill="none" stroke="#000000" stroke-width="7.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="921,845 950,845 950,370" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="921,892 1500,892" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="921,920 1500,920" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="921,906 1222,906 1222,418 1500,418" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="950,370 1030,370" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="950,395 1030,395" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="950,420 1030,420" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1130,250 1500,250" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1130,274 1500,274" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1130,298 1500,298" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1130,322 1500,322" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1130,346 1500,346" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1130,370 1500,370" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1130,394 1500,394" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1130,418 1155,418 1155,801.61" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="950,455 1500,455" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="950,480 1010,480" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="950,505 1010,505" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="950,530 1010,530" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1090,480 1500,480" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1090,505 1500,505" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1205,480 1205,975 1230,975" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1190,505 1190,1000 1230,1000" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="950,835 1030,835" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1170,835 1480,835 1480,865 1500,865" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1410,975 1420,975 1420,545 1500,545" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1410,1000 1442,1000 1442,705 1500,705" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1530,250 2400,250" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1530,274 2400,274" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1530,298 2400,298" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1530,322 2070,322 2070,581.7" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1530,346 1950,346 1950,740" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1530,418 1540,418 1540,1078 1720,1078" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1530,394 1554,394 1554,1056 1720,1056" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1530,370 1568,370 1568,1034 1720,1034" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1530,892 1582,892 1582,1012 1720,1012" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1596,865 1596,990 1720,990" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1610,920 1610,968 1720,968" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1530,455 2400,455" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1530,480 1612,480" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1530,505 1612,505" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1530,545 1720,545" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1720,570 1708,570" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1720,595 1708,595" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1720,620 1708,620" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1720,645 1708,645" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1747.36,526.32 1747.36,516 1752,516" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1530,705 1820,705" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1820,730 1808,730" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1820,755 1808,755" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1820,780 1808,780" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1820,805 1808,805" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1847.36,696.32 1847.36,678 1826,678" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1858,755 1935,755" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1885,755 1885,840 2400,840" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1596,865 1918,865 1918,795 1935,795" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1530,920 2400,920" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1758,595 2040,595" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1965,775 2040,775" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="2100,684.5 2400,684.5" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="2100,746.18 2120,746.18 2120,936 1710,936 1710,946 1720,946" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="870,1310 915,1310" fill="none" stroke="#000000" stroke-width="7.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="921,1345 950,1345 950,1820" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="921,1298 1500,1298" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="921,1270 1500,1270" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="921,1284 1222,1284 1222,1772 1500,1772" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="950,1820 1030,1820" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="950,1795 1030,1795" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="950,1770 1030,1770" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1130,1940 1500,1940" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1130,1916 1500,1916" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1130,1892 1500,1892" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1130,1868 1500,1868" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1130,1844 1500,1844" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1130,1820 1500,1820" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1130,1796 1500,1796" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1130,1772 1155,1772 1155,1388.39" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="950,1735 1500,1735" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="950,1710 1010,1710" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="950,1685 1010,1685" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="950,1660 1010,1660" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1090,1710 1500,1710" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1090,1685 1500,1685" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1205,1710 1205,1215 1230,1215" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1190,1685 1190,1190 1230,1190" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="950,1355 1030,1355" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1170,1355 1480,1355 1480,1325 1500,1325" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1410,1215 1420,1215 1420,1645 1500,1645" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1410,1190 1442,1190 1442,1485 1500,1485" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1530,1940 2400,1940" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1530,1916 2400,1916" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1530,1892 2400,1892" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1530,1868 2070,1868 2070,1608.3" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1530,1844 1950,1844 1950,1450" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1530,1772 1540,1772 1540,1112 1720,1112" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1530,1796 1554,1796 1554,1134 1720,1134" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1530,1820 1568,1820 1568,1156 1720,1156" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1530,1298 1582,1298 1582,1178 1720,1178" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1596,1325 1596,1200 1720,1200" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1610,1270 1610,1222 1720,1222" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1530,1735 2400,1735" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1530,1710 1612,1710" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1530,1685 1612,1685" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1530,1645 1720,1645" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1720,1620 1708,1620" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1720,1595 1708,1595" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1720,1570 1708,1570" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1720,1545 1708,1545" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1747.36,1663.68 1747.36,1674 1752,1674" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1530,1485 1820,1485" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1820,1460 1808,1460" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1820,1435 1808,1435" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1820,1410 1808,1410" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1820,1385 1808,1385" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1847.36,1493.68 1847.36,1512 1826,1512" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1858,1435 1935,1435" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1885,1435 1885,1350 2400,1350" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1596,1325 1918,1325 1918,1395 1935,1395" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1530,1270 2400,1270" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1758,1595 2040,1595" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1965,1415 2040,1415" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="2100,1505.5 2400,1505.5" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="2100,1443.82 2120,1443.82 2120,1254 1710,1254 1710,1244 1720,1244" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1230,1025 1216,1025" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1230,1050 1216,1050" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1230,1075 1216,1075" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1230,1115 1216,1115" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1230,1140 1216,1140" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1230,1165 1216,1165" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="905,90 905,100" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="934.5,90 934.5,100" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="964,90 964,100" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="993.5,90 993.5,100" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1023,90 1023,100" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1052.5,90 1052.5,100" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1082,90 1082,100" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1111.5,90 1111.5,100" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1141,90 1141,100" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1170.5,90 1170.5,100" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1200,90 1200,100" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1229.5,90 1229.5,100" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1259,90 1259,100" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1288.5,90 1288.5,100" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1318,90 1318,100" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1347.5,90 1347.5,100" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1377,90 1377,100" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1406.5,90 1406.5,100" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1456,90 1456,100" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1485.5,90 1485.5,100" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1726,1056 1780,1056" fill="none" stroke="#000000" stroke-width="7.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1726,1134 1780,1134" fill="none" stroke="#000000" stroke-width="7.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1805.92,1153.92 1805.92,1222 1812,1222" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1816,1095 1850,1095" fill="none" stroke="#000000" stroke-width="7.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1856,1002 1955,1002" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1856,1024 1955,1024" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1998.7,1013 2021.97,1013" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1856,1046 2021.97,1046" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1936,1024 1936,1068 1958.5,1068" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1921,1046 1921,1090 1957.87,1090" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="2074.85,1029.5 2162.54,1029.5" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="2095,1029.5 2095,1058 2101,1058" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1856,980 2162.33,980" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="2240.7,1005 2252,1005 2252,1029 2268,1029" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1998.2,1078 2258,1078 2258,1053 2268,1053" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="2313.6,1041 2327.6,1041 2327.6,1059" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1856,1148 1985,1148" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1972,1148 1972,1166 1962,1166" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1856,1200 1985,1200" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1856,1124 2140,1124" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="2045,1174 2140,1174" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="2062,1174 2062,1226 2068,1226" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="2165.92,1188.92 2165.92,1222 2171.92,1222" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="2176,1149 2190,1149" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1554,1796 1625,1796" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1568,1820 1625,1820" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1675.4,1808 1687.4,1808" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="205,2100 205,2090" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="965,2100 965,2090" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="995,2100 995,2090" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1440,2100 1440,2090" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1640,2100 1640,2090" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1670,2100 1670,2090" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1700,2100 1700,2090" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1730,2100 1730,2090" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1790,2100 1790,2090" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1820,2100 1820,2090" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1850,2100 1850,2090" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1880,2100 1880,2090" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1940,2100 1940,2090" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="1970,2100 1970,2090" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="2710,2100 2710,2090" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="2740,2100 2740,2090" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="2770,2100 2770,2090" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="2800,2100 2800,2090" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="3150,2100 3150,2090" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="3180,2100 3180,2090" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="3210,2100 3210,2090" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="3240,2100 3240,2090" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+</g>
+<g transform="translate(410,0)">
+<polyline points="2265,1955 2265,2100" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="2280,250 2900,250" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="2280,274 2900,274" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="2280,455 2900,455" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="2280,684 2900,684" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="2280,840 2300,840 2300,1025 2420,1025" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="2315,684 2315,985 2420,985" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="2280,920 2900,920" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="2426,1040 2470,1040" fill="none" stroke="#000000" stroke-width="7.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="2640,684 2640,720 2690,720" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="2660,920 2660,770 2690,770" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="2711.6,274 2711.6,709.07" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="2720,745 2732,745" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="2930,250 2942,250" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="2930,455 2942,455" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="2930,274 3087.92,274 3087.92,700.08" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="2930,684 3022,684 3022,710 3062,710" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="2930,800 3040,800 3040,740 3062,740" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="2930,920 3051,920 3051,770 3062,770" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="3098,740 3112,740" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="2280,1940 2900,1940" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="2280,1916 2900,1916" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="2280,1735 2900,1735" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="2280,1506 2900,1506" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="2280,1350 2300,1350 2300,1165 2420,1165" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="2315,1506 2315,1205 2420,1205" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="2280,1270 2900,1270" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="2426,1150 2470,1150" fill="none" stroke="#000000" stroke-width="7.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="2640,1506 2640,1470 2690,1470" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="2660,1270 2660,1420 2690,1420" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="2711.6,1916 2711.6,1480.93" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="2720,1445 2732,1445" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="2930,1940 2942,1940" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="2930,1735 2942,1735" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="2930,1916 3087.92,1916 3087.92,1489.92" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="2930,1506 3022,1506 3022,1480 3062,1480" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="2930,1390 3040,1390 3040,1450 3062,1450" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="2930,1270 3051,1270 3051,1420 3062,1420" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="3098,1450 3112,1450" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="2280,298 2525,298 2525,960 2560.87,960" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="2560.87,984 2543,984" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="2601.2,972 2748,972 2748,1020" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="2506,1095 2535,1095" fill="none" stroke="#000000" stroke-width="7.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="2541,1075 2640,1075" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="2541,1115 2640,1115" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="2280,1892 2385,1892 2385,1810 2426.67,1810" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="2402,1916 2402,1834 2426.67,1834" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="2470.4,1822 2495.92,1822 2495.92,1169.92" fill="none" stroke="#1f8fd0" stroke-width="1.7" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="2780,1075 2884,1075" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="2884,1075 2884,800 2900,800" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polyline points="2884,1075 2884,1390 2900,1390" fill="none" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter" stroke-linecap="butt"/>
+</g>
+</g>
+<g id="block">
+<g transform="translate(0,0)">
+<rect x="54" y="110.5" width="72.46" height="23" rx="5" fill="#fff" stroke="#000000" stroke-width="1.3"/>
+<text x="90.23" y="128.12" font-size="17" text-anchor="middle" fill="#000000">Nombre</text>
+<rect x="90" y="174" width="6" height="36" rx="0" fill="#000000" stroke="#000000" stroke-width="1"/>
+<polygon points="60,990 96,1004 96,1076 60,1090" fill="#fff" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter"/>
+<text x="64" y="1020.76" font-size="16" text-anchor="start" fill="#000000">0</text>
+<text x="64" y="1070.76" font-size="16" text-anchor="start" fill="#000000">1</text>
+<rect x="74.42" y="1103" width="23" height="62.08" rx="5" fill="#fff" stroke="#1f8fd0" stroke-width="1.3"/>
+<text x="92.04" y="1134.04" font-size="17" text-anchor="middle" fill="#1f8fd0" transform="rotate(-90 92.04 1134.04)">Issue1</text>
+<polygon points="200,1015 236,1029 236,1111 200,1125" fill="#fff" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter"/>
+<text x="204" y="1045.76" font-size="16" text-anchor="start" fill="#000000">00</text>
+<text x="204" y="1075.76" font-size="16" text-anchor="start" fill="#000000">01</text>
+<text x="204" y="1105.76" font-size="16" text-anchor="start" fill="#000000">1x</text>
+<rect x="200" y="983" width="36" height="5" rx="0" fill="#1f8fd0" stroke="#1f8fd0" stroke-width="0.5"/>
+<rect x="60.26" y="938.5" width="67.74" height="23" rx="5" fill="#fff" stroke="#1f8fd0" stroke-width="1.3"/>
+<text x="94.13" y="956.12" font-size="17" text-anchor="middle" fill="#1f8fd0">PredF0</text>
+<path d="M 140 875 L 162.5 875 A 25 25 0 0 1 162.5 925 L 140 925 Z" fill="#fff" stroke="#1f8fd0" stroke-width="2"/>
+<rect x="65.92" y="875.5" width="62.08" height="23" rx="5" fill="#fff" stroke="#1f8fd0" stroke-width="1.3"/>
+<text x="96.96" y="893.12" font-size="17" text-anchor="middle" fill="#1f8fd0">Issue1</text>
+<rect x="60.26" y="901.5" width="67.74" height="23" rx="5" fill="#fff" stroke="#1f8fd0" stroke-width="1.3"/>
+<text x="94.13" y="919.12" font-size="17" text-anchor="middle" fill="#1f8fd0">PredF1</text>
+<rect x="143.5" y="1125" width="23" height="114.99" rx="5" fill="#fff" stroke="#000000" stroke-width="1.3"/>
+<text x="161.12" y="1182.49" font-size="17" text-anchor="middle" fill="#000000" transform="rotate(-90 161.12 1182.49)">PredTargetF1</text>
+<rect x="173.5" y="1125" width="23" height="114.99" rx="5" fill="#fff" stroke="#000000" stroke-width="1.3"/>
+<text x="191.12" y="1182.49" font-size="17" text-anchor="middle" fill="#000000" transform="rotate(-90 191.12 1182.49)">PredTargetF0</text>
+<polygon points="330,1045 366,1059 366,1131 330,1145" fill="#fff" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter"/>
+<text x="334" y="1075.76" font-size="16" text-anchor="start" fill="#000000">0</text>
+<text x="334" y="1125.76" font-size="16" text-anchor="start" fill="#000000">1</text>
+<rect x="344.42" y="946.2" width="23" height="83.8" rx="5" fill="#fff" stroke="#1f8fd0" stroke-width="1.3"/>
+<text x="362.04" y="988.1" font-size="17" text-anchor="middle" fill="#1f8fd0" transform="rotate(-90 362.04 988.1)">MispredE</text>
+<rect x="300.5" y="1140" width="23" height="102.68" rx="5" fill="#fff" stroke="#000000" stroke-width="1.3"/>
+<text x="318.12" y="1191.34" font-size="17" text-anchor="middle" fill="#000000" transform="rotate(-90 318.12 1191.34)">PCCorrectE</text>
+<rect x="450" y="1055" width="30" height="80" rx="0" fill="#fff" stroke="#000000" stroke-width="3.0"/>
+<polygon points="455,1055 475,1055 465,1067" fill="#fff" stroke="#000000" stroke-width="2" stroke-linejoin="miter"/>
+<line x1="465" y1="1039" x2="465" y2="1055" stroke="#000000" stroke-width="2"/>
+<text x="470" y="1131" font-size="12.5" text-anchor="start" fill="#000000" transform="rotate(-90 470 1131)">EN</text>
+<circle cx="465" cy="1140.5" r="5.5" fill="#fff" stroke="#000000" stroke-width="2"/>
+<rect x="453.5" y="1166" width="23" height="55.45" rx="5" fill="#fff" stroke="#1f8fd0" stroke-width="1.3"/>
+<text x="471.12" y="1193.73" font-size="17" text-anchor="middle" fill="#1f8fd0" transform="rotate(-90 471.12 1193.73)">StallF</text>
+<rect x="550" y="1010" width="160" height="170" rx="0" fill="#fff" stroke="#000000" stroke-width="3.0"/>
+<text x="558" y="1101" font-size="16" text-anchor="start" fill="#000000">A</text>
+<text x="704" y="1046" font-size="16" text-anchor="end" fill="#000000">RD0</text>
+<text x="704" y="1156" font-size="16" text-anchor="end" fill="#000000">RD1</text>
+<text x="630" y="1092" font-size="18" text-anchor="middle" fill="#000000" font-weight="bold">Instruction</text>
+<text x="630" y="1114" font-size="18" text-anchor="middle" fill="#000000" font-weight="bold">Memory</text>
+<polygon points="580,865 640,881 640,929 580,945 580,911.4 596.8,905 580,898.6" fill="#fff" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter"/>
+<text x="617.2" y="912" font-size="22" text-anchor="middle" fill="#000000">+</text>
+<polygon points="580,1245 640,1261 640,1309 580,1325 580,1291.4 596.8,1285 580,1278.6" fill="#fff" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter"/>
+<text x="617.2" y="1292" font-size="22" text-anchor="middle" fill="#000000">+</text>
+<polygon points="785,1130 815,1141.2 815,1198.8 785,1210" fill="#fff" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter"/>
+<text x="789" y="1155.76" font-size="16" text-anchor="start" fill="#000000">0</text>
+<text x="789" y="1195.76" font-size="16" text-anchor="start" fill="#000000">1</text>
+<rect x="795.1" y="1056.26" width="23" height="67.74" rx="5" fill="#fff" stroke="#1f8fd0" stroke-width="1.3"/>
+<text x="812.72" y="1090.13" font-size="17" text-anchor="middle" fill="#1f8fd0" transform="rotate(-90 812.72 1090.13)">PredF0</text>
+<polygon points="800,1385 830,1394.8 830,1445.2 800,1455" fill="#fff" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter"/>
+<text x="804" y="1405.76" font-size="16" text-anchor="start" fill="#000000">0</text>
+<text x="804" y="1445.76" font-size="16" text-anchor="start" fill="#000000">1</text>
+<rect x="720.26" y="1388.5" width="67.74" height="23" rx="5" fill="#fff" stroke="#1f8fd0" stroke-width="1.3"/>
+<text x="754.13" y="1406.12" font-size="17" text-anchor="middle" fill="#1f8fd0">PredF1</text>
+<rect x="810.1" y="1466" width="23" height="67.74" rx="5" fill="#fff" stroke="#1f8fd0" stroke-width="1.3"/>
+<text x="827.72" y="1499.87" font-size="17" text-anchor="middle" fill="#1f8fd0" transform="rotate(-90 827.72 1499.87)">PredF0</text>
+<rect x="747.26" y="993.5" width="67.74" height="23" rx="5" fill="#fff" stroke="#1f8fd0" stroke-width="1.3"/>
+<text x="781.13" y="1011.12" font-size="17" text-anchor="middle" fill="#1f8fd0">PredF0</text>
+<rect x="830" y="940" width="6" height="110" rx="0" fill="#000000" stroke="#000000" stroke-width="1"/>
+<rect x="930" y="1290" width="6" height="86" rx="0" fill="#000000" stroke="#000000" stroke-width="1"/>
+<polygon points="1010,825 1046,839 1046,921 1010,935" fill="#fff" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter"/>
+<text x="1014" y="855.76" font-size="16" text-anchor="start" fill="#000000">1</text>
+<text x="1014" y="915.76" font-size="16" text-anchor="start" fill="#000000">0</text>
+<rect x="1024.42" y="749.92" width="23" height="62.08" rx="5" fill="#fff" stroke="#1f8fd0" stroke-width="1.3"/>
+<text x="1042.04" y="780.96" font-size="17" text-anchor="middle" fill="#1f8fd0" transform="rotate(-90 1042.04 780.96)">Issue1</text>
+<polygon points="1010,1255 1046,1269 1046,1351 1010,1365" fill="#fff" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter"/>
+<text x="1014" y="1285.76" font-size="16" text-anchor="start" fill="#000000">0</text>
+<text x="1014" y="1345.76" font-size="16" text-anchor="start" fill="#000000">1</text>
+<rect x="1024.42" y="1378" width="23" height="62.08" rx="5" fill="#fff" stroke="#1f8fd0" stroke-width="1.3"/>
+<text x="1042.04" y="1409.04" font-size="17" text-anchor="middle" fill="#1f8fd0" transform="rotate(-90 1042.04 1409.04)">Issue1</text>
+<rect x="560" y="540" width="260" height="250" rx="0" fill="#fff" stroke="#000000" stroke-width="3.0"/>
+<text x="660" y="738" font-size="18" text-anchor="middle" fill="#000000" font-weight="bold">Predictor</text>
+<text x="660" y="760" font-size="18" text-anchor="middle" fill="#000000" font-weight="bold">(BTB)</text>
+<text x="660" y="781" font-size="14" text-anchor="middle" fill="#6b6b6b" font-style="italic">bp</text>
+<text x="566" y="666" font-size="16" text-anchor="start" fill="#000000">PCF0</text>
+<text x="566" y="706" font-size="16" text-anchor="start" fill="#000000">PCF1</text>
+<text x="814" y="666" font-size="16" text-anchor="end" fill="#000000">PredF0</text>
+<rect x="832" y="648.5" width="67.74" height="23" rx="5" fill="#fff" stroke="#1f8fd0" stroke-width="1.3"/>
+<text x="865.87" y="666.12" font-size="17" text-anchor="middle" fill="#1f8fd0">PredF0</text>
+<text x="814" y="696" font-size="16" text-anchor="end" fill="#000000">PredF1</text>
+<rect x="832" y="678.5" width="67.74" height="23" rx="5" fill="#fff" stroke="#1f8fd0" stroke-width="1.3"/>
+<text x="865.87" y="696.12" font-size="17" text-anchor="middle" fill="#1f8fd0">PredF1</text>
+<text x="814" y="736" font-size="16" text-anchor="end" fill="#000000">PredTargetF0</text>
+<rect x="832" y="718.5" width="114.99" height="23" rx="5" fill="#fff" stroke="#000000" stroke-width="1.3"/>
+<text x="889.49" y="736.12" font-size="17" text-anchor="middle" fill="#000000">PredTargetF0</text>
+<text x="814" y="766" font-size="16" text-anchor="end" fill="#000000">PredTargetF1</text>
+<rect x="832" y="748.5" width="114.99" height="23" rx="5" fill="#fff" stroke="#000000" stroke-width="1.3"/>
+<text x="889.49" y="766.12" font-size="17" text-anchor="middle" fill="#000000">PredTargetF1</text>
+<text x="635" y="546" font-size="16" text-anchor="end" fill="#000000" transform="rotate(-90 635 546)">UpdateE</text>
+<text x="675" y="546" font-size="16" text-anchor="end" fill="#000000" transform="rotate(-90 675 546)">BranchPCE</text>
+<text x="715" y="546" font-size="16" text-anchor="end" fill="#000000" transform="rotate(-90 715 546)">PCTargetE</text>
+<text x="755" y="546" font-size="16" text-anchor="end" fill="#000000" transform="rotate(-90 755 546)">TakenE</text>
+<rect x="658.5" y="427.18" width="23" height="100.82" rx="5" fill="#fff" stroke="#000000" stroke-width="1.3"/>
+<text x="676.12" y="477.59" font-size="17" text-anchor="middle" fill="#000000" transform="rotate(-90 676.12 477.59)">BranchPCE</text>
+<rect x="698.5" y="433.8" width="23" height="94.2" rx="5" fill="#fff" stroke="#000000" stroke-width="1.3"/>
+<text x="716.12" y="480.9" font-size="17" text-anchor="middle" fill="#000000" transform="rotate(-90 716.12 480.9)">PCTargetE</text>
+<rect x="738.5" y="459.3" width="23" height="68.7" rx="5" fill="#fff" stroke="#1f8fd0" stroke-width="1.3"/>
+<text x="756.12" y="493.65" font-size="17" text-anchor="middle" fill="#1f8fd0" transform="rotate(-90 756.12 493.65)">TakenE</text>
+<path d="M 540 470 Q 572.76 470 594.6 496 Q 572.76 522 540 522 Q 556.38 496 540 470 Z" fill="#fff" stroke="#1f8fd0" stroke-width="2"/>
+<rect x="450.8" y="471.5" width="77.2" height="23" rx="5" fill="#fff" stroke="#1f8fd0" stroke-width="1.3"/>
+<text x="489.4" y="489.12" font-size="17" text-anchor="middle" fill="#1f8fd0">BranchE</text>
+<rect x="463.09" y="497.5" width="64.91" height="23" rx="5" fill="#fff" stroke="#1f8fd0" stroke-width="1.3"/>
+<text x="495.55" y="515.12" font-size="17" text-anchor="middle" fill="#1f8fd0">JumpE</text>
+</g>
+<g transform="translate(260,0)">
+<rect x="840" y="235" width="30" height="700" rx="0" fill="#fff" stroke="#000000" stroke-width="3.0"/>
+<polygon points="845,235 865,235 855,247" fill="#fff" stroke="#000000" stroke-width="2" stroke-linejoin="miter"/>
+<line x1="855" y1="219" x2="855" y2="235" stroke="#000000" stroke-width="2"/>
+<text x="860" y="585" font-size="14" text-anchor="middle" fill="#6b6b6b" font-style="italic" transform="rotate(-90 860 585)">fdreg0</text>
+<text x="853" y="931" font-size="12.5" text-anchor="start" fill="#000000" transform="rotate(-90 853 931)">EN</text>
+<text x="867" y="931" font-size="12.5" text-anchor="start" fill="#000000" transform="rotate(-90 867 931)">CLR</text>
+<circle cx="848" cy="940.5" r="5.5" fill="#fff" stroke="#000000" stroke-width="2"/>
+<rect x="778.65" y="948.5" width="57.35" height="23" rx="5" fill="#fff" stroke="#1f8fd0" stroke-width="1.3"/>
+<text x="807.33" y="966.12" font-size="17" text-anchor="middle" fill="#1f8fd0">StallD</text>
+<rect x="874" y="978.5" width="65.84" height="23" rx="5" fill="#fff" stroke="#1f8fd0" stroke-width="1.3"/>
+<text x="906.92" y="996.12" font-size="17" text-anchor="middle" fill="#1f8fd0">FlushD</text>
+<rect x="1500" y="235" width="30" height="700" rx="0" fill="#fff" stroke="#000000" stroke-width="3.0"/>
+<line x1="1500" y1="436" x2="1530" y2="436" stroke="#000000" stroke-width="1.5"/>
+<polygon points="1505,235 1525,235 1515,247" fill="#fff" stroke="#000000" stroke-width="2" stroke-linejoin="miter"/>
+<line x1="1515" y1="219" x2="1515" y2="235" stroke="#000000" stroke-width="2"/>
+<text x="1520" y="336" font-size="14" text-anchor="middle" fill="#6b6b6b" font-style="italic" transform="rotate(-90 1520 336)">controlereg0</text>
+<text x="1520" y="690" font-size="14" text-anchor="middle" fill="#6b6b6b" font-style="italic" transform="rotate(-90 1520 690)">dereg0</text>
+<text x="1520" y="931" font-size="12.5" text-anchor="start" fill="#000000" transform="rotate(-90 1520 931)">CLR</text>
+<rect x="1503.5" y="950" width="23" height="74.36" rx="5" fill="#fff" stroke="#1f8fd0" stroke-width="1.3"/>
+<text x="1521.12" y="987.18" font-size="17" text-anchor="middle" fill="#1f8fd0" transform="rotate(-90 1521.12 987.18)">FlushE0</text>
+<rect x="840" y="1255" width="30" height="700" rx="0" fill="#fff" stroke="#000000" stroke-width="3.0"/>
+<polygon points="845,1255 865,1255 855,1267" fill="#fff" stroke="#000000" stroke-width="2" stroke-linejoin="miter"/>
+<line x1="855" y1="1239" x2="855" y2="1255" stroke="#000000" stroke-width="2"/>
+<text x="860" y="1605" font-size="14" text-anchor="middle" fill="#6b6b6b" font-style="italic" transform="rotate(-90 860 1605)">fdreg1</text>
+<text x="853" y="1951" font-size="12.5" text-anchor="start" fill="#000000" transform="rotate(-90 853 1951)">EN</text>
+<text x="867" y="1951" font-size="12.5" text-anchor="start" fill="#000000" transform="rotate(-90 867 1951)">CLR</text>
+<circle cx="848" cy="1960.5" r="5.5" fill="#fff" stroke="#000000" stroke-width="2"/>
+<rect x="1500" y="1255" width="30" height="700" rx="0" fill="#fff" stroke="#000000" stroke-width="3.0"/>
+<line x1="1500" y1="1754" x2="1530" y2="1754" stroke="#000000" stroke-width="1.5"/>
+<polygon points="1505,1255 1525,1255 1515,1267" fill="#fff" stroke="#000000" stroke-width="2" stroke-linejoin="miter"/>
+<line x1="1515" y1="1239" x2="1515" y2="1255" stroke="#000000" stroke-width="2"/>
+<text x="1520" y="1854" font-size="14" text-anchor="middle" fill="#6b6b6b" font-style="italic" transform="rotate(-90 1520 1854)">controlereg1</text>
+<text x="1520" y="1500" font-size="14" text-anchor="middle" fill="#6b6b6b" font-style="italic" transform="rotate(-90 1520 1500)">dereg1</text>
+<text x="1520" y="1951" font-size="12.5" text-anchor="start" fill="#000000" transform="rotate(-90 1520 1951)">CLR</text>
+<rect x="915" y="838" width="6" height="90" rx="0" fill="#000000" stroke="#000000" stroke-width="1"/>
+<rect x="1030" y="238" width="100" height="202" rx="14" fill="#fff" stroke="#1f8fd0" stroke-width="2.2"/>
+<text x="1080" y="268" font-size="18" text-anchor="middle" fill="#1f8fd0" font-weight="bold">Control</text>
+<text x="1080" y="289" font-size="18" text-anchor="middle" fill="#1f8fd0" font-weight="bold">Unit</text>
+<text x="1080" y="312" font-size="14" text-anchor="middle" fill="#6b6b6b" font-style="italic">c0</text>
+<text x="1036" y="376" font-size="15" text-anchor="start" fill="#000000">op</text>
+<text x="1036" y="401" font-size="15" text-anchor="start" fill="#000000">funct3</text>
+<text x="1036" y="426" font-size="15" text-anchor="start" fill="#000000">funct7b5</text>
+<rect x="1010" y="466" width="80" height="80" rx="0" fill="#fff" stroke="#000000" stroke-width="2.2"/>
+<text x="1050" y="503" font-size="16" text-anchor="middle" fill="#000000" font-weight="bold">Rs</text>
+<text x="1050" y="521" font-size="16" text-anchor="middle" fill="#000000" font-weight="bold">Sel</text>
+<polygon points="1030,815 1170,800 1170,855 1030,855" fill="#fff" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter"/>
+<text x="1102" y="842" font-size="17" text-anchor="middle" fill="#000000" font-weight="bold">Extend</text>
+<rect x="1612" y="468.5" width="63.02" height="23" rx="5" fill="#fff" stroke="#000000" stroke-width="1.3"/>
+<text x="1643.51" y="486.12" font-size="17" text-anchor="middle" fill="#000000">Rs1E0</text>
+<rect x="1612" y="493.5" width="63.02" height="23" rx="5" fill="#fff" stroke="#000000" stroke-width="1.3"/>
+<text x="1643.51" y="511.12" font-size="17" text-anchor="middle" fill="#000000">Rs2E0</text>
+<polygon points="1720,522 1758,528 1758,658 1720,664" fill="#fff" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter"/>
+<text x="1724" y="550.76" font-size="14.5" text-anchor="start" fill="#000000">000</text>
+<text x="1724" y="575.76" font-size="14.5" text-anchor="start" fill="#000000">001</text>
+<text x="1724" y="600.76" font-size="14.5" text-anchor="start" fill="#000000">010</text>
+<text x="1724" y="625.76" font-size="14.5" text-anchor="start" fill="#000000">011</text>
+<text x="1724" y="650.76" font-size="14.5" text-anchor="start" fill="#000000">100</text>
+<rect x="1622.32" y="558.5" width="85.68" height="23" rx="5" fill="#fff" stroke="#000000" stroke-width="1.3"/>
+<text x="1665.16" y="576.12" font-size="17" text-anchor="middle" fill="#000000">ResultW0</text>
+<rect x="1622.32" y="583.5" width="85.68" height="23" rx="5" fill="#fff" stroke="#000000" stroke-width="1.3"/>
+<text x="1665.16" y="601.12" font-size="17" text-anchor="middle" fill="#000000">ResultW1</text>
+<rect x="1624.2" y="608.5" width="83.8" height="23" rx="5" fill="#fff" stroke="#000000" stroke-width="1.3"/>
+<text x="1666.1" y="626.12" font-size="17" text-anchor="middle" fill="#000000">ResultM0</text>
+<rect x="1624.2" y="633.5" width="83.8" height="23" rx="5" fill="#fff" stroke="#000000" stroke-width="1.3"/>
+<text x="1666.1" y="651.12" font-size="17" text-anchor="middle" fill="#000000">ResultM1</text>
+<rect x="1752" y="504.5" width="106.47" height="23" rx="5" fill="#fff" stroke="#1f8fd0" stroke-width="1.3"/>
+<text x="1805.24" y="522.12" font-size="17" text-anchor="middle" fill="#1f8fd0">ForwardAE0</text>
+<polygon points="1820,692 1858,698 1858,820 1820,826" fill="#fff" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter"/>
+<text x="1824" y="710.76" font-size="14.5" text-anchor="start" fill="#000000">000</text>
+<text x="1824" y="735.76" font-size="14.5" text-anchor="start" fill="#000000">001</text>
+<text x="1824" y="760.76" font-size="14.5" text-anchor="start" fill="#000000">010</text>
+<text x="1824" y="785.76" font-size="14.5" text-anchor="start" fill="#000000">011</text>
+<text x="1824" y="810.76" font-size="14.5" text-anchor="start" fill="#000000">100</text>
+<rect x="1722.32" y="718.5" width="85.68" height="23" rx="5" fill="#fff" stroke="#000000" stroke-width="1.3"/>
+<text x="1765.16" y="736.12" font-size="17" text-anchor="middle" fill="#000000">ResultW0</text>
+<rect x="1722.32" y="743.5" width="85.68" height="23" rx="5" fill="#fff" stroke="#000000" stroke-width="1.3"/>
+<text x="1765.16" y="761.12" font-size="17" text-anchor="middle" fill="#000000">ResultW1</text>
+<rect x="1724.2" y="768.5" width="83.8" height="23" rx="5" fill="#fff" stroke="#000000" stroke-width="1.3"/>
+<text x="1766.1" y="786.12" font-size="17" text-anchor="middle" fill="#000000">ResultM0</text>
+<rect x="1724.2" y="793.5" width="83.8" height="23" rx="5" fill="#fff" stroke="#000000" stroke-width="1.3"/>
+<text x="1766.1" y="811.12" font-size="17" text-anchor="middle" fill="#000000">ResultM1</text>
+<rect x="1719.53" y="666.5" width="106.47" height="23" rx="5" fill="#fff" stroke="#1f8fd0" stroke-width="1.3"/>
+<text x="1772.76" y="684.12" font-size="17" text-anchor="middle" fill="#1f8fd0">ForwardBE0</text>
+<polygon points="1935,735 1965,745 1965,805 1935,815" fill="#fff" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter"/>
+<text x="1939" y="760.76" font-size="16" text-anchor="start" fill="#000000">0</text>
+<text x="1939" y="800.76" font-size="16" text-anchor="start" fill="#000000">1</text>
+<polygon points="2040,556 2100,607.4 2100,761.6 2040,813 2040,705.06 2056.8,684.5 2040,663.94" fill="#fff" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter"/>
+<text x="2087.6" y="684.5" font-size="20" text-anchor="middle" fill="#000000" transform="rotate(-90 2087.6 684.5)">ALU</text>
+<text x="2045" y="600" font-size="13" text-anchor="start" fill="#000000">A</text>
+<text x="2045" y="780" font-size="13" text-anchor="start" fill="#000000">B</text>
+<rect x="915" y="1262" width="6" height="90" rx="0" fill="#000000" stroke="#000000" stroke-width="1"/>
+<rect x="1030" y="1750" width="100" height="202" rx="14" fill="#fff" stroke="#1f8fd0" stroke-width="2.2"/>
+<text x="1080" y="1890" font-size="18" text-anchor="middle" fill="#1f8fd0" font-weight="bold">Control</text>
+<text x="1080" y="1911" font-size="18" text-anchor="middle" fill="#1f8fd0" font-weight="bold">Unit</text>
+<text x="1080" y="1934" font-size="14" text-anchor="middle" fill="#6b6b6b" font-style="italic">c1</text>
+<text x="1036" y="1826" font-size="15" text-anchor="start" fill="#000000">op</text>
+<text x="1036" y="1801" font-size="15" text-anchor="start" fill="#000000">funct3</text>
+<text x="1036" y="1776" font-size="15" text-anchor="start" fill="#000000">funct7b5</text>
+<rect x="1010" y="1644" width="80" height="80" rx="0" fill="#fff" stroke="#000000" stroke-width="2.2"/>
+<text x="1050" y="1681" font-size="16" text-anchor="middle" fill="#000000" font-weight="bold">Rs</text>
+<text x="1050" y="1699" font-size="16" text-anchor="middle" fill="#000000" font-weight="bold">Sel</text>
+<polygon points="1030,1375 1170,1390 1170,1335 1030,1335" fill="#fff" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter"/>
+<text x="1102" y="1362" font-size="17" text-anchor="middle" fill="#000000" font-weight="bold">Extend</text>
+<rect x="1612" y="1698.5" width="63.02" height="23" rx="5" fill="#fff" stroke="#000000" stroke-width="1.3"/>
+<text x="1643.51" y="1716.12" font-size="17" text-anchor="middle" fill="#000000">Rs1E1</text>
+<rect x="1612" y="1673.5" width="63.02" height="23" rx="5" fill="#fff" stroke="#000000" stroke-width="1.3"/>
+<text x="1643.51" y="1691.12" font-size="17" text-anchor="middle" fill="#000000">Rs2E1</text>
+<polygon points="1720,1526 1758,1532 1758,1662 1720,1668" fill="#fff" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter"/>
+<text x="1724" y="1650.76" font-size="14.5" text-anchor="start" fill="#000000">000</text>
+<text x="1724" y="1625.76" font-size="14.5" text-anchor="start" fill="#000000">001</text>
+<text x="1724" y="1600.76" font-size="14.5" text-anchor="start" fill="#000000">010</text>
+<text x="1724" y="1575.76" font-size="14.5" text-anchor="start" fill="#000000">011</text>
+<text x="1724" y="1550.76" font-size="14.5" text-anchor="start" fill="#000000">100</text>
+<rect x="1622.32" y="1608.5" width="85.68" height="23" rx="5" fill="#fff" stroke="#000000" stroke-width="1.3"/>
+<text x="1665.16" y="1626.12" font-size="17" text-anchor="middle" fill="#000000">ResultW0</text>
+<rect x="1622.32" y="1583.5" width="85.68" height="23" rx="5" fill="#fff" stroke="#000000" stroke-width="1.3"/>
+<text x="1665.16" y="1601.12" font-size="17" text-anchor="middle" fill="#000000">ResultW1</text>
+<rect x="1624.2" y="1558.5" width="83.8" height="23" rx="5" fill="#fff" stroke="#000000" stroke-width="1.3"/>
+<text x="1666.1" y="1576.12" font-size="17" text-anchor="middle" fill="#000000">ResultM0</text>
+<rect x="1624.2" y="1533.5" width="83.8" height="23" rx="5" fill="#fff" stroke="#000000" stroke-width="1.3"/>
+<text x="1666.1" y="1551.12" font-size="17" text-anchor="middle" fill="#000000">ResultM1</text>
+<rect x="1752" y="1662.5" width="106.47" height="23" rx="5" fill="#fff" stroke="#1f8fd0" stroke-width="1.3"/>
+<text x="1805.24" y="1680.12" font-size="17" text-anchor="middle" fill="#1f8fd0">ForwardAE1</text>
+<polygon points="1820,1364 1858,1370 1858,1492 1820,1498" fill="#fff" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter"/>
+<text x="1824" y="1490.76" font-size="14.5" text-anchor="start" fill="#000000">000</text>
+<text x="1824" y="1465.76" font-size="14.5" text-anchor="start" fill="#000000">001</text>
+<text x="1824" y="1440.76" font-size="14.5" text-anchor="start" fill="#000000">010</text>
+<text x="1824" y="1415.76" font-size="14.5" text-anchor="start" fill="#000000">011</text>
+<text x="1824" y="1390.76" font-size="14.5" text-anchor="start" fill="#000000">100</text>
+<rect x="1722.32" y="1448.5" width="85.68" height="23" rx="5" fill="#fff" stroke="#000000" stroke-width="1.3"/>
+<text x="1765.16" y="1466.12" font-size="17" text-anchor="middle" fill="#000000">ResultW0</text>
+<rect x="1722.32" y="1423.5" width="85.68" height="23" rx="5" fill="#fff" stroke="#000000" stroke-width="1.3"/>
+<text x="1765.16" y="1441.12" font-size="17" text-anchor="middle" fill="#000000">ResultW1</text>
+<rect x="1724.2" y="1398.5" width="83.8" height="23" rx="5" fill="#fff" stroke="#000000" stroke-width="1.3"/>
+<text x="1766.1" y="1416.12" font-size="17" text-anchor="middle" fill="#000000">ResultM0</text>
+<rect x="1724.2" y="1373.5" width="83.8" height="23" rx="5" fill="#fff" stroke="#000000" stroke-width="1.3"/>
+<text x="1766.1" y="1391.12" font-size="17" text-anchor="middle" fill="#000000">ResultM1</text>
+<rect x="1719.53" y="1500.5" width="106.47" height="23" rx="5" fill="#fff" stroke="#1f8fd0" stroke-width="1.3"/>
+<text x="1772.76" y="1518.12" font-size="17" text-anchor="middle" fill="#1f8fd0">ForwardBE1</text>
+<polygon points="1935,1375 1965,1385 1965,1445 1935,1455" fill="#fff" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter"/>
+<text x="1939" y="1440.76" font-size="16" text-anchor="start" fill="#000000">0</text>
+<text x="1939" y="1400.76" font-size="16" text-anchor="start" fill="#000000">1</text>
+<polygon points="2040,1377 2100,1428.4 2100,1582.6 2040,1634 2040,1526.06 2056.8,1505.5 2040,1484.94" fill="#fff" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter"/>
+<text x="2087.6" y="1505.5" font-size="20" text-anchor="middle" fill="#000000" transform="rotate(-90 2087.6 1505.5)">ALU</text>
+<text x="2045" y="1600" font-size="13" text-anchor="start" fill="#000000">A</text>
+<text x="2045" y="1420" font-size="13" text-anchor="start" fill="#000000">B</text>
+<rect x="1230" y="955" width="180" height="280" rx="0" fill="#fff" stroke="#000000" stroke-width="3.0"/>
+<polygon points="1252,955 1272,955 1262,967" fill="#fff" stroke="#000000" stroke-width="2" stroke-linejoin="miter"/>
+<circle cx="1262" cy="950" r="5" fill="#fff" stroke="#000" stroke-width="2"/>
+<text x="1272" y="949" font-size="15" text-anchor="start" fill="#000000">CLK</text>
+<text x="1236" y="981" font-size="16" text-anchor="start" fill="#000000">A1</text>
+<text x="1236" y="1006" font-size="16" text-anchor="start" fill="#000000">A2</text>
+<text x="1236" y="1031" font-size="16" text-anchor="start" fill="#000000">WE3</text>
+<text x="1236" y="1056" font-size="16" text-anchor="start" fill="#000000">A3</text>
+<text x="1236" y="1081" font-size="16" text-anchor="start" fill="#000000">WD3</text>
+<text x="1236" y="1121" font-size="16" text-anchor="start" fill="#000000">WD6</text>
+<text x="1236" y="1146" font-size="16" text-anchor="start" fill="#000000">A6</text>
+<text x="1236" y="1171" font-size="16" text-anchor="start" fill="#000000">WE6</text>
+<text x="1236" y="1196" font-size="16" text-anchor="start" fill="#000000">A5</text>
+<text x="1236" y="1221" font-size="16" text-anchor="start" fill="#000000">A4</text>
+<text x="1404" y="981" font-size="16" text-anchor="end" fill="#000000">RD1</text>
+<text x="1404" y="1006" font-size="16" text-anchor="end" fill="#000000">RD2</text>
+<text x="1404" y="1196" font-size="16" text-anchor="end" fill="#000000">RD5</text>
+<text x="1404" y="1221" font-size="16" text-anchor="end" fill="#000000">RD4</text>
+<text x="1334" y="1090" font-size="18" text-anchor="middle" fill="#000000" font-weight="bold">Register</text>
+<text x="1334" y="1112" font-size="18" text-anchor="middle" fill="#000000" font-weight="bold">File</text>
+<text x="1334" y="1138" font-size="14" text-anchor="middle" fill="#6b6b6b" font-style="italic">rf</text>
+<rect x="1107.96" y="1013.5" width="108.04" height="23" rx="5" fill="#fff" stroke="#1f8fd0" stroke-width="1.3"/>
+<text x="1161.98" y="1031.12" font-size="17" text-anchor="middle" fill="#1f8fd0">RegWriteW0</text>
+<rect x="1156.77" y="1038.5" width="59.23" height="23" rx="5" fill="#fff" stroke="#000000" stroke-width="1.3"/>
+<text x="1186.38" y="1056.12" font-size="17" text-anchor="middle" fill="#000000">RdW0</text>
+<rect x="1130.32" y="1063.5" width="85.68" height="23" rx="5" fill="#fff" stroke="#000000" stroke-width="1.3"/>
+<text x="1173.16" y="1081.12" font-size="17" text-anchor="middle" fill="#000000">ResultW0</text>
+<rect x="1130.32" y="1103.5" width="85.68" height="23" rx="5" fill="#fff" stroke="#000000" stroke-width="1.3"/>
+<text x="1173.16" y="1121.12" font-size="17" text-anchor="middle" fill="#000000">ResultW1</text>
+<rect x="1156.77" y="1128.5" width="59.23" height="23" rx="5" fill="#fff" stroke="#000000" stroke-width="1.3"/>
+<text x="1186.38" y="1146.12" font-size="17" text-anchor="middle" fill="#000000">RdW1</text>
+<rect x="1107.96" y="1153.5" width="108.04" height="23" rx="5" fill="#fff" stroke="#1f8fd0" stroke-width="1.3"/>
+<text x="1161.98" y="1171.12" font-size="17" text-anchor="middle" fill="#1f8fd0">RegWriteW1</text>
+<rect x="890" y="45" width="610" height="45" rx="16" fill="#fff" stroke="#1f8fd0" stroke-width="2.2"/>
+<text x="1195" y="74" font-size="18" text-anchor="middle" fill="#1f8fd0" font-weight="bold">Issue Unit</text>
+<rect x="893.5" y="100" width="23" height="63.96" rx="5" fill="#fff" stroke="#1f8fd0" stroke-width="1.3"/>
+<text x="911.12" y="131.98" font-size="17" text-anchor="middle" fill="#1f8fd0" transform="rotate(-90 911.12 131.98)">Rs1D0</text>
+<rect x="923" y="100" width="23" height="63.96" rx="5" fill="#fff" stroke="#1f8fd0" stroke-width="1.3"/>
+<text x="940.62" y="131.98" font-size="17" text-anchor="middle" fill="#1f8fd0" transform="rotate(-90 940.62 131.98)">Rs2D0</text>
+<rect x="952.5" y="100" width="23" height="55.46" rx="5" fill="#fff" stroke="#1f8fd0" stroke-width="1.3"/>
+<text x="970.12" y="127.73" font-size="17" text-anchor="middle" fill="#1f8fd0" transform="rotate(-90 970.12 127.73)">RdD0</text>
+<rect x="982" y="100" width="23" height="104.27" rx="5" fill="#fff" stroke="#1f8fd0" stroke-width="1.3"/>
+<text x="999.62" y="152.13" font-size="17" text-anchor="middle" fill="#1f8fd0" transform="rotate(-90 999.62 152.13)">RegWriteD0</text>
+<rect x="1011.5" y="100" width="23" height="110.86" rx="5" fill="#fff" stroke="#1f8fd0" stroke-width="1.3"/>
+<text x="1029.12" y="155.43" font-size="17" text-anchor="middle" fill="#1f8fd0" transform="rotate(-90 1029.12 155.43)">MemWriteD0</text>
+<rect x="1041" y="100" width="23" height="126.31" rx="5" fill="#fff" stroke="#1f8fd0" stroke-width="1.3"/>
+<text x="1058.62" y="163.16" font-size="17" text-anchor="middle" fill="#1f8fd0" transform="rotate(-90 1058.62 163.16)">ResultSrcD0[0]</text>
+<rect x="1070.5" y="100" width="23" height="87.59" rx="5" fill="#fff" stroke="#1f8fd0" stroke-width="1.3"/>
+<text x="1088.12" y="143.8" font-size="17" text-anchor="middle" fill="#1f8fd0" transform="rotate(-90 1088.12 143.8)">BranchD0</text>
+<rect x="1100" y="100" width="23" height="75.3" rx="5" fill="#fff" stroke="#1f8fd0" stroke-width="1.3"/>
+<text x="1117.62" y="137.65" font-size="17" text-anchor="middle" fill="#1f8fd0" transform="rotate(-90 1117.62 137.65)">JumpD0</text>
+<rect x="1129.5" y="100" width="23" height="63.96" rx="5" fill="#fff" stroke="#1f8fd0" stroke-width="1.3"/>
+<text x="1147.12" y="131.98" font-size="17" text-anchor="middle" fill="#1f8fd0" transform="rotate(-90 1147.12 131.98)">Rs1D1</text>
+<rect x="1159" y="100" width="23" height="63.96" rx="5" fill="#fff" stroke="#1f8fd0" stroke-width="1.3"/>
+<text x="1176.62" y="131.98" font-size="17" text-anchor="middle" fill="#1f8fd0" transform="rotate(-90 1176.62 131.98)">Rs2D1</text>
+<rect x="1188.5" y="100" width="23" height="110.86" rx="5" fill="#fff" stroke="#1f8fd0" stroke-width="1.3"/>
+<text x="1206.12" y="155.43" font-size="17" text-anchor="middle" fill="#1f8fd0" transform="rotate(-90 1206.12 155.43)">MemWriteD1</text>
+<rect x="1218" y="100" width="23" height="126.31" rx="5" fill="#fff" stroke="#1f8fd0" stroke-width="1.3"/>
+<text x="1235.62" y="163.16" font-size="17" text-anchor="middle" fill="#1f8fd0" transform="rotate(-90 1235.62 163.16)">ResultSrcD1[0]</text>
+<rect x="1247.5" y="100" width="23" height="87.59" rx="5" fill="#fff" stroke="#1f8fd0" stroke-width="1.3"/>
+<text x="1265.12" y="143.8" font-size="17" text-anchor="middle" fill="#1f8fd0" transform="rotate(-90 1265.12 143.8)">BranchD1</text>
+<rect x="1277" y="100" width="23" height="75.3" rx="5" fill="#fff" stroke="#1f8fd0" stroke-width="1.3"/>
+<text x="1294.62" y="137.65" font-size="17" text-anchor="middle" fill="#1f8fd0" transform="rotate(-90 1294.62 137.65)">JumpD1</text>
+<rect x="1306.5" y="100" width="23" height="54.52" rx="5" fill="#fff" stroke="#1f8fd0" stroke-width="1.3"/>
+<text x="1324.12" y="127.26" font-size="17" text-anchor="middle" fill="#1f8fd0" transform="rotate(-90 1324.12 127.26)">RdE0</text>
+<rect x="1336" y="100" width="23" height="54.52" rx="5" fill="#fff" stroke="#1f8fd0" stroke-width="1.3"/>
+<text x="1353.62" y="127.26" font-size="17" text-anchor="middle" fill="#1f8fd0" transform="rotate(-90 1353.62 127.26)">RdE1</text>
+<rect x="1365.5" y="100" width="23" height="125.38" rx="5" fill="#fff" stroke="#1f8fd0" stroke-width="1.3"/>
+<text x="1383.12" y="162.69" font-size="17" text-anchor="middle" fill="#1f8fd0" transform="rotate(-90 1383.12 162.69)">ResultSrcE0[0]</text>
+<rect x="1395" y="100" width="23" height="125.38" rx="5" fill="#fff" stroke="#1f8fd0" stroke-width="1.3"/>
+<text x="1412.62" y="162.69" font-size="17" text-anchor="middle" fill="#1f8fd0" transform="rotate(-90 1412.62 162.69)">ResultSrcE1[0]</text>
+<rect x="1444.5" y="100" width="23" height="62.08" rx="5" fill="#fff" stroke="#1f8fd0" stroke-width="1.3"/>
+<text x="1462.12" y="131.04" font-size="17" text-anchor="middle" fill="#1f8fd0" transform="rotate(-90 1462.12 131.04)">Issue0</text>
+<rect x="1474" y="100" width="23" height="62.08" rx="5" fill="#fff" stroke="#1f8fd0" stroke-width="1.3"/>
+<text x="1491.62" y="131.04" font-size="17" text-anchor="middle" fill="#1f8fd0" transform="rotate(-90 1491.62 131.04)">Issue1</text>
+<text x="905" y="84" font-size="12.5" text-anchor="start" fill="#6b6b6b">entradas</text>
+<text x="1471" y="84" font-size="12.5" text-anchor="middle" fill="#6b6b6b">salidas</text>
+<rect x="1720" y="940" width="6" height="144" rx="0" fill="#000000" stroke="#000000" stroke-width="1"/>
+<rect x="1720" y="1106" width="6" height="144" rx="0" fill="#000000" stroke="#000000" stroke-width="1"/>
+<polygon points="1780,1026 1816,1040 1816,1150 1780,1164" fill="#fff" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter"/>
+<text x="1784" y="1061.76" font-size="16" text-anchor="start" fill="#000000">0</text>
+<text x="1784" y="1139.76" font-size="16" text-anchor="start" fill="#000000">1</text>
+<rect x="1812" y="1210.5" width="101.77" height="23" rx="5" fill="#fff" stroke="#1f8fd0" stroke-width="1.3"/>
+<text x="1862.89" y="1228.12" font-size="17" text-anchor="middle" fill="#1f8fd0">BranchSelE</text>
+<rect x="1850" y="972" width="6" height="234" rx="0" fill="#000000" stroke="#000000" stroke-width="1"/>
+<path d="M 1955 990 L 1975.7 990 A 23 23 0 0 1 1975.7 1036 L 1955 1036 Z" fill="#fff" stroke="#1f8fd0" stroke-width="2"/>
+<path d="M 2015 1001 Q 2050.91 1001 2074.85 1029.5 Q 2050.91 1058 2015 1058 Q 2032.95 1029.5 2015 1001 Z" fill="#fff" stroke="#1f8fd0" stroke-width="2"/>
+<path d="M 1952 1056 Q 1979.72 1056 1998.2 1078 Q 1979.72 1100 1952 1100 Q 1965.86 1078 1952 1056 Z" fill="#fff" stroke="#1f8fd0" stroke-width="2"/>
+<rect x="2101" y="1046.5" width="68.7" height="23" rx="5" fill="#fff" stroke="#1f8fd0" stroke-width="1.3"/>
+<text x="2135.35" y="1064.12" font-size="17" text-anchor="middle" fill="#1f8fd0">TakenE</text>
+<path d="M 2163 968 Q 2209.62 968 2240.7 1005 Q 2209.62 1042 2163 1042 Q 2186.31 1005 2163 968 Z" fill="#fff" stroke="#1f8fd0" stroke-width="2"/>
+<path d="M 2155 968 Q 2178.31 1005 2155 1042" fill="none" stroke="#1f8fd0" stroke-width="2"/>
+<path d="M 2268 1017 L 2289.6 1017 A 24 24 0 0 1 2289.6 1065 L 2268 1065 Z" fill="#fff" stroke="#1f8fd0" stroke-width="2"/>
+<rect x="2316.1" y="1059" width="23" height="83.8" rx="5" fill="#fff" stroke="#1f8fd0" stroke-width="1.3"/>
+<text x="2333.72" y="1100.9" font-size="17" text-anchor="middle" fill="#1f8fd0" transform="rotate(-90 2333.72 1100.9)">MispredE</text>
+<polygon points="1985,1137 2045,1151.8 2045,1196.2 1985,1211 1985,1179.92 2001.8,1174 1985,1168.08" fill="#fff" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter"/>
+<text x="2022.2" y="1181" font-size="22" text-anchor="middle" fill="#000000">+</text>
+<rect x="1861.18" y="1154.5" width="100.82" height="23" rx="5" fill="#fff" stroke="#000000" stroke-width="1.3"/>
+<text x="1911.59" y="1172.12" font-size="17" text-anchor="middle" fill="#000000">BranchPCE</text>
+<polygon points="2140,1099 2176,1113 2176,1185 2140,1199" fill="#fff" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter"/>
+<text x="2144" y="1129.76" font-size="16" text-anchor="start" fill="#000000">0</text>
+<text x="2144" y="1179.76" font-size="16" text-anchor="start" fill="#000000">1</text>
+<rect x="2068" y="1214.5" width="94.2" height="23" rx="5" fill="#fff" stroke="#000000" stroke-width="1.3"/>
+<text x="2115.1" y="1232.12" font-size="17" text-anchor="middle" fill="#000000">PCTargetE</text>
+<rect x="2171.92" y="1210.5" width="68.7" height="23" rx="5" fill="#fff" stroke="#1f8fd0" stroke-width="1.3"/>
+<text x="2206.27" y="1228.12" font-size="17" text-anchor="middle" fill="#1f8fd0">TakenE</text>
+<rect x="2190" y="1137.5" width="102.68" height="23" rx="5" fill="#fff" stroke="#000000" stroke-width="1.3"/>
+<text x="2241.34" y="1155.12" font-size="17" text-anchor="middle" fill="#000000">PCCorrectE</text>
+<path d="M 1625 1784 Q 1655.24 1784 1675.4 1808 Q 1655.24 1832 1625 1832 Q 1640.12 1808 1625 1784 Z" fill="#fff" stroke="#1f8fd0" stroke-width="2"/>
+<rect x="1687.4" y="1796.5" width="101.77" height="23" rx="5" fill="#fff" stroke="#1f8fd0" stroke-width="1.3"/>
+<text x="1738.29" y="1814.12" font-size="17" text-anchor="middle" fill="#1f8fd0">BranchSelE</text>
+<rect x="-220" y="2100" width="3555" height="45" rx="16" fill="#fff" stroke="#1f8fd0" stroke-width="2.2"/>
+<text x="1240" y="2130" font-size="18" text-anchor="middle" fill="#1f8fd0" font-weight="bold">Hazard Unit</text>
+<rect x="193.5" y="2034.55" width="23" height="55.45" rx="5" fill="#fff" stroke="#1f8fd0" stroke-width="1.3"/>
+<text x="211.12" y="2062.27" font-size="17" text-anchor="middle" fill="#1f8fd0" transform="rotate(-90 211.12 2062.27)">StallF</text>
+<text x="205" y="2115" font-size="12.5" text-anchor="middle" fill="#6b6b6b">salida</text>
+<rect x="953.5" y="2027.92" width="23" height="62.08" rx="5" fill="#fff" stroke="#1f8fd0" stroke-width="1.3"/>
+<text x="971.12" y="2058.96" font-size="17" text-anchor="middle" fill="#1f8fd0" transform="rotate(-90 971.12 2058.96)">Issue0</text>
+<rect x="983.5" y="2027.92" width="23" height="62.08" rx="5" fill="#fff" stroke="#1f8fd0" stroke-width="1.3"/>
+<text x="1001.12" y="2058.96" font-size="17" text-anchor="middle" fill="#1f8fd0" transform="rotate(-90 1001.12 2058.96)">Issue1</text>
+<text x="980" y="2115" font-size="12.5" text-anchor="middle" fill="#6b6b6b">entradas</text>
+<rect x="1428.5" y="2015.64" width="23" height="74.36" rx="5" fill="#fff" stroke="#1f8fd0" stroke-width="1.3"/>
+<text x="1446.12" y="2052.82" font-size="17" text-anchor="middle" fill="#1f8fd0" transform="rotate(-90 1446.12 2052.82)">FlushE0</text>
+<text x="1440" y="2115" font-size="12.5" text-anchor="middle" fill="#6b6b6b">salida</text>
+<rect x="1628.5" y="2026.98" width="23" height="63.02" rx="5" fill="#fff" stroke="#1f8fd0" stroke-width="1.3"/>
+<text x="1646.12" y="2058.49" font-size="17" text-anchor="middle" fill="#1f8fd0" transform="rotate(-90 1646.12 2058.49)">Rs1E0</text>
+<rect x="1658.5" y="2026.98" width="23" height="63.02" rx="5" fill="#fff" stroke="#1f8fd0" stroke-width="1.3"/>
+<text x="1676.12" y="2058.49" font-size="17" text-anchor="middle" fill="#1f8fd0" transform="rotate(-90 1676.12 2058.49)">Rs2E0</text>
+<rect x="1688.5" y="2026.98" width="23" height="63.02" rx="5" fill="#fff" stroke="#1f8fd0" stroke-width="1.3"/>
+<text x="1706.12" y="2058.49" font-size="17" text-anchor="middle" fill="#1f8fd0" transform="rotate(-90 1706.12 2058.49)">Rs1E1</text>
+<rect x="1718.5" y="2026.98" width="23" height="63.02" rx="5" fill="#fff" stroke="#1f8fd0" stroke-width="1.3"/>
+<text x="1736.12" y="2058.49" font-size="17" text-anchor="middle" fill="#1f8fd0" transform="rotate(-90 1736.12 2058.49)">Rs2E1</text>
+<text x="1685" y="2115" font-size="12.5" text-anchor="middle" fill="#6b6b6b">entradas</text>
+<rect x="1778.5" y="1983.53" width="23" height="106.47" rx="5" fill="#fff" stroke="#1f8fd0" stroke-width="1.3"/>
+<text x="1796.12" y="2036.76" font-size="17" text-anchor="middle" fill="#1f8fd0" transform="rotate(-90 1796.12 2036.76)">ForwardAE0</text>
+<rect x="1808.5" y="1983.53" width="23" height="106.47" rx="5" fill="#fff" stroke="#1f8fd0" stroke-width="1.3"/>
+<text x="1826.12" y="2036.76" font-size="17" text-anchor="middle" fill="#1f8fd0" transform="rotate(-90 1826.12 2036.76)">ForwardBE0</text>
+<rect x="1838.5" y="1983.53" width="23" height="106.47" rx="5" fill="#fff" stroke="#1f8fd0" stroke-width="1.3"/>
+<text x="1856.12" y="2036.76" font-size="17" text-anchor="middle" fill="#1f8fd0" transform="rotate(-90 1856.12 2036.76)">ForwardAE1</text>
+<rect x="1868.5" y="1983.53" width="23" height="106.47" rx="5" fill="#fff" stroke="#1f8fd0" stroke-width="1.3"/>
+<text x="1886.12" y="2036.76" font-size="17" text-anchor="middle" fill="#1f8fd0" transform="rotate(-90 1886.12 2036.76)">ForwardBE1</text>
+<text x="1835" y="2115" font-size="12.5" text-anchor="middle" fill="#6b6b6b">salidas</text>
+<rect x="1928.5" y="2006.2" width="23" height="83.8" rx="5" fill="#fff" stroke="#1f8fd0" stroke-width="1.3"/>
+<text x="1946.12" y="2048.1" font-size="17" text-anchor="middle" fill="#1f8fd0" transform="rotate(-90 1946.12 2048.1)">MispredE</text>
+<rect x="1958.5" y="1988.23" width="23" height="101.77" rx="5" fill="#fff" stroke="#1f8fd0" stroke-width="1.3"/>
+<text x="1976.12" y="2039.11" font-size="17" text-anchor="middle" fill="#1f8fd0" transform="rotate(-90 1976.12 2039.11)">BranchSelE</text>
+<text x="1955" y="2115" font-size="12.5" text-anchor="middle" fill="#6b6b6b">entradas</text>
+<rect x="2698.5" y="2032.66" width="23" height="57.34" rx="5" fill="#fff" stroke="#1f8fd0" stroke-width="1.3"/>
+<text x="2716.12" y="2061.33" font-size="17" text-anchor="middle" fill="#1f8fd0" transform="rotate(-90 2716.12 2061.33)">RdM0</text>
+<rect x="2728.5" y="2032.66" width="23" height="57.34" rx="5" fill="#fff" stroke="#1f8fd0" stroke-width="1.3"/>
+<text x="2746.12" y="2061.33" font-size="17" text-anchor="middle" fill="#1f8fd0" transform="rotate(-90 2746.12 2061.33)">RdM1</text>
+<rect x="2758.5" y="1983.85" width="23" height="106.15" rx="5" fill="#fff" stroke="#1f8fd0" stroke-width="1.3"/>
+<text x="2776.12" y="2036.92" font-size="17" text-anchor="middle" fill="#1f8fd0" transform="rotate(-90 2776.12 2036.92)">RegWriteM0</text>
+<rect x="2788.5" y="1983.85" width="23" height="106.15" rx="5" fill="#fff" stroke="#1f8fd0" stroke-width="1.3"/>
+<text x="2806.12" y="2036.92" font-size="17" text-anchor="middle" fill="#1f8fd0" transform="rotate(-90 2806.12 2036.92)">RegWriteM1</text>
+<text x="2755" y="2115" font-size="12.5" text-anchor="middle" fill="#6b6b6b">entradas</text>
+<rect x="3138.5" y="2030.77" width="23" height="59.23" rx="5" fill="#fff" stroke="#1f8fd0" stroke-width="1.3"/>
+<text x="3156.12" y="2060.38" font-size="17" text-anchor="middle" fill="#1f8fd0" transform="rotate(-90 3156.12 2060.38)">RdW0</text>
+<rect x="3168.5" y="2030.77" width="23" height="59.23" rx="5" fill="#fff" stroke="#1f8fd0" stroke-width="1.3"/>
+<text x="3186.12" y="2060.38" font-size="17" text-anchor="middle" fill="#1f8fd0" transform="rotate(-90 3186.12 2060.38)">RdW1</text>
+<rect x="3198.5" y="1981.96" width="23" height="108.04" rx="5" fill="#fff" stroke="#1f8fd0" stroke-width="1.3"/>
+<text x="3216.12" y="2035.98" font-size="17" text-anchor="middle" fill="#1f8fd0" transform="rotate(-90 3216.12 2035.98)">RegWriteW0</text>
+<rect x="3228.5" y="1981.96" width="23" height="108.04" rx="5" fill="#fff" stroke="#1f8fd0" stroke-width="1.3"/>
+<text x="3246.12" y="2035.98" font-size="17" text-anchor="middle" fill="#1f8fd0" transform="rotate(-90 3246.12 2035.98)">RegWriteW1</text>
+<text x="3195" y="2115" font-size="12.5" text-anchor="middle" fill="#6b6b6b">entradas</text>
+<text x="859" y="2115" font-size="12.5" text-anchor="middle" fill="#6b6b6b">salidas</text>
+<text x="1515" y="2115" font-size="12.5" text-anchor="middle" fill="#6b6b6b">salida</text>
+<text x="2415" y="2115" font-size="12.5" text-anchor="middle" fill="#6b6b6b">salida</text>
+</g>
+<g transform="translate(410,0)">
+<rect x="2250" y="235" width="30" height="700" rx="0" fill="#fff" stroke="#000000" stroke-width="3.0"/>
+<line x1="2250" y1="436" x2="2280" y2="436" stroke="#000000" stroke-width="1.5"/>
+<polygon points="2255,235 2275,235 2265,247" fill="#fff" stroke="#000000" stroke-width="2" stroke-linejoin="miter"/>
+<line x1="2265" y1="219" x2="2265" y2="235" stroke="#000000" stroke-width="2"/>
+<text x="2270" y="336" font-size="14" text-anchor="middle" fill="#6b6b6b" font-style="italic" transform="rotate(-90 2270 336)">controlmreg0</text>
+<text x="2270" y="690" font-size="14" text-anchor="middle" fill="#6b6b6b" font-style="italic" transform="rotate(-90 2270 690)">emreg0</text>
+<rect x="2900" y="235" width="30" height="700" rx="0" fill="#fff" stroke="#000000" stroke-width="3.0"/>
+<line x1="2900" y1="436" x2="2930" y2="436" stroke="#000000" stroke-width="1.5"/>
+<polygon points="2905,235 2925,235 2915,247" fill="#fff" stroke="#000000" stroke-width="2" stroke-linejoin="miter"/>
+<line x1="2915" y1="219" x2="2915" y2="235" stroke="#000000" stroke-width="2"/>
+<text x="2920" y="336" font-size="14" text-anchor="middle" fill="#6b6b6b" font-style="italic" transform="rotate(-90 2920 336)">controlwreg0</text>
+<text x="2920" y="690" font-size="14" text-anchor="middle" fill="#6b6b6b" font-style="italic" transform="rotate(-90 2920 690)">mwreg0</text>
+<rect x="2250" y="1255" width="30" height="700" rx="0" fill="#fff" stroke="#000000" stroke-width="3.0"/>
+<line x1="2250" y1="1754" x2="2280" y2="1754" stroke="#000000" stroke-width="1.5"/>
+<polygon points="2255,1255 2275,1255 2265,1267" fill="#fff" stroke="#000000" stroke-width="2" stroke-linejoin="miter"/>
+<line x1="2265" y1="1239" x2="2265" y2="1255" stroke="#000000" stroke-width="2"/>
+<text x="2270" y="1854" font-size="14" text-anchor="middle" fill="#6b6b6b" font-style="italic" transform="rotate(-90 2270 1854)">controlmreg1</text>
+<text x="2270" y="1500" font-size="14" text-anchor="middle" fill="#6b6b6b" font-style="italic" transform="rotate(-90 2270 1500)">emreg1</text>
+<text x="2270" y="1951" font-size="12.5" text-anchor="start" fill="#000000" transform="rotate(-90 2270 1951)">CLR</text>
+<rect x="2900" y="1255" width="30" height="700" rx="0" fill="#fff" stroke="#000000" stroke-width="3.0"/>
+<line x1="2900" y1="1754" x2="2930" y2="1754" stroke="#000000" stroke-width="1.5"/>
+<polygon points="2905,1255 2925,1255 2915,1267" fill="#fff" stroke="#000000" stroke-width="2" stroke-linejoin="miter"/>
+<line x1="2915" y1="1239" x2="2915" y2="1255" stroke="#000000" stroke-width="2"/>
+<text x="2920" y="1854" font-size="14" text-anchor="middle" fill="#6b6b6b" font-style="italic" transform="rotate(-90 2920 1854)">controlwreg1</text>
+<text x="2920" y="1500" font-size="14" text-anchor="middle" fill="#6b6b6b" font-style="italic" transform="rotate(-90 2920 1500)">mwreg1</text>
+<rect x="2420" y="975" width="6" height="75" rx="0" fill="#000000" stroke="#000000" stroke-width="1"/>
+<polygon points="2690,700 2720,712.6 2720,777.4 2690,790" fill="#fff" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter"/>
+<text x="2694" y="725.76" font-size="16" text-anchor="start" fill="#000000">0</text>
+<text x="2694" y="775.76" font-size="16" text-anchor="start" fill="#000000">1</text>
+<rect x="2732" y="733.5" width="83.8" height="23" rx="5" fill="#fff" stroke="#000000" stroke-width="1.3"/>
+<text x="2773.9" y="751.12" font-size="17" text-anchor="middle" fill="#000000">ResultM0</text>
+<rect x="2942" y="238.5" width="108.04" height="23" rx="5" fill="#fff" stroke="#1f8fd0" stroke-width="1.3"/>
+<text x="2996.02" y="256.12" font-size="17" text-anchor="middle" fill="#1f8fd0">RegWriteW0</text>
+<rect x="2942" y="443.5" width="59.23" height="23" rx="5" fill="#fff" stroke="#000000" stroke-width="1.3"/>
+<text x="2971.62" y="461.12" font-size="17" text-anchor="middle" fill="#000000">RdW0</text>
+<polygon points="3062,690 3098,704 3098,776 3062,790" fill="#fff" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter"/>
+<text x="3066" y="715.76" font-size="16" text-anchor="start" fill="#000000">00</text>
+<text x="3066" y="745.76" font-size="16" text-anchor="start" fill="#000000">01</text>
+<text x="3066" y="775.76" font-size="16" text-anchor="start" fill="#000000">10</text>
+<rect x="3112" y="728.5" width="85.68" height="23" rx="5" fill="#fff" stroke="#000000" stroke-width="1.3"/>
+<text x="3154.84" y="746.12" font-size="17" text-anchor="middle" fill="#000000">ResultW0</text>
+<rect x="2420" y="1140" width="6" height="75" rx="0" fill="#000000" stroke="#000000" stroke-width="1"/>
+<polygon points="2690,1400 2720,1412.6 2720,1477.4 2690,1490" fill="#fff" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter"/>
+<text x="2694" y="1475.76" font-size="16" text-anchor="start" fill="#000000">0</text>
+<text x="2694" y="1425.76" font-size="16" text-anchor="start" fill="#000000">1</text>
+<rect x="2732" y="1433.5" width="83.8" height="23" rx="5" fill="#fff" stroke="#000000" stroke-width="1.3"/>
+<text x="2773.9" y="1451.12" font-size="17" text-anchor="middle" fill="#000000">ResultM1</text>
+<rect x="2942" y="1928.5" width="108.04" height="23" rx="5" fill="#fff" stroke="#1f8fd0" stroke-width="1.3"/>
+<text x="2996.02" y="1946.12" font-size="17" text-anchor="middle" fill="#1f8fd0">RegWriteW1</text>
+<rect x="2942" y="1723.5" width="59.23" height="23" rx="5" fill="#fff" stroke="#000000" stroke-width="1.3"/>
+<text x="2971.62" y="1741.12" font-size="17" text-anchor="middle" fill="#000000">RdW1</text>
+<polygon points="3062,1400 3098,1414 3098,1486 3062,1500" fill="#fff" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter"/>
+<text x="3066" y="1485.76" font-size="16" text-anchor="start" fill="#000000">00</text>
+<text x="3066" y="1455.76" font-size="16" text-anchor="start" fill="#000000">01</text>
+<text x="3066" y="1425.76" font-size="16" text-anchor="start" fill="#000000">10</text>
+<rect x="3112" y="1438.5" width="85.68" height="23" rx="5" fill="#fff" stroke="#000000" stroke-width="1.3"/>
+<text x="3154.84" y="1456.12" font-size="17" text-anchor="middle" fill="#000000">ResultW1</text>
+<path d="M 2555 950 Q 2582.72 950 2601.2 972 Q 2582.72 994 2555 994 Q 2568.86 972 2555 950 Z" fill="#fff" stroke="#1f8fd0" stroke-width="2"/>
+<rect x="2430.26" y="972.5" width="112.74" height="23" rx="5" fill="#fff" stroke="#1f8fd0" stroke-width="1.3"/>
+<text x="2486.63" y="990.12" font-size="17" text-anchor="middle" fill="#1f8fd0">MemWriteM1</text>
+<polygon points="2470,1010 2506,1024 2506,1166 2470,1180" fill="#fff" stroke="#000000" stroke-width="3.0" stroke-linejoin="miter"/>
+<text x="2474" y="1045.76" font-size="16" text-anchor="start" fill="#000000">0</text>
+<text x="2474" y="1155.76" font-size="16" text-anchor="start" fill="#000000">1</text>
+<rect x="2535" y="1063" width="6" height="64" rx="0" fill="#000000" stroke="#000000" stroke-width="1"/>
+<path d="M 2420 1798 Q 2450.24 1798 2470.4 1822 Q 2450.24 1846 2420 1846 Q 2435.12 1822 2420 1798 Z" fill="#fff" stroke="#1f8fd0" stroke-width="2"/>
+<rect x="2640" y="1020" width="140" height="150" rx="0" fill="#fff" stroke="#000000" stroke-width="3.0"/>
+<polygon points="2656,1020 2676,1020 2666,1032" fill="#fff" stroke="#000000" stroke-width="2" stroke-linejoin="miter"/>
+<line x1="2666" y1="1006" x2="2666" y2="1020" stroke="#000" stroke-width="2"/>
+<text x="2666" y="1002" font-size="15" text-anchor="middle" fill="#000000">CLK</text>
+<text x="2748" y="1042" font-size="16" text-anchor="middle" fill="#000000">WE</text>
+<text x="2646" y="1081" font-size="16" text-anchor="start" fill="#000000">A</text>
+<text x="2646" y="1121" font-size="16" text-anchor="start" fill="#000000">WD</text>
+<text x="2774" y="1081" font-size="16" text-anchor="end" fill="#000000">RD</text>
+<text x="2718" y="1118" font-size="18" text-anchor="middle" fill="#000000" font-weight="bold">Data</text>
+<text x="2718" y="1140" font-size="18" text-anchor="middle" fill="#000000" font-weight="bold">Memory</text>
+</g>
+</g>
+<g id="dot">
+<g transform="translate(0,0)">
+<circle cx="505" cy="1095" r="5" fill="#000000"/>
+<circle cx="505" cy="877" r="5" fill="#000000"/>
+<circle cx="505" cy="980" r="5" fill="#000000"/>
+<circle cx="660" cy="905" r="5" fill="#000000"/>
+<circle cx="750" cy="905" r="5" fill="#000000"/>
+<circle cx="530" cy="825" r="5" fill="#000000"/>
+<circle cx="660" cy="1285" r="5" fill="#000000"/>
+<circle cx="960" cy="995" r="7" fill="#000000"/>
+<circle cx="1153" cy="1310" r="7" fill="#000000"/>
+</g>
+<g transform="translate(260,0)">
+<circle cx="950" cy="395" r="5" fill="#000000"/>
+<circle cx="950" cy="420" r="5" fill="#000000"/>
+<circle cx="950" cy="455" r="5" fill="#000000"/>
+<circle cx="950" cy="480" r="5" fill="#000000"/>
+<circle cx="950" cy="505" r="5" fill="#000000"/>
+<circle cx="950" cy="530" r="5" fill="#000000"/>
+<circle cx="1205" cy="480" r="5" fill="#000000"/>
+<circle cx="1190" cy="505" r="5" fill="#000000"/>
+<circle cx="950" cy="835" r="5" fill="#000000"/>
+<circle cx="1596" cy="865" r="5" fill="#000000"/>
+<circle cx="1610" cy="920" r="5" fill="#000000"/>
+<circle cx="1885" cy="755" r="5" fill="#000000"/>
+<circle cx="950" cy="1795" r="5" fill="#000000"/>
+<circle cx="950" cy="1770" r="5" fill="#000000"/>
+<circle cx="950" cy="1735" r="5" fill="#000000"/>
+<circle cx="950" cy="1710" r="5" fill="#000000"/>
+<circle cx="950" cy="1685" r="5" fill="#000000"/>
+<circle cx="950" cy="1660" r="5" fill="#000000"/>
+<circle cx="1205" cy="1710" r="5" fill="#000000"/>
+<circle cx="1190" cy="1685" r="5" fill="#000000"/>
+<circle cx="950" cy="1355" r="5" fill="#000000"/>
+<circle cx="1596" cy="1325" r="5" fill="#000000"/>
+<circle cx="1610" cy="1270" r="5" fill="#000000"/>
+<circle cx="1885" cy="1435" r="5" fill="#000000"/>
+<circle cx="1936" cy="1024" r="3.6" fill="#1f8fd0"/>
+<circle cx="1921" cy="1046" r="3.6" fill="#1f8fd0"/>
+<circle cx="2095" cy="1029.5" r="3.6" fill="#1f8fd0"/>
+<circle cx="1972" cy="1148" r="5" fill="#000000"/>
+<circle cx="2062" cy="1174" r="5" fill="#000000"/>
+<circle cx="1554" cy="1796" r="3.6" fill="#1f8fd0"/>
+<circle cx="1568" cy="1820" r="3.6" fill="#1f8fd0"/>
+</g>
+<g transform="translate(410,0)">
+<circle cx="2315" cy="684" r="5" fill="#000000"/>
+<circle cx="2640" cy="684" r="5" fill="#000000"/>
+<circle cx="2660" cy="920" r="5" fill="#000000"/>
+<circle cx="2711.6" cy="274" r="3.6" fill="#1f8fd0"/>
+<circle cx="2315" cy="1506" r="5" fill="#000000"/>
+<circle cx="2640" cy="1506" r="5" fill="#000000"/>
+<circle cx="2660" cy="1270" r="5" fill="#000000"/>
+<circle cx="2711.6" cy="1916" r="3.6" fill="#1f8fd0"/>
+<circle cx="2402" cy="1916" r="3.6" fill="#1f8fd0"/>
+<circle cx="2884" cy="1075" r="5" fill="#000000"/>
+</g>
+</g>
+<g id="text">
+<g transform="translate(0,0)">
+<text x="560" y="28" font-size="20" text-anchor="middle" fill="#4a4a4a" font-weight="bold">Fetch</text>
+<text x="1440" y="28" font-size="20" text-anchor="middle" fill="#4a4a4a" font-weight="bold">Decode</text>
+<text x="2225" y="28" font-size="20" text-anchor="middle" fill="#4a4a4a" font-weight="bold">Execute</text>
+<text x="2980" y="28" font-size="20" text-anchor="middle" fill="#4a4a4a" font-weight="bold">Memory</text>
+<text x="3450" y="28" font-size="20" text-anchor="middle" fill="#4a4a4a" font-weight="bold">Writeback</text>
+<text x="16" y="590" font-size="19" text-anchor="middle" fill="#4a4a4a" font-weight="bold" transform="rotate(-90 16 590)">Vía 0</text>
+<text x="16" y="1600" font-size="19" text-anchor="middle" fill="#4a4a4a" font-weight="bold" transform="rotate(-90 16 1600)">Vía 1</text>
+<text x="52" y="94" font-size="16" text-anchor="start" fill="#4a4a4a" font-weight="bold">Convenciones</text>
+<text x="148" y="128" font-size="15" text-anchor="start" fill="#000000">etiqueta de red: une el cable con el que lleva ese nombre</text>
+<text x="148" y="162" font-size="15" text-anchor="start" fill="#000000">bus agrupado {a, b, c} (concatenación del Verilog)</text>
+<text x="148" y="198" font-size="15" text-anchor="start" fill="#000000">barra de concatenación / separación de un bus</text>
+<text x="52" y="242" font-size="14" text-anchor="start" fill="#4a4a4a">Vía 0 = 1.ª instrucción del par (más antigua); vía 1 = 2.ª. Azul: control y Hazard/Issue Unit.</text>
+<text x="52" y="266" font-size="14" text-anchor="start" fill="#4a4a4a">X[0] es el bit 0 de la señal X.</text>
+<text x="52" y="290" font-size="14" text-anchor="start" fill="#4a4a4a">En la vía 1 el dibujo está espejado: el nombre va debajo de su cable.</text>
+<text x="52" y="314" font-size="14" text-anchor="start" fill="#4a4a4a">En las entradas de un mux, 1x = 10 u 11.</text>
+<text x="78" y="982" font-size="14" text-anchor="middle" fill="#6b6b6b" font-style="italic">seqmux</text>
+<text x="102" y="1029" font-size="17" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">PCSeqF</text>
+<text x="205" y="1145" font-size="14" text-anchor="start" fill="#6b6b6b" font-style="italic">predmux</text>
+<text x="197" y="979" font-size="12" text-anchor="end" fill="#1f8fd0">1</text>
+<text x="240" y="979" font-size="12" text-anchor="start" fill="#1f8fd0">0</text>
+<text x="244" y="1065" font-size="17" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">PCPredF</text>
+<text x="348" y="1166" font-size="14" text-anchor="middle" fill="#6b6b6b" font-style="italic">pcmux</text>
+<text x="374" y="1090" font-size="17" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">PCNextF</text>
+<text x="465" y="1035" font-size="16" text-anchor="middle" fill="#000000">CLK</text>
+<text x="446" y="1128" font-size="14" text-anchor="end" fill="#6b6b6b" font-style="italic">pcreg</text>
+<text x="510" y="1090" font-size="17" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">PCF</text>
+<text x="722" y="975" font-size="17" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">PCF</text>
+<text x="630" y="1198" font-size="14" text-anchor="middle" fill="#6b6b6b" font-style="italic">imem (top_dual)</text>
+<text x="610" y="858" font-size="14" text-anchor="middle" fill="#6b6b6b" font-style="italic">pcadd4</text>
+<text x="554" y="939" font-size="16" text-anchor="end" fill="#000000">4</text>
+<text x="610" y="1342" font-size="14" text-anchor="middle" fill="#6b6b6b" font-style="italic">pcadd8</text>
+<text x="554" y="1263" font-size="16" text-anchor="end" fill="#000000">8</text>
+<text x="664" y="900" font-size="17" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">PCPlus4F</text>
+<text x="664" y="1280" font-size="17" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">PCPlus8F</text>
+<text x="736" y="1035" font-size="17" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">InstrF0</text>
+<text x="716" y="1145" font-size="17" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">InstrF1</text>
+<text x="764" y="1196" font-size="16" text-anchor="end" fill="#000000">0</text>
+<text x="869" y="1250" font-size="17" text-anchor="end" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">InstrF1S</text>
+<text x="779" y="1446" font-size="16" text-anchor="end" fill="#1f8fd0">0</text>
+<text x="836" y="1415" font-size="17" text-anchor="start" fill="#1f8fd0" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">PredF1S</text>
+<text x="968" y="1162" font-size="16" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">{InstrF0,</text>
+<text x="968" y="1181" font-size="16" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke"> PCF,</text>
+<text x="968" y="1200" font-size="16" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke"> PCPlus4F,</text>
+<text x="968" y="1219" font-size="16" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke"> PredF0}</text>
+<text x="680" y="1310" font-size="16" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">{InstrF1S,</text>
+<text x="680" y="1329" font-size="16" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke"> PCPlus4F,</text>
+<text x="680" y="1348" font-size="16" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke"> PCPlus8F,</text>
+<text x="680" y="1367" font-size="16" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke"> PredF1S}</text>
+<text x="1005" y="815" font-size="14" text-anchor="end" fill="#6b6b6b" font-style="italic">fdmux0</text>
+<text x="1005" y="1394" font-size="14" text-anchor="end" fill="#6b6b6b" font-style="italic">fdmux1</text>
+<text x="1054" y="872" font-size="17" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">FD0</text>
+<text x="1054" y="1302" font-size="17" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">FD1</text>
+<text x="995" y="1063" font-size="16" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">{InstrD1, PCD1,</text>
+<text x="995" y="1082" font-size="16" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke"> PCPlus4D1,</text>
+<text x="995" y="1101" font-size="16" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke"> PredD1}</text>
+</g>
+<g transform="translate(260,0)">
+<text x="855" y="215" font-size="16" text-anchor="middle" fill="#000000">CLK</text>
+<text x="1515" y="215" font-size="16" text-anchor="middle" fill="#000000">CLK</text>
+<text x="855" y="1235" font-size="16" text-anchor="middle" fill="#000000">CLK</text>
+<text x="843" y="2092" font-size="17" text-anchor="start" fill="#1f8fd0" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke" transform="rotate(-90 843 2092)">StallD</text>
+<text x="879" y="2092" font-size="17" text-anchor="start" fill="#1f8fd0" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke" transform="rotate(-90 879 2092)">FlushD</text>
+<text x="1515" y="1235" font-size="16" text-anchor="middle" fill="#000000">CLK</text>
+<text x="1532" y="2092" font-size="17" text-anchor="start" fill="#1f8fd0" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke" transform="rotate(-90 1532 2092)">FlushE1</text>
+<text x="956" y="786" font-size="17" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">InstrD0</text>
+<text x="1255" y="887" font-size="17" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">PCD0</text>
+<text x="1255" y="915" font-size="17" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">PCPlus4D0</text>
+<text x="1240" y="413" font-size="17" text-anchor="start" fill="#1f8fd0" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">PredD0</text>
+<text x="956" y="366" font-size="13.5" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">6:0</text>
+<text x="956" y="391" font-size="13.5" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">14:12</text>
+<text x="956" y="416" font-size="13.5" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">30</text>
+<text x="1136" y="245" font-size="17" text-anchor="start" fill="#1f8fd0" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">RegWriteD0</text>
+<text x="1136" y="269" font-size="17" text-anchor="start" fill="#1f8fd0" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">ResultSrcD0</text>
+<text x="1136" y="293" font-size="17" text-anchor="start" fill="#1f8fd0" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">MemWriteD0</text>
+<text x="1136" y="317" font-size="17" text-anchor="start" fill="#1f8fd0" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">ALUControlD0</text>
+<text x="1136" y="341" font-size="17" text-anchor="start" fill="#1f8fd0" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">ALUSrcD0</text>
+<text x="1136" y="365" font-size="17" text-anchor="start" fill="#1f8fd0" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">JumpD0</text>
+<text x="1136" y="389" font-size="17" text-anchor="start" fill="#1f8fd0" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">BranchD0</text>
+<text x="1136" y="413" font-size="17" text-anchor="start" fill="#1f8fd0" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">ImmSrcD0</text>
+<text x="956" y="451" font-size="13.5" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">11:7</text>
+<text x="1166" y="450" font-size="17" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">RdD0</text>
+<text x="956" y="476" font-size="13.5" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">19:15</text>
+<text x="956" y="501" font-size="13.5" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">24:20</text>
+<text x="956" y="526" font-size="13.5" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">6:0</text>
+<text x="1100" y="475" font-size="17" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">Rs1D0</text>
+<text x="1100" y="500" font-size="17" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">Rs2D0</text>
+<text x="1100" y="875" font-size="14" text-anchor="middle" fill="#6b6b6b" font-style="italic">ext0</text>
+<text x="956" y="831" font-size="13.5" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">31:7</text>
+<text x="1262" y="830" font-size="17" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">ImmExtD0</text>
+<text x="1447" y="540" font-size="17" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">RD1D</text>
+<text x="1450" y="700" font-size="17" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">RD2D</text>
+<text x="1612" y="245" font-size="17" text-anchor="start" fill="#1f8fd0" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">RegWriteE0</text>
+<text x="1612" y="269" font-size="17" text-anchor="start" fill="#1f8fd0" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">ResultSrcE0</text>
+<text x="1612" y="293" font-size="17" text-anchor="start" fill="#1f8fd0" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">MemWriteE0</text>
+<text x="1612" y="317" font-size="17" text-anchor="start" fill="#1f8fd0" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">ALUControlE0</text>
+<text x="1612" y="341" font-size="17" text-anchor="start" fill="#1f8fd0" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">ALUSrcE0</text>
+<text x="1620" y="1073" font-size="17" text-anchor="start" fill="#1f8fd0" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">PredE0</text>
+<text x="1620" y="1051" font-size="17" text-anchor="start" fill="#1f8fd0" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">BranchE0</text>
+<text x="1620" y="1029" font-size="17" text-anchor="start" fill="#1f8fd0" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">JumpE0</text>
+<text x="1620" y="1007" font-size="17" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">PCE0</text>
+<text x="1620" y="985" font-size="17" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">ImmExtE0</text>
+<text x="1620" y="963" font-size="17" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">PCPlus4E0</text>
+<text x="1700" y="450" font-size="17" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">RdE0</text>
+<text x="1640" y="540" font-size="17" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">RD1E</text>
+<text x="1764" y="642" font-size="14" text-anchor="start" fill="#6b6b6b" font-style="italic">forwardaemux0</text>
+<text x="1640" y="700" font-size="17" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">RD2E</text>
+<text x="1765" y="838" font-size="14" text-anchor="middle" fill="#6b6b6b" font-style="italic">forwardbemux0</text>
+<text x="1940" y="724" font-size="14" text-anchor="end" fill="#6b6b6b" font-style="italic">srcbmux0</text>
+<text x="2130" y="835" font-size="17" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">WriteDataE0</text>
+<text x="1720" y="860" font-size="17" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">ImmExtE0</text>
+<text x="2130" y="915" font-size="17" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">PCPlus4E0</text>
+<text x="1800" y="590" font-size="17" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">SrcAE0</text>
+<text x="1968" y="770" font-size="17" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">SrcBE0</text>
+<text x="2130" y="679.5" font-size="17" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">ALUResultE0</text>
+<text x="1950" y="952" font-size="17" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">ZeroE0</text>
+<text x="2070" y="831" font-size="14" text-anchor="middle" fill="#6b6b6b" font-style="italic">alu0</text>
+<text x="956" y="1416" font-size="17" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">InstrD1</text>
+<text x="1255" y="1314" font-size="17" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">PCD1</text>
+<text x="1255" y="1286" font-size="17" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">PCPlus4D1</text>
+<text x="1240" y="1788" font-size="17" text-anchor="start" fill="#1f8fd0" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">PredD1</text>
+<text x="956" y="1835" font-size="13.5" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">6:0</text>
+<text x="956" y="1810" font-size="13.5" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">14:12</text>
+<text x="956" y="1785" font-size="13.5" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">30</text>
+<text x="1136" y="1956" font-size="17" text-anchor="start" fill="#1f8fd0" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">RegWriteD1</text>
+<text x="1136" y="1932" font-size="17" text-anchor="start" fill="#1f8fd0" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">ResultSrcD1</text>
+<text x="1136" y="1908" font-size="17" text-anchor="start" fill="#1f8fd0" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">MemWriteD1</text>
+<text x="1136" y="1884" font-size="17" text-anchor="start" fill="#1f8fd0" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">ALUControlD1</text>
+<text x="1136" y="1860" font-size="17" text-anchor="start" fill="#1f8fd0" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">ALUSrcD1</text>
+<text x="1136" y="1836" font-size="17" text-anchor="start" fill="#1f8fd0" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">JumpD1</text>
+<text x="1136" y="1812" font-size="17" text-anchor="start" fill="#1f8fd0" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">BranchD1</text>
+<text x="1136" y="1788" font-size="17" text-anchor="start" fill="#1f8fd0" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">ImmSrcD1</text>
+<text x="956" y="1750" font-size="13.5" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">11:7</text>
+<text x="1166" y="1751" font-size="17" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">RdD1</text>
+<text x="956" y="1725" font-size="13.5" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">19:15</text>
+<text x="956" y="1700" font-size="13.5" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">24:20</text>
+<text x="956" y="1675" font-size="13.5" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">6:0</text>
+<text x="1100" y="1726" font-size="17" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">Rs1D1</text>
+<text x="1100" y="1701" font-size="17" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">Rs2D1</text>
+<text x="1100" y="1326" font-size="14" text-anchor="middle" fill="#6b6b6b" font-style="italic">ext1</text>
+<text x="956" y="1370" font-size="13.5" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">31:7</text>
+<text x="1262" y="1371" font-size="17" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">ImmExtD1</text>
+<text x="1447" y="1661" font-size="17" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">RD4D</text>
+<text x="1450" y="1501" font-size="17" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">RD5D</text>
+<text x="1612" y="1956" font-size="17" text-anchor="start" fill="#1f8fd0" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">RegWriteE1</text>
+<text x="1612" y="1932" font-size="17" text-anchor="start" fill="#1f8fd0" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">ResultSrcE1</text>
+<text x="1612" y="1908" font-size="17" text-anchor="start" fill="#1f8fd0" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">MemWriteE1</text>
+<text x="1612" y="1884" font-size="17" text-anchor="start" fill="#1f8fd0" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">ALUControlE1</text>
+<text x="1612" y="1860" font-size="17" text-anchor="start" fill="#1f8fd0" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">ALUSrcE1</text>
+<text x="1620" y="1128" font-size="17" text-anchor="start" fill="#1f8fd0" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">PredE1</text>
+<text x="1620" y="1150" font-size="17" text-anchor="start" fill="#1f8fd0" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">BranchE1</text>
+<text x="1620" y="1172" font-size="17" text-anchor="start" fill="#1f8fd0" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">JumpE1</text>
+<text x="1620" y="1194" font-size="17" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">PCE1</text>
+<text x="1620" y="1216" font-size="17" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">ImmExtE1</text>
+<text x="1620" y="1238" font-size="17" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">PCPlus4E1</text>
+<text x="1700" y="1751" font-size="17" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">RdE1</text>
+<text x="1640" y="1661" font-size="17" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">RD4E</text>
+<text x="1764" y="1558" font-size="14" text-anchor="start" fill="#6b6b6b" font-style="italic">forwardaemux1</text>
+<text x="1640" y="1501" font-size="17" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">RD5E</text>
+<text x="1765" y="1362" font-size="14" text-anchor="middle" fill="#6b6b6b" font-style="italic">forwardbemux1</text>
+<text x="1940" y="1476" font-size="14" text-anchor="end" fill="#6b6b6b" font-style="italic">srcbmux1</text>
+<text x="2130" y="1366" font-size="17" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">WriteDataE1</text>
+<text x="1720" y="1341" font-size="17" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">ImmExtE1</text>
+<text x="2130" y="1286" font-size="17" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">PCPlus4E1</text>
+<text x="1800" y="1611" font-size="17" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">SrcAE1</text>
+<text x="1968" y="1431" font-size="17" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">SrcBE1</text>
+<text x="2130" y="1521.5" font-size="17" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">ALUResultE1</text>
+<text x="1950" y="1249" font-size="17" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">ZeroE1</text>
+<text x="2070" y="1369" font-size="14" text-anchor="middle" fill="#6b6b6b" font-style="italic">alu1</text>
+<text x="882" y="73" font-size="14" text-anchor="end" fill="#6b6b6b" font-style="italic">iu</text>
+<text x="1798" y="1018" font-size="14" text-anchor="middle" fill="#6b6b6b" font-style="italic">branchmux</text>
+<text x="1862" y="975" font-size="17" text-anchor="start" fill="#1f8fd0" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">PredE</text>
+<text x="1862" y="997" font-size="17" text-anchor="start" fill="#1f8fd0" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">ZeroE</text>
+<text x="1862" y="1019" font-size="17" text-anchor="start" fill="#1f8fd0" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">BranchE</text>
+<text x="1862" y="1040" font-size="17" text-anchor="start" fill="#1f8fd0">JumpE</text>
+<text x="1862" y="1195" font-size="17" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">BranchImmE</text>
+<text x="1930" y="1228" font-size="14" text-anchor="start" fill="#6b6b6b" font-style="italic">pcaddbranch</text>
+<text x="1862" y="1119" font-size="17" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">BranchPCPlus4E</text>
+<text x="2144" y="1093" font-size="14" text-anchor="start" fill="#6b6b6b" font-style="italic">correctmux</text>
+<text x="-206" y="2128" font-size="14" text-anchor="start" fill="#6b6b6b" font-style="italic">hu</text>
+</g>
+<g transform="translate(410,0)">
+<text x="2265" y="215" font-size="16" text-anchor="middle" fill="#000000">CLK</text>
+<text x="2915" y="215" font-size="16" text-anchor="middle" fill="#000000">CLK</text>
+<text x="2265" y="1235" font-size="16" text-anchor="middle" fill="#000000">CLK</text>
+<text x="2282" y="2092" font-size="17" text-anchor="start" fill="#1f8fd0" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke" transform="rotate(-90 2282 2092)">FlushM1</text>
+<text x="2915" y="1235" font-size="16" text-anchor="middle" fill="#000000">CLK</text>
+<text x="2287" y="245" font-size="17" text-anchor="start" fill="#1f8fd0" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">RegWriteM0</text>
+<text x="2287" y="269" font-size="17" text-anchor="start" fill="#1f8fd0" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">ResultSrcM0</text>
+<text x="2287" y="293" font-size="17" text-anchor="start" fill="#1f8fd0" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">MemWriteM0</text>
+<text x="2287" y="450" font-size="17" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">RdM0</text>
+<text x="2330" y="679" font-size="17" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">ALUResultM0</text>
+<text x="2310" y="1020" font-size="17" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">WriteDataM0</text>
+<text x="2319" y="980" font-size="15" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">ALUResultM0</text>
+<text x="2545" y="915" font-size="17" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">PCPlus4M0</text>
+<text x="2717.6" y="600" font-size="17" text-anchor="start" fill="#1f8fd0" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">ResultSrcM0[1]</text>
+<text x="2705" y="810" font-size="14" text-anchor="middle" fill="#6b6b6b" font-style="italic">resultmmux0</text>
+<text x="3093.92" y="566" font-size="17" text-anchor="start" fill="#1f8fd0" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">ResultSrcW0</text>
+<text x="2936" y="679" font-size="17" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">ALUResultW0</text>
+<text x="2934" y="795" font-size="17" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">ReadDataW0</text>
+<text x="2936" y="915" font-size="17" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">PCPlus4W0</text>
+<text x="3102" y="814" font-size="14" text-anchor="start" fill="#6b6b6b" font-style="italic">resultmux0</text>
+<text x="2287" y="1956" font-size="17" text-anchor="start" fill="#1f8fd0" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">RegWriteM1</text>
+<text x="2287" y="1932" font-size="17" text-anchor="start" fill="#1f8fd0" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">ResultSrcM1</text>
+<text x="2287" y="1908" font-size="17" text-anchor="start" fill="#1f8fd0" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">MemWriteM1</text>
+<text x="2287" y="1751" font-size="17" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">RdM1</text>
+<text x="2330" y="1522" font-size="17" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">ALUResultM1</text>
+<text x="2310" y="1181" font-size="17" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">WriteDataM1</text>
+<text x="2319" y="1221" font-size="15" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">ALUResultM1</text>
+<text x="2545" y="1286" font-size="17" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">PCPlus4M1</text>
+<text x="2717.6" y="1602" font-size="17" text-anchor="start" fill="#1f8fd0" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">ResultSrcM1[1]</text>
+<text x="2705" y="1390" font-size="14" text-anchor="middle" fill="#6b6b6b" font-style="italic">resultmmux1</text>
+<text x="3093.92" y="1636" font-size="17" text-anchor="start" fill="#1f8fd0" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">ResultSrcW1</text>
+<text x="2936" y="1522" font-size="17" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">ALUResultW1</text>
+<text x="2934" y="1406" font-size="17" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">ReadDataW1</text>
+<text x="2936" y="1286" font-size="17" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">PCPlus4W1</text>
+<text x="3102" y="1384" font-size="14" text-anchor="start" fill="#6b6b6b" font-style="italic">resultmux1</text>
+<text x="2519" y="948" font-size="17" text-anchor="end" fill="#1f8fd0" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">MemWriteM0</text>
+<text x="2609.2" y="967" font-size="17" text-anchor="start" fill="#1f8fd0" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">MemWriteM</text>
+<text x="2512" y="1196" font-size="14" text-anchor="start" fill="#6b6b6b" font-style="italic">memmux</text>
+<text x="2545" y="1070" font-size="17" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">DataAdrM</text>
+<text x="2544" y="1110" font-size="17" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">WriteDataM</text>
+<text x="2408" y="1872" font-size="17" text-anchor="start" fill="#1f8fd0" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">ResultSrcM1[0]</text>
+<text x="2501.92" y="1560" font-size="17" text-anchor="start" fill="#1f8fd0" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">MemSelM</text>
+<text x="2501.92" y="1242" font-size="17" text-anchor="start" fill="#1f8fd0" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">MemSelM</text>
+<text x="2710" y="1192" font-size="14" text-anchor="middle" fill="#6b6b6b" font-style="italic">dmem (top_dual)</text>
+<text x="2784" y="1070" font-size="17" text-anchor="start" fill="#000000" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">ReadDataM</text>
+</g>
+</g>
+</svg>

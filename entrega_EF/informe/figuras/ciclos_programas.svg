@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 350" width="800" height="350" font-family="Arial, Liberation Sans, sans-serif">
+<rect x="170" y="8" width="16" height="16" fill="#90a4ae"/><text x="192" y="21" font-size="14">resto de los ciclos</text>
+<rect x="345" y="8" width="16" height="16" fill="#e57373"/><text x="367" y="21" font-size="14">ciclos perdidos en flushes por saltos</text>
+<text x="10" y="58" font-size="15" font-weight="bold" fill="#1565c0">Programa del profesor</text>
+<text x="160" y="90" font-size="14" text-anchor="end">A Single-Issue</text>
+<rect x="170" y="70" width="383.5" height="30" fill="#90a4ae"/>
+<rect x="553.5" y="70" width="158.1" height="30" fill="#e57373"/>
+<text x="632.6" y="90" font-size="13" text-anchor="middle" fill="#fff" font-weight="bold">134</text>
+<text x="717.6" y="90" font-size="14">459 ciclos</text>
+<text x="160" y="130" font-size="14" text-anchor="end">B Dual-Issue</text>
+<rect x="170" y="110" width="298.5" height="30" fill="#90a4ae"/>
+<rect x="468.5" y="110" width="158.1" height="30" fill="#e57373"/>
+<text x="547.6" y="130" font-size="13" text-anchor="middle" fill="#fff" font-weight="bold">134</text>
+<text x="632.7" y="130" font-size="14">387 ciclos</text>
+<text x="160" y="170" font-size="14" text-anchor="end">C con predicción</text>
+<rect x="170" y="150" width="269.0" height="30" fill="#90a4ae"/>
+<rect x="439.0" y="150" width="75.5" height="30" fill="#e57373"/>
+<text x="476.8" y="170" font-size="13" text-anchor="middle" fill="#fff" font-weight="bold">64</text>
+<text x="520.6" y="170" font-size="14">292 ciclos</text>
+<text x="10" y="208" font-size="15" font-weight="bold" fill="#1565c0">Programa propio</text>
+<text x="160" y="240" font-size="14" text-anchor="end">A Single-Issue</text>
+<rect x="170" y="220" width="287.9" height="30" fill="#90a4ae"/>
+<rect x="457.9" y="220" width="113.3" height="30" fill="#e57373"/>
+<text x="514.6" y="240" font-size="13" text-anchor="middle" fill="#fff" font-weight="bold">96</text>
+<text x="577.2" y="240" font-size="14">340 ciclos</text>
+<text x="160" y="280" font-size="14" text-anchor="end">B Dual-Issue</text>
+<rect x="170" y="260" width="227.7" height="30" fill="#90a4ae"/>
+<rect x="397.7" y="260" width="113.3" height="30" fill="#e57373"/>
+<text x="454.4" y="280" font-size="13" text-anchor="middle" fill="#fff" font-weight="bold">96</text>
+<text x="517.0" y="280" font-size="14">289 ciclos</text>
+<text x="160" y="320" font-size="14" text-anchor="end">C con predicción</text>
+<rect x="170" y="300" width="203.0" height="30" fill="#90a4ae"/>
+<rect x="373.0" y="300" width="37.8" height="30" fill="#e57373"/>
+<text x="391.8" y="320" font-size="13" text-anchor="middle" fill="#fff" font-weight="bold">32</text>
+<text x="416.7" y="320" font-size="14">204 ciclos</text>
+</svg>

@@ -1,0 +1,1280 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Proyecto 2 - Entrega final</title>
+<style>
+  @page { size: A4; margin: 2cm;
+          @bottom-center { content: counter(page); font-family: Arial, "Liberation Sans", sans-serif; font-size: 9pt; } }
+  @page portada { @bottom-center { content: none; } }
+  @page apaisada { size: A4 landscape; margin: 1.2cm 1.2cm 1.5cm 1.2cm; }
+  body { font-family: Arial, "Liberation Sans", sans-serif; font-size: 10pt; line-height: 1.38; color: #000; margin: 0; }
+  p { text-align: justify; margin: 0 0 7pt 0; orphans: 3; widows: 3; }
+  h1 { font-size: 14pt; margin: 14pt 0 6pt 0; break-after: avoid; }
+  h2 { font-size: 12pt; margin: 14pt 0 6pt 0; break-after: avoid; }
+  h3 { font-size: 10.5pt; margin: 10pt 0 5pt 0; break-after: avoid; }
+  ul, ol { margin: 0 0 7pt 0; padding-left: 20pt; }
+  li { text-align: justify; margin-bottom: 3pt; }
+  code { font-family: "Liberation Mono", "DejaVu Sans Mono", monospace; font-size: 9.2pt; }
+  pre { font-family: "Liberation Mono", "DejaVu Sans Mono", monospace; font-size: 8pt; line-height: 1.25;
+        background: #f6f6f6; border: 0.6pt solid #c8c8c8; padding: 5pt 8pt; margin: 6pt 0 4pt 0;
+        white-space: pre; overflow: hidden; break-inside: avoid; }
+  table { border-collapse: collapse; margin: 6pt auto 4pt auto; font-size: 9.3pt; line-height: 1.25; break-inside: avoid; }
+  th, td { border: 0.6pt solid #808080; padding: 2.2pt 5pt; text-align: left; vertical-align: top; }
+  th { background: #e6e6e6; font-weight: bold; }
+  td.c, th.c { text-align: center; }
+  td.m { font-family: "Liberation Mono", "DejaVu Sans Mono", monospace; font-size: 8.4pt; white-space: nowrap; }
+  tr.sep td { border-top: 1.3pt solid #404040; }
+  tr.anul td { color: #808080; }
+  .pie { text-align: center; font-size: 9.3pt; margin: 3pt 0 10pt 0; break-before: avoid; }
+  figure { margin: 8pt 0 0 0; text-align: center; break-inside: avoid; }
+  figure img, figure svg { max-width: 100%; }
+  .portada { page: portada; text-align: center; break-after: page; height: 24.6cm; display: flex; flex-direction: column; align-items: center; }
+  .portada .uni { font-size: 15pt; font-weight: bold; margin-top: 0.5cm; }
+  .portada .curso { font-size: 13pt; margin-top: 8pt; }
+  .portada img { width: 5.4cm; margin-top: 1.4cm; }
+  .portada .ent { font-size: 17pt; font-weight: bold; margin-top: 1.4cm; }
+  .portada .tit { font-size: 14pt; margin-top: 10pt; line-height: 1.35; }
+  .portada .int { font-size: 12pt; margin-top: 2.2cm; line-height: 1.7; }
+  .portada .fecha { font-size: 11pt; margin-top: auto; }
+  .apaisada { page: apaisada; break-before: page; break-after: page; }
+  .apaisada figure { margin: 0; }
+  .apaisada img { width: auto; height: auto; max-width: 100%; max-height: 16.6cm; }
+  .doble figure { margin: 0 0 4pt 0; }
+  .doble img { max-height: 8.3cm; }
+  .nuevo { break-before: page; }
+</style>
+</head>
+<body>
+<div class="portada">
+  <div class="uni">UNIVERSIDAD DE INGENIERÍA Y TECNOLOGÍA</div>
+  <div class="curso">Arquitectura de Computadoras</div>
+  <img src="figuras/utec.png" alt="UTEC">
+  <div class="ent">Proyecto 2 - Entrega final</div>
+  <div class="tit">Procesador RISC-V superescalar Dual-Issue<br>con predicción dinámica de saltos</div>
+  <div class="int">Integrantes:<br>
+    Adriana Lucia Castro Quiñones<br>
+    Mathias Castro Alva<br>
+    Juan Pedro Vásquez Vilchez
+  </div>
+  <div class="fecha">2026 - 2</div>
+</div>
+<h1>1. Introducción</h1>
+
+<p>El proyecto consiste en llevar el procesador RISC-V pipelined de cinco etapas a un procesador superescalar Dual-Issue in-order, que en cada ciclo lee dos instrucciones seguidas y, si nada lo impide, las ejecuta a la vez. Después le agregamos predicción dinámica de saltos y comparamos tres arquitecturas: (A) el pipeline Single-Issue, (B) el Dual-Issue y (C) el Dual-Issue con predicción.</p>
+
+<p>La sección 2 presenta el pipeline, las secciones 3 a 6 el Dual-Issue y las secciones 7 y 8 la optimización. En la sección 9 corremos el programa del profesor y uno propio en las tres arquitecturas, y en la sección 10 comparamos su rendimiento.</p>
+
+<h1>2. Pipeline Single-Issue</h1>
+
+<h2>2.1 Etapas y datapath</h2>
+
+<p>En el pipeline cada instrucción pasa por cinco etapas, una por ciclo, y en cada ciclo entra una nueva. Entre etapa y etapa hay un registro de pipeline, y las señales terminan en F, D, E, M o W según la etapa en la que están (Figura 1).</p>
+<ul>
+  <li>Fetch: se lee la instrucción de <code>PCF</code> y se calcula <code>PCPlus4F</code>.</li>
+  <li>Decode: la Control Unit genera el control, el Register File lee rs1 y rs2, y Extend arma el inmediato.</li>
+  <li>Execute: la ALU opera y se resuelven los saltos (<code>PCTargetE</code> y <code>PCSrcE</code>).</li>
+  <li>Memory: <code>lw</code> lee y <code>sw</code> escribe la memoria de datos.</li>
+  <li>Writeback: el resultado se escribe en el Register File.</li>
+</ul>
+
+<p>El procesador soporta <code>add</code>, <code>sub</code>, <code>and</code>, <code>or</code>, <code>slt</code>, <code>addi</code>, <code>andi</code>, <code>ori</code>, <code>slti</code>, <code>lw</code>, <code>sw</code>, <code>beq</code> y <code>jal</code>. El Register File escribe en el flanco de bajada, así que lo que escribe Writeback ya se puede leer en Decode en el mismo ciclo. La Tabla 1 indica qué módulos del single-cycle cambiaron.</p>
+
+<table>
+  <tr><th>Módulo</th><th>Estado</th><th>Cambio</th></tr>
+  <tr><td><code>datapath</code></td><td>Modificado</td><td>Registros de pipeline, muxes de forwarding y lógica de <code>PCSrcE</code></td></tr>
+  <tr><td><code>controller</code></td><td>Modificado</td><td>Ya no calcula PCSrc: entrega Branch y Jump, que viajan hasta Execute</td></tr>
+  <tr><td><code>maindec</code></td><td>Modificado</td><td>Caso de la burbuja (sección 2.2)</td></tr>
+  <tr><td><code>regfile</code></td><td>Modificado</td><td>Escribe en el flanco de bajada y empieza con todos los registros en 0</td></tr>
+  <tr><td><code>imem</code>, <code>dmem</code></td><td>Modificado</td><td>128 instrucciones y 512 palabras de datos</td></tr>
+  <tr><td><code>hazardunit</code></td><td>Nuevo</td><td>Forwarding, stalls y flushes</td></tr>
+  <tr><td><code>flopenrc</code></td><td>Nuevo</td><td>Registro con enable (para el stall) y clear (para el flush)</td></tr>
+  <tr><td><code>riscv</code>, <code>top</code></td><td>Modificado</td><td>Conectan la Control Unit, el datapath y las memorias</td></tr>
+  <tr><td>Los demás</td><td>Sin cambios</td><td><code>aludec</code>, <code>alu</code>, <code>extend</code>, <code>adder</code>, <code>mux2</code>, <code>mux3</code>, <code>flopr</code></td></tr>
+</table>
+<p class="pie">Tabla 1. Módulos del pipeline Single-Issue.</p>
+
+<div class="apaisada">
+<figure><img src="figuras/datapath_single.svg" style="height: 16.4cm; max-height: none" alt="Datapath Single-Issue"></figure>
+<p class="pie">Figura 1. Datapath del pipeline Single-Issue con la Control Unit y la Hazard Unit. Las señales de control están en azul.</p>
+</div>
+
+<h2>2.2 Unidad de control</h2>
+
+<p>La Control Unit es la del single-cycle, pero ya no calcula PCSrc. Sus señales se generan en Decode y viajan con la instrucción por los registros de pipeline hasta la etapa que las usa (Tabla 2). <code>ImmSrc</code> se usa en Decode; <code>ALUControl</code>, <code>ALUSrc</code>, <code>Branch</code> y <code>Jump</code> en Execute; <code>MemWrite</code> en Memory, y <code>RegWrite</code> y <code>ResultSrc</code> en Writeback.</p>
+
+<table>
+  <tr><th>Instrucción</th><th class="c">Opcode</th><th class="c">RegWrite</th><th class="c">ImmSrc</th><th class="c">ALUSrc</th><th class="c">MemWrite</th><th class="c">ResultSrc</th><th class="c">Branch</th><th class="c">ALUOp</th><th class="c">Jump</th></tr>
+  <tr><td><code>lw</code></td><td class="c">0000011</td><td class="c">1</td><td class="c">00</td><td class="c">1</td><td class="c">0</td><td class="c">01</td><td class="c">0</td><td class="c">00</td><td class="c">0</td></tr>
+  <tr><td><code>sw</code></td><td class="c">0100011</td><td class="c">0</td><td class="c">01</td><td class="c">1</td><td class="c">1</td><td class="c">00</td><td class="c">0</td><td class="c">00</td><td class="c">0</td></tr>
+  <tr><td>Tipo R</td><td class="c">0110011</td><td class="c">1</td><td class="c">xx</td><td class="c">0</td><td class="c">0</td><td class="c">00</td><td class="c">0</td><td class="c">10</td><td class="c">0</td></tr>
+  <tr><td><code>beq</code></td><td class="c">1100011</td><td class="c">0</td><td class="c">10</td><td class="c">0</td><td class="c">0</td><td class="c">00</td><td class="c">1</td><td class="c">01</td><td class="c">0</td></tr>
+  <tr><td>Tipo I (ALU)</td><td class="c">0010011</td><td class="c">1</td><td class="c">00</td><td class="c">1</td><td class="c">0</td><td class="c">00</td><td class="c">0</td><td class="c">10</td><td class="c">0</td></tr>
+  <tr><td><code>jal</code></td><td class="c">1101111</td><td class="c">1</td><td class="c">11</td><td class="c">0</td><td class="c">0</td><td class="c">10</td><td class="c">0</td><td class="c">00</td><td class="c">1</td></tr>
+  <tr><td>Burbuja</td><td class="c">0000000</td><td class="c">0</td><td class="c">00</td><td class="c">0</td><td class="c">0</td><td class="c">00</td><td class="c">0</td><td class="c">00</td><td class="c">0</td></tr>
+</table>
+<p class="pie">Tabla 2. Señales del Main Decoder (<code>maindec.v</code>).</p>
+
+<p>La única fila nueva es la de la burbuja. Un flush deja 00000000 en Decode, y con ese opcode todas las señales valen 0, así que la burbuja no escribe nada.</p>
+
+<h2>2.3 Hazard Unit</h2>
+
+<p>Con varias instrucciones a la vez aparecen data hazards, cuando una instrucción necesita un resultado que todavía no se escribió, y control hazards, cuando entran instrucciones detrás de un salto que se toma. La Hazard Unit los resuelve de tres formas.</p>
+
+<p><i>Forwarding.</i> Si la instrucción en Execute lee un registro que escribe la que está en Memory o en Writeback, el dato se toma de ahí (Figura 2). Con <code>ForwardAE</code> = 10 el mux elige <code>ALUResultM</code>, con 01 <code>ResultW</code> y con 00 el Register File. Si el registro está en las dos etapas gana Memory, que tiene el valor más reciente.</p>
+
+<figure><img src="figuras/hz_forward.svg" style="width: 15.5cm" alt="Forwarding"></figure>
+<p class="pie">Figura 2. Forwarding: las flechas van de la etapa que tiene el dato a la ALU.</p>
+
+<pre>    if      ((Rs1E == RdM) &amp; RegWriteM &amp; (Rs1E != 0)) ForwardAE = 2'b10;
+    else if ((Rs1E == RdW) &amp; RegWriteW &amp; (Rs1E != 0)) ForwardAE = 2'b01;
+    else                                              ForwardAE = 2'b00;</pre>
+<p class="pie">Código 1. Forwarding del operando A en <code>hazardunit.v</code>. El del operando B es igual con Rs2E.</p>
+
+<p><i>Stalling.</i> Un <code>lw</code> tiene su dato recién al final de Memory, un ciclo tarde para la instrucción siguiente (Figura 3). Si el <code>lw</code> está en Execute y la instrucción en Decode usa su destino, <code>lwStall</code> detiene el PC y el registro F/D un ciclo y mete una burbuja en Execute. Después el dato llega por forwarding desde Writeback.</p>
+
+<figure><img src="figuras/hz_stall.svg" style="width: 16cm" alt="Stall"></figure>
+<p class="pie">Figura 3. Stall por un <code>lw</code>: el <code>add</code> espera un ciclo en Decode.</p>
+
+<p><i>Flushing.</i> Los saltos se resuelven en Execute, y mientras tanto Fetch sigue leyendo las instrucciones de abajo. Si el salto se toma, <code>FlushD</code> y <code>FlushE</code> anulan las dos que entraron y el PC carga <code>PCTargetE</code> (Figura 4). Cada salto tomado cuesta 2 ciclos.</p>
+
+<figure><img src="figuras/hz_flush.svg" style="width: 15.5cm" alt="Flush"></figure>
+<p class="pie">Figura 4. Flush por un salto tomado.</p>
+
+<pre>  assign lwStall = ResultSrcE0 &amp; ((Rs1D == RdE) | (Rs2D == RdE));
+  assign StallF  = lwStall;
+  assign StallD  = lwStall;
+  assign FlushD  = PCSrcE;
+  assign FlushE  = lwStall | PCSrcE;</pre>
+<p class="pie">Código 2. Stalls y flushes en <code>hazardunit.v</code>. <code>ResultSrcE0</code> es el bit 0 de ResultSrcE, que vale 1 solo en un <code>lw</code>.</p>
+
+<h2>2.4 Programas de prueba</h2>
+
+<p>Probamos el pipeline con cuatro programas, uno por caso (Tabla 3). Están en la carpeta <code>programas</code> (<code>.s</code> y <code>.mem</code>) y sus testbenches en <code>single_issue/tb</code>. Todos terminan en <code>fin: beq x0, x0, fin</code>. Cuando <code>fin</code> llega a Writeback, el testbench compara Mem[100] con el valor esperado, y los cuatro pasan.</p>
+
+<table>
+  <tr><th>Programa</th><th>Qué prueba</th><th class="c">Mem[100]</th></tr>
+  <tr><td><code>e1_p1_isa</code></td><td>Las trece instrucciones, sin dependencias cercanas</td><td class="c">17</td></tr>
+  <tr><td><code>e1_p2_forwarding</code></td><td>Forwarding desde Memory y desde Writeback</td><td class="c">4</td></tr>
+  <tr><td><code>e1_p3_stalling</code></td><td>Dos dependencias con un <code>lw</code></td><td class="c">42</td></tr>
+  <tr><td><code>e1_p4_flushing</code></td><td>Un <code>beq</code> tomado, uno no tomado y un <code>jal</code></td><td class="c">7</td></tr>
+</table>
+<p class="pie">Tabla 3. Programas de prueba del pipeline.</p>
+
+<p>Las waveforms del informe son recortes de Vivado. Arriba de cada una está la instrucción que hay en cada etapa, y (—) es una burbuja. En el Dual-Issue cada etapa tiene una línea por vía, con la vía 0 arriba. Cada marcador numerado es un ciclo que se explica debajo con el mismo número.</p>
+
+<h3>2.4.1 Programa 1: instrucciones soportadas</h3>
+
+<pre>  0  addi x1, x0, 12        # x1 = 12
+  4  addi x2, x0, 5         # x2 = 5
+  8  addi x3, x0, -3        # x3 = -3
+ 12  nop
+ 16  nop
+ 20  add  x4, x1, x2        # x4 = 17
+ 24  sub  x5, x1, x2        # x5 = 7
+ 28  and  x6, x1, x2        # x6 = 4
+ 32  or   x7, x1, x2        # x7 = 13
+ 36  slt  x8, x3, x2        # x8 = 1  (-3 &lt; 5)
+ 40  slti x9, x3, 0         # x9 = 1  (-3 &lt; 0)
+ 44  andi x10, x1, 6        # x10 = 4
+ 48  ori  x11, x2, 8        # x11 = 13
+ 52  sw   x1, 40(x0)        # Mem[40] = 12
+ 56  lw   x13, 40(x0)       # x13 = 12
+ 60  beq  x1, x2, fin       # no se toma
+ 64  jal  x12, sigue        # salta, x12 = 68
+ 68  nop                    # se anula
+ 72  nop                    # se anula
+ 76  sigue: sw x4, 100(x0)  # Mem[100] = 17
+ 80  fin: beq x0, x0, fin</pre>
+<p class="pie">Código 3. Programa 1 (<code>e1_p1_isa.s</code>).</p>
+
+<p>Entre cada escritura y la lectura de ese registro hay al menos dos instrucciones, así que no hace falta forwarding ni stall. La Figura 5 muestra el final del programa.</p>
+
+<figure><img src="figuras/r_s1.png" style="width: 100%" alt="waveform"></figure>
+<p class="pie">Figura 5. Programa 1, de 180 a 250 ns.</p>
+
+<ol>
+  <li><code>sw x1</code> está en Memory y guarda 12 en la dirección 40.</li>
+  <li><code>lw x13</code> escribe 12 en Writeback. A la vez el <code>jal</code> está en Execute con <code>PCSrcE</code> = 1, así que los dos <code>nop</code> de detrás se anulan.</li>
+  <li>El <code>jal</code> escribe su dirección de retorno en x12.</li>
+  <li>El último <code>sw</code> guarda 17 en la dirección 100.</li>
+</ol>
+
+<h3>2.4.2 Programa 2: forwarding</h3>
+
+<pre>  0  addi x1, x0, 5         # x1 = 5
+  4  addi x2, x1, 3         # x2 = 8   x1 desde Memory
+  8  add  x3, x1, x2        # x3 = 13  x1 desde Writeback, x2 desde Memory
+ 12  sub  x4, x3, x1        # x4 = 8   x3 desde Memory
+ 16  addi x5, x0, 1         # x5 = 1
+ 20  addi x5, x5, 1         # x5 = 2
+ 24  add  x6, x5, x5        # x6 = 4   x5 en Memory (2) y en Writeback (1)
+ 28  sw   x6, 100(x0)       # Mem[100] = 4, el dato viene de Memory
+ 32  fin: beq x0, x0, fin</pre>
+<p class="pie">Código 4. Programa 2 (<code>e1_p2_forwarding.s</code>).</p>
+
+<figure><img src="figuras/r_s2.png" style="width: 100%" alt="waveform"></figure>
+<p class="pie">Figura 6. Programa 2, de 50 a 120 ns.</p>
+
+<ol>
+  <li><code>addi x2</code> necesita x1, que está en Memory: <code>ForwardAE</code> = 10.</li>
+  <li><code>add x3</code> toma x1 de Writeback (01) y x2 de Memory (10).</li>
+  <li><code>sub x4</code> toma x3 de Memory. x1 ya se lee del Register File.</li>
+  <li><code>add x6, x5, x5</code>: x5 está en Memory y en Writeback, y gana Memory porque tiene el valor más nuevo.</li>
+  <li>El <code>sw</code> recibe por forwarding el dato que guarda.</li>
+</ol>
+
+<h3>2.4.3 Programa 3: stalling</h3>
+
+<pre>  0  addi x1, x0, 21        # x1 = 21
+  4  sw   x1, 40(x0)        # Mem[40] = 21
+  8  lw   x2, 40(x0)        # x2 = 21
+ 12  add  x3, x2, x1        # x3 = 42  usa x2 justo después del lw: stall
+ 16  sw   x3, 44(x0)        # Mem[44] = 42
+ 20  lw   x4, 44(x0)        # x4 = 42
+ 24  sw   x4, 100(x0)       # Mem[100] = 42  el dato viene del lw: stall
+ 28  fin: beq x0, x0, fin</pre>
+<p class="pie">Código 5. Programa 3 (<code>e1_p3_stalling.s</code>).</p>
+
+<figure><img src="figuras/r_s3.png" style="width: 100%" alt="waveform"></figure>
+<p class="pie">Figura 7. Programa 3, de 60 a 130 ns.</p>
+
+<ol>
+  <li><code>lw x2</code> está en Execute y el <code>add</code> que lo usa, en Decode: <code>lwStall</code> = 1.</li>
+  <li><code>PCF</code> se queda en 16, el <code>add</code> espera en Decode y entra una burbuja a Execute.</li>
+  <li>El <code>add</code> llega a Execute y recibe el 21 desde Writeback (<code>ForwardAE</code> = 01).</li>
+  <li>Pasa lo mismo con <code>lw x4</code> y el <code>sw</code> que lo usa, esta vez por rs2.</li>
+  <li>El <code>sw</code> recibe el 42 desde Writeback.</li>
+</ol>
+
+<h3>2.4.4 Programa 4: flushing</h3>
+
+<p>Detrás de cada salto tomado hay dos <code>addi x9, x9, 1</code> que no deben ejecutarse. Si alguna lo hiciera, el resultado no sería 7.</p>
+
+<pre>  0  addi x1, x0, 5         # x1 = 5
+  4  addi x9, x0, 0         # x9 = 0
+  8  beq  x1, x1, L1        # se toma
+ 12  addi x9, x9, 1         # se anula
+ 16  addi x9, x9, 1         # se anula
+ 20  L1: beq x1, x0, L2     # no se toma
+ 24  addi x2, x0, 7         # x2 = 7
+ 28  L2: jal x3, L3         # salta, x3 = 32
+ 32  addi x9, x9, 1         # se anula
+ 36  addi x9, x9, 1         # se anula
+ 40  L3: add x4, x2, x9     # x4 = 7 + 0
+ 44  sw   x4, 100(x0)       # Mem[100] = 7
+ 48  fin: beq x0, x0, fin</pre>
+<p class="pie">Código 6. Programa 4 (<code>e1_p4_flushing.s</code>).</p>
+
+<figure><img src="figuras/r_s4.png" style="width: 100%" alt="waveform"></figure>
+<p class="pie">Figura 8. Programa 4, de 60 a 140 ns.</p>
+
+<ol>
+  <li><code>beq x1, x1, L1</code> se toma (<code>PCSrcE</code> = 1) y <code>FlushD</code> y <code>FlushE</code> anulan los dos <code>addi x9</code>.</li>
+  <li><code>PCF</code> salta a 20 y quedan burbujas en Decode y Execute.</li>
+  <li><code>beq x1, x0, L2</code> no se toma y no se anula nada.</li>
+  <li>El <code>jal</code> salta a 40 y otra vez se anulan dos instrucciones.</li>
+  <li>El <code>jal</code> escribe x3 = 32. Al final Mem[100] = 7, así que nada anulado se ejecutó.</li>
+</ol>
+<h1>3. Arquitectura del procesador Dual-Issue</h1>
+
+<h2>3.1 Idea general</h2>
+
+<p>El Dual-Issue mantiene las cinco etapas del pipeline, pero por cada una pueden pasar dos instrucciones. Llamamos par a las dos instrucciones seguidas que están en Decode. La primera, que es la más antigua, va por la vía 0 y la segunda por la vía 1. Por eso en el código las señales terminan en 0 o en 1, como <code>InstrD0</code> e <code>InstrD1</code>.</p>
+
+<p>Cuando una instrucción pasa de Decode a Execute decimos que se emite. La emisión es en orden: en cada ciclo salen las dos, solo la primera o ninguna, según decida la Issue Unit (sección 4). Si sale solo la primera es una emisión parcial, y a la otra instrucción del par la llamamos su pareja.</p>
+
+<p>La Tabla 4 resume qué recursos se duplican y cuáles se comparten, y la Figura 9 muestra el datapath completo.</p>
+
+<table>
+  <tr><th>Recurso</th><th class="c">Cantidad</th><th>Comentario</th></tr>
+  <tr><td>Memoria de instrucciones</td><td class="c">1</td><td>Una dirección (<code>PCF</code>) y dos lecturas: <code>InstrF0</code> e <code>InstrF1</code></td></tr>
+  <tr><td>Control Unit y Extend</td><td class="c">2</td><td>Uno por vía, los mismos módulos del pipeline</td></tr>
+  <tr><td>Register File</td><td class="c">1</td><td>Cuatro lecturas y dos escrituras</td></tr>
+  <tr><td>ALU</td><td class="c">2</td><td>Una por vía</td></tr>
+  <tr><td>Muxes de forwarding</td><td class="c">4</td><td>Dos por vía (operandos A y B), de cinco entradas</td></tr>
+  <tr><td>Recurso de branches</td><td class="c">1</td><td>Compartido: un sumador de PCTarget y una lógica de PCSrc</td></tr>
+  <tr><td>Memoria de datos</td><td class="c">1 puerto</td><td>Compartido: un solo <code>lw</code> o <code>sw</code> por ciclo</td></tr>
+</table>
+<p class="pie">Tabla 4. Recursos del procesador Dual-Issue.</p>
+
+<div class="apaisada">
+<figure><img src="figuras/datapath_dual.svg" style="height: 16.9cm; max-height: none" alt="Datapath Dual-Issue"></figure>
+<p class="pie">Figura 9. Datapath completo del procesador Dual-Issue. En azul están las señales de control y las de las unidades Issue y Hazard. Una etiqueta con borde está conectada al cable que tiene ese nombre.</p>
+</div>
+
+<h2>3.2 Fetch y registro F/D</h2>
+
+<p>La memoria de instrucciones entrega la instrucción de <code>PCF</code> (<code>InstrF0</code>) y la siguiente (<code>InstrF1</code>). El PC ya no avanza siempre 4, sino según cuántas instrucciones salieron de Decode (Figura 10):</p>
+<ul>
+  <li>Si salen las dos, entra el par nuevo y el PC avanza 8.</li>
+  <li>Si sale solo la primera, la segunda pasa a la primera posición del registro F/D y a su lado entra <code>InstrF0</code>. El PC avanza 4. Así la instrucción pendiente se reagrupa con la que le sigue en el programa.</li>
+  <li>Si no sale ninguna, el PC y el registro F/D no cambian.</li>
+</ul>
+
+<figure><img src="figuras/casos_fd.svg" style="width: 13cm" alt="Casos del registro F/D"></figure>
+<p class="pie">Figura 10. Qué hay en cada etapa en el ciclo siguiente, según cuántas instrucciones salieron de Decode. I1 a I6 son instrucciones seguidas, con I1 en la dirección 0.</p>
+
+<figure><img src="figuras/detalle_fetch.svg" style="width: 10.5cm" alt="Detalle de Fetch"></figure>
+<p class="pie">Figura 11. Detalle de Fetch en la Figura 9: el mux del PC (<code>pcmux</code>) y los dos muxes del registro F/D (<code>fdmux0</code> y <code>fdmux1</code>).</p>
+
+<p>Para esto hay un mux delante de cada posición del registro F/D, controlados por <code>Issue1</code>, y el mux del PC tiene tres entradas (Figura 11). Con <code>{PCSrcE, Issue1}</code> = 00 elige <code>PCPlus4F</code>, con 01 <code>PCPlus8F</code> y con un salto tomado (1x) <code>PCTargetE</code>.</p>
+
+<pre>  mux3 #(32) pcmux(.d0(PCPlus4F), .d1(PCPlus8F), .d2(PCTargetE),
+                   .s({PCSrcE, Issue1}), .y(PCNextF));
+
+  mux2 #(96) fdmux0(.d0({InstrD1, PCD1, PCPlus4D1}), .d1({InstrF0, PCF, PCPlus4F}),
+                    .s(Issue1), .y(FD0));
+  mux2 #(96) fdmux1(.d0({InstrF0, PCF, PCPlus4F}), .d1({InstrF1, PCPlus4F, PCPlus8F}),
+                    .s(Issue1), .y(FD1));
+
+  flopenrc #(96) fdreg0(.clk(clk), .reset(reset), .clr(FlushD), .en(~StallD),
+                        .d(FD0), .q({InstrD0, PCD0, PCPlus4D0}));
+  flopenrc #(96) fdreg1(.clk(clk), .reset(reset), .clr(FlushD), .en(~StallD),
+                        .d(FD1), .q({InstrD1, PCD1, PCPlus4D1}));</pre>
+<p class="pie">Código 7. Siguiente PC y registro F/D en <code>datapath_dual.v</code>.</p>
+
+<p>Cada posición del registro F/D guarda lo mismo que el registro F/D del pipeline, así que de Decode en adelante cada vía funciona como el pipeline de la sección 2.</p>
+
+<h2>3.3 Decode</h2>
+
+<p>Cada vía tiene su propia Control Unit y su propio Extend, que son los módulos del pipeline instanciados dos veces. El Register File tiene cuatro lecturas y dos escrituras. Si las dos vías escriben el mismo registro en el mismo ciclo, queda el dato de la vía 1, que es la instrucción más joven.</p>
+
+<pre>  always @(negedge clk) begin
+    if (we3 &amp; ~(we6 &amp; (a6 == a3))) rf[a3] &lt;= wd3;
+    if (we6)                       rf[a6] &lt;= wd6;
+  end</pre>
+<p class="pie">Código 8. Las dos escrituras del Register File en <code>regfile_dual.v</code>.</p>
+
+<p>La Figura 12 muestra el Dual Fetch y el Dual Decode con el programa 1 de la sección 6.</p>
+
+<figure><img src="figuras/r_dfd.png" style="width: 100%" alt="waveform"></figure>
+<p class="pie">Figura 12. Dual Fetch y Dual Decode, de 20 a 70 ns.</p>
+
+<ol>
+  <li>Con <code>PCF</code> = 0 la memoria entrega <code>addi x1</code> y <code>addi x2</code>.</li>
+  <li>Las dos están en Decode con <code>PCD0</code> = 0 y <code>PCD1</code> = 4. <code>Rs2D0</code> y <code>Rs2D1</code> valen 0 porque <code>addi</code> no lee rs2.</li>
+  <li>Las dos Control Unit decodifican <code>add x5</code> y <code>sub x6</code> en el mismo ciclo y dan dos <code>ALUControl</code> distintos.</li>
+  <li>Lo mismo pasa con <code>and x7</code> y <code>or x8</code>.</li>
+</ol>
+
+<p>También cambia cómo se sacan los registros fuente. En <code>addi</code> o <code>lw</code> los bits 24:20 son parte del inmediato y no rs2, y en <code>jal</code> los bits 19:15 no son rs1. Si se comparan igual aparecen dependencias falsas y salen menos pares. Por eso, si la instrucción no lee el registro, usamos x0, que nunca genera una dependencia.</p>
+
+<pre>  assign UsaRs2D0 = (opD0 == 7'b0110011) | (opD0 == 7'b0100011) | (opD0 == 7'b1100011);
+
+  assign Rs1D0 = (opD0 == 7'b1101111) ? 5'b0 : InstrD0[19:15];
+  assign Rs2D0 = UsaRs2D0 ? InstrD0[24:20] : 5'b0;</pre>
+<p class="pie">Código 9. Registros fuente de la vía 0 en <code>datapath_dual.v</code>. La vía 1 es igual.</p>
+
+<h2>3.4 Execute</h2>
+
+<p>Cada vía tiene su ALU y sus muxes de forwarding (sección 5.1), así que dos operaciones ALU se ejecutan en el mismo ciclo. Para los saltos hay un solo recurso, un sumador de <code>PCTargetE</code> y una lógica de <code>PCSrcE</code>, porque la Issue Unit no deja salir dos saltos juntos. <code>BranchSelE</code> indica en qué vía está el salto, y con esa señal <code>branchmux</code> le pasa al recurso los datos de esa vía (Figura 13).</p>
+
+<pre>  assign BranchSelE = BranchE1 | JumpE1;
+
+  mux2 #(67) branchmux(.d0({BranchE0, JumpE0, ZeroE0, PCE0, ImmExtE0}),
+                       .d1({BranchE1, JumpE1, ZeroE1, PCE1, ImmExtE1}),
+                       .s(BranchSelE),
+                       .y({BranchE, JumpE, ZeroE, BranchPCE, BranchImmE}));
+
+  adder pcaddbranch(.a(BranchPCE), .b(BranchImmE), .y(PCTargetE));
+
+  assign PCSrcE = (BranchE &amp; ZeroE) | JumpE;</pre>
+<p class="pie">Código 10. Recurso único de resolución de branches en <code>datapath_dual.v</code>.</p>
+
+<h2>3.5 Memory y Writeback</h2>
+
+<p>La memoria de datos tiene un solo puerto, y la Issue Unit tampoco deja salir dos accesos a memoria juntos. <code>MemSelM</code> indica si el acceso está en la vía 1, y con esa señal <code>memmux</code> elige la dirección y el dato. En Writeback cada vía escribe su resultado por su propio puerto del Register File.</p>
+
+<pre>  assign MemSelM   = MemWriteM1 | ResultSrcM1[0];
+  assign MemWriteM = MemWriteM0 | MemWriteM1;
+
+  mux2 #(64) memmux(.d0({ALUResultM0, WriteDataM0}), .d1({ALUResultM1, WriteDataM1}),
+                    .s(MemSelM), .y({DataAdrM, WriteDataM}));</pre>
+<p class="pie">Código 11. Asignación del puerto único de memoria de datos en <code>datapath_dual.v</code>.</p>
+
+<figure><img src="figuras/detalle_compartidos.svg" style="width: 100%" alt="Recursos compartidos"></figure>
+<p class="pie">Figura 13. Recursos compartidos en la Figura 9: el recurso de branches (<code>branchmux</code>) y el puerto de memoria de datos (<code>memmux</code>).</p>
+
+<h2>3.6 Módulos</h2>
+
+<p>La Tabla 5 resume qué módulos cambiaron respecto al pipeline.</p>
+
+<table>
+  <tr><th>Módulo</th><th>Estado</th><th>Función</th></tr>
+  <tr><td><code>top_dual</code></td><td>Modificado</td><td>Une el procesador con la memoria de instrucciones y la de datos</td></tr>
+  <tr><td><code>riscvdual</code></td><td>Modificado</td><td>Las dos Control Unit y el datapath</td></tr>
+  <tr><td><code>datapath_dual</code></td><td>Modificado</td><td>Datapath de dos vías con los recursos compartidos</td></tr>
+  <tr><td><code>imem_dual</code></td><td>Modificado</td><td>Memoria de instrucciones con dos lecturas</td></tr>
+  <tr><td><code>regfile_dual</code></td><td>Modificado</td><td>Register File de cuatro lecturas y dos escrituras</td></tr>
+  <tr><td><code>issueunit</code></td><td>Nuevo</td><td>Decide si salen dos instrucciones, una o ninguna</td></tr>
+  <tr><td><code>hazardunit_dual</code></td><td>Modificado</td><td>Forwarding entre vías, stalls y flushes</td></tr>
+  <tr><td><code>mux5</code></td><td>Nuevo</td><td>Mux de forwarding de cinco entradas</td></tr>
+  <tr><td>Los demás</td><td>Sin cambios</td><td><code>controller</code>, <code>maindec</code>, <code>aludec</code> (una Control Unit por vía), <code>alu</code>, <code>extend</code>, <code>adder</code>, <code>mux2</code>, <code>mux3</code>, <code>flopr</code>, <code>flopenrc</code>, <code>dmem</code></td></tr>
+</table>
+<p class="pie">Tabla 5. Módulos del procesador Dual-Issue.</p>
+<h1>4. Issue Unit</h1>
+
+<p>La Issue Unit está en Decode y calcula <code>Issue0</code> (sale la primera instrucción) e <code>Issue1</code> (sale también la segunda). La Tabla 6 resume qué revisa.</p>
+
+<h2>4.1 Condiciones de emisión</h2>
+
+<table>
+  <tr><th>Situación</th><th>Señal</th><th>Qué sale</th></tr>
+  <tr><td>La primera usa el resultado de un <code>lw</code> que está en Execute</td><td><code>lwStall0</code></td><td>Ninguna</td></tr>
+  <tr><td>La segunda usa el resultado de un <code>lw</code> que está en Execute</td><td><code>lwStall1</code></td><td>Solo la primera</td></tr>
+  <tr><td>La segunda lee el registro que escribe la primera</td><td><code>RAW</code></td><td>Solo la primera</td></tr>
+  <tr><td>Las dos son <code>lw</code> o <code>sw</code></td><td><code>MemConflict</code></td><td>Solo la primera</td></tr>
+  <tr><td>Las dos son <code>beq</code> o <code>jal</code></td><td><code>BranchConflict</code></td><td>Solo la primera</td></tr>
+  <tr><td>Ninguna de las anteriores</td><td></td><td>Las dos</td></tr>
+</table>
+<p class="pie">Tabla 6. Condiciones que revisa la Issue Unit.</p>
+
+<p><i>RAW dentro del par.</i> Si la segunda instrucción lee el registro que escribe la primera, ese dato todavía no existe cuando las dos están en Execute, así que no hay de dónde hacer forwarding. Sale solo la primera, y en el ciclo siguiente la segunda recibe el dato desde Memory (Figura 14).</p>
+
+<figure><img src="figuras/issue_raw.svg" style="width: 14.5cm" alt="RAW dentro del par"></figure>
+<p class="pie">Figura 14. RAW dentro del par: la segunda espera en Decode y se reagrupa con la siguiente.</p>
+
+<p>Las dependencias WAR y WAW no impiden que el par salga junto. En una WAW queda el dato de la vía 1, tanto en el Register File como en el forwarding.</p>
+
+<p><i>Load-Use.</i> Es el <code>lwStall</code> del pipeline, pero ahora el <code>lw</code> puede estar en cualquiera de las dos vías de Execute. Si depende la primera instrucción no sale ninguna, porque la emisión es en orden. Si solo depende la segunda, sale la primera.</p>
+
+<p><i>Recursos compartidos.</i> Si las dos instrucciones usan memoria o las dos son saltos, sale solo la primera.</p>
+
+<pre>  assign lwStall0 = (LoadE0 &amp; ((Rs1D0 == RdE0) | (Rs2D0 == RdE0))) |
+                    (LoadE1 &amp; ((Rs1D0 == RdE1) | (Rs2D0 == RdE1)));
+  assign lwStall1 = (LoadE0 &amp; ((Rs1D1 == RdE0) | (Rs2D1 == RdE0))) |
+                    (LoadE1 &amp; ((Rs1D1 == RdE1) | (Rs2D1 == RdE1)));
+
+  assign RAW = RegWriteD0 &amp; (RdD0 != 0) &amp; ((Rs1D1 == RdD0) | (Rs2D1 == RdD0));
+
+  assign MemConflict    = (MemWriteD0 | LoadD0) &amp; (MemWriteD1 | LoadD1);
+  assign BranchConflict = (BranchD0 | JumpD0) &amp; (BranchD1 | JumpD1);
+
+  assign Issue0 = ~lwStall0;
+  assign Issue1 = Issue0 &amp; ~lwStall1 &amp; ~RAW &amp; ~MemConflict &amp; ~BranchConflict;</pre>
+<p class="pie">Código 12. Lógica de <code>issueunit.v</code>. <code>LoadD</code> y <code>LoadE</code> son el bit 0 de ResultSrc, que vale 1 solo en un <code>lw</code>.</p>
+
+<h2>4.2 Asignación de recursos</h2>
+
+<p>En un par hay como máximo un acceso a memoria y un salto, así que el recurso compartido va a la vía que lo pide y no hay que decidir quién gana. Por eso un <code>lw</code>, un <code>sw</code> o un salto puede salir junto con una operación ALU en cualquier posición del par.</p>
+
+<h2>4.3 Reagrupamiento</h2>
+
+<p>Cuando sale solo la primera, la segunda pasa a la vía 0 y se agrupa con la siguiente del programa (sección 3.2). La pendiente siempre queda delante de la que entra desde Fetch y el PC avanza solo por las instrucciones que entraron, así que ninguna se pierde ni se repite. El programa 6 de la sección 6 lo prueba.</p>
+
+<h1>5. Hazard Unit</h1>
+
+<p>Respecto al pipeline, la Hazard Unit cambia en cuatro cosas: el forwarding tiene cuatro fuentes, el <code>lwStall</code> pasó a la Issue Unit, un salto tomado manda sobre un stall y hay flushes por vía.</p>
+
+<h2>5.1 Forwarding entre vías y etapas</h2>
+
+<p>El dato que necesita una instrucción en Execute puede estar en Memory o en Writeback de cualquiera de las dos vías. Por eso los cuatro muxes de forwarding son de cinco entradas (Tabla 7). Si el registro está en varios lugares se toma el valor más reciente: Memory antes que Writeback y, dentro de la misma etapa, la vía 1 antes que la vía 0.</p>
+
+<table>
+  <tr><th class="c">Forward</th><th>Dato elegido</th><th>De dónde viene</th></tr>
+  <tr><td class="c">000</td><td>RD del Register File</td><td>No hay dependencia</td></tr>
+  <tr><td class="c">001</td><td><code>ResultW0</code></td><td>Writeback, vía 0</td></tr>
+  <tr><td class="c">010</td><td><code>ResultW1</code></td><td>Writeback, vía 1</td></tr>
+  <tr><td class="c">011</td><td><code>ALUResultM0</code></td><td>Memory, vía 0</td></tr>
+  <tr><td class="c">100</td><td><code>ALUResultM1</code></td><td>Memory, vía 1</td></tr>
+</table>
+<p class="pie">Tabla 7. Codificación de ForwardAE0, ForwardBE0, ForwardAE1 y ForwardBE1.</p>
+
+<pre>    if      ((Rs1E0 == RdM1) &amp; RegWriteM1 &amp; (Rs1E0 != 0)) ForwardAE0 = 3'b100;
+    else if ((Rs1E0 == RdM0) &amp; RegWriteM0 &amp; (Rs1E0 != 0)) ForwardAE0 = 3'b011;
+    else if ((Rs1E0 == RdW1) &amp; RegWriteW1 &amp; (Rs1E0 != 0)) ForwardAE0 = 3'b010;
+    else if ((Rs1E0 == RdW0) &amp; RegWriteW0 &amp; (Rs1E0 != 0)) ForwardAE0 = 3'b001;
+    else                                                  ForwardAE0 = 3'b000;</pre>
+<p class="pie">Código 13. Forwarding del operando A de la vía 0 en <code>hazardunit_dual.v</code>. Los otros tres son iguales cambiando el registro fuente (Rs2E0, Rs1E1 y Rs2E1).</p>
+
+<p>Entre las dos instrucciones que están juntas en Execute no hay forwarding, porque la Issue Unit no deja salir juntas dos instrucciones con RAW. Hacerlo pondría las dos ALU una detrás de otra en el mismo ciclo y alargaría el camino crítico.</p>
+
+<h2>5.2 Stalls</h2>
+
+<p>Si no sale ninguna instrucción (<code>Issue0</code> = 0), <code>StallF</code> y <code>StallD</code> detienen el PC y el registro F/D, y entra una burbuja en las dos vías de Execute. Si sale solo la primera, nada se detiene y solo entra una burbuja en la vía 1.</p>
+
+<p>Un caso nuevo es tener un Load-Use en Decode y un salto tomado en Execute en el mismo ciclo, por ejemplo con un <code>lw</code> y un <code>beq</code> juntos en Execute. Manda el salto, porque lo que está en Decode se va a anular. Por eso <code>StallF</code> y <code>StallD</code> llevan <code>~PCSrcE</code>.</p>
+
+<h2>5.3 Branches y flushing</h2>
+
+<p>Como en el pipeline, el salto se resuelve en Execute, y si se toma se anulan las instrucciones más jóvenes:</p>
+<ul>
+  <li><code>FlushD</code> anula el par que viene de Fetch.</li>
+  <li><code>FlushE0</code> y <code>FlushE1</code> anulan el par que está en Decode.</li>
+  <li>Si el salto está en la vía 0, su pareja de la vía 1 también es más joven. <code>FlushM1</code> la anula en el registro E/M, antes de que escriba algo. Antes no se puede, porque en Decode todavía no se sabe si el salto se toma.</li>
+  <li>Si el salto está en la vía 1, la instrucción de la vía 0 es más antigua y sigue.</li>
+</ul>
+
+<p>La penalidad sigue siendo de 2 ciclos, pero ahora se pierden hasta cuatro instrucciones además de la pareja (Figura 15). La Tabla 8 junta las señales de stall y flush.</p>
+
+<figure><img src="figuras/flush_dual.svg" style="width: 15.5cm" alt="Flush en el Dual-Issue"></figure>
+<p class="pie">Figura 15. Salto tomado en la vía 0 (programa 4 de la sección 6).</p>
+
+<table>
+  <tr><th>Señal</th><th>Ecuación</th><th>En el pipeline</th><th>Efecto</th></tr>
+  <tr><td><code>StallF</code>, <code>StallD</code></td><td><code>~Issue0 &amp; ~PCSrcE</code></td><td><code>lwStall</code></td><td>Se mantienen el PC y el par que está en Decode</td></tr>
+  <tr><td><code>FlushD</code></td><td><code>PCSrcE</code></td><td><code>PCSrcE</code></td><td>Anula el par que venía de Fetch</td></tr>
+  <tr><td><code>FlushE0</code></td><td><code>~Issue0 | PCSrcE</code></td><td><code>lwStall | PCSrcE</code></td><td>Burbuja en Execute, vía 0</td></tr>
+  <tr><td><code>FlushE1</code></td><td><code>~Issue1 | PCSrcE</code></td><td class="c">no existe</td><td>Burbuja en Execute, vía 1</td></tr>
+  <tr><td><code>FlushM1</code></td><td><code>PCSrcE &amp; ~BranchSelE</code></td><td class="c">no existe</td><td>Anula la instrucción de la vía 1 cuando el salto tomado está en la vía 0</td></tr>
+</table>
+<p class="pie">Tabla 8. Señales de stall y flush de <code>hazardunit_dual.v</code>.</p>
+<h1>6. Programas de prueba del Dual-Issue</h1>
+
+<p>Probamos el Dual-Issue con seis programas, uno por cada caso que pide el enunciado (Tabla 9). Funcionan igual que los del pipeline y sus testbenches están en <code>dual_issue/tb</code>. En los listados una línea en blanco separa los grupos que salen juntos de Decode.</p>
+
+<table>
+  <tr><th>Programa</th><th>Qué prueba</th><th class="c">Mem[100]</th></tr>
+  <tr><td><code>e2_p1_alu</code></td><td>Dos operaciones ALU independientes por par</td><td class="c">32</td></tr>
+  <tr><td><code>e2_p2_raw</code></td><td>RAW dentro del par y forwarding desde las dos vías</td><td class="c">26</td></tr>
+  <tr><td><code>e2_p3_memoria</code></td><td>Puerto único de memoria y Load-Use</td><td class="c">13</td></tr>
+  <tr><td><code>e2_p4_branches</code></td><td>Saltos en las dos posiciones del par, tomados y no tomados</td><td class="c">0</td></tr>
+  <tr><td><code>e2_p5_regfile</code></td><td>Dos escrituras en el Register File</td><td class="c">42</td></tr>
+  <tr><td><code>e2_p6_reagrupamiento</code></td><td>Reagrupamiento sin perder ni repetir instrucciones</td><td class="c">37</td></tr>
+</table>
+<p class="pie">Tabla 9. Programas de prueba del Dual-Issue.</p>
+
+<h2>6.1 Programa 1: dos operaciones ALU independientes</h2>
+
+<pre>  0  addi x1, x0, 12        # x1 = 12
+  4  addi x2, x0, 5         # x2 = 5
+
+  8  addi x3, x0, -3        # x3 = -3
+ 12  addi x4, x0, 9         # x4 = 9
+
+ 16  add  x5, x1, x2        # x5 = 17
+ 20  sub  x6, x1, x2        # x6 = 7
+     ... (and, or, slt, slti, add, sub, add, andi)
+ 56  sw   x13, 100(x0)      # Mem[100] = 32
+ 60  fin: beq x0, x0, fin</pre>
+<p class="pie">Código 14. Programa 1 (<code>e2_p1_alu.s</code>), resumido.</p>
+
+<figure><img src="figuras/r_p1.png" style="width: 14cm" alt="waveform"></figure>
+<p class="pie">Figura 16. Programa 1, de 30 a 80 ns.</p>
+
+<ol>
+  <li>El primer par sale completo (<code>Issue0</code> = <code>Issue1</code> = 1). Así pasa en todo el programa, y <code>PCF</code> avanza de 8 en 8.</li>
+  <li>Las dos ALU calculan en el mismo ciclo.</li>
+  <li>Mientras un par está en Execute, el anterior escribe dos registros en Writeback.</li>
+</ol>
+
+<p>Son 15 instrucciones en 12 ciclos. En el pipeline tardan 19.</p>
+
+<h2>6.2 Programa 2: RAW dentro del par y forwarding</h2>
+
+<pre>  0  addi x1, x0, 5         # x1 = 5
+
+  4  addi x2, x1, 3         # x2 = 8   lee x1, que escribe la anterior
+  8  addi x3, x0, 7         # x3 = 7
+
+ 12  add  x4, x2, x3        # x4 = 15  x2 de Memory vía 0, x3 de Memory vía 1
+ 16  add  x5, x1, x3        # x5 = 12  x1 de Writeback vía 0, x3 de Memory vía 1
+
+ 20  sub  x6, x4, x2        # x6 = 7   x4 de Memory vía 0, x2 de Writeback vía 0
+ 24  or   x7, x5, x3        # x7 = 15  x5 de Memory vía 1, x3 de Writeback vía 1
+
+ 28  addi x8, x0, 1         # x8 = 1
+ 32  addi x8, x0, 2         # x8 = 2   mismo destino
+
+ 36  add  x9, x8, x8        # x9 = 4   x8 en Memory en las dos vías: gana la vía 1
+ 40  add  x10, x6, x7       # x10 = 22
+
+ 44  add  x11, x9, x10      # x11 = 26
+
+ 48  sw   x11, 100(x0)      # Mem[100] = 26
+ 52  fin: beq x0, x0, fin</pre>
+<p class="pie">Código 15. Programa 2 (<code>e2_p2_raw.s</code>).</p>
+
+<figure><img src="figuras/r_p2.png" style="width: 100%" alt="waveform"></figure>
+<p class="pie">Figura 17. Programa 2, de 30 a 100 ns.</p>
+
+<ol>
+  <li><code>addi x2</code> lee x1, que escribe la primera del par: <code>Issue1</code> = 0.</li>
+  <li><code>addi x2</code> pasó a la vía 0 y a su lado entró <code>addi x3</code>. <code>PCF</code> avanzó solo 4.</li>
+  <li><code>add x4</code> y <code>add x5</code> toman sus operandos de Memory en las dos vías (011 y 100) y de Writeback (001).</li>
+  <li>En este ciclo se usan las cuatro fuentes de forwarding a la vez.</li>
+  <li>x8 está en Memory en las dos vías y gana la vía 1 (100), la más reciente. En Decode, <code>sw x11</code> depende de <code>add x11</code> y otra vez <code>Issue1</code> = 0.</li>
+</ol>
+
+<h2>6.3 Programa 3: Load-Use y puerto de memoria</h2>
+
+<pre>  0  addi x1, x0, 20        # x1 = 20
+  4  addi x2, x0, 7         # x2 = 7
+
+  8  sw   x1, 40(x0)        # Mem[40] = 20   dos sw: no salen juntos
+
+ 12  sw   x2, 44(x0)        # Mem[44] = 7    sw y lw: no salen juntos
+
+ 16  lw   x3, 40(x0)        # x3 = 20        el add lee x3 (RAW)
+
+ 20  add  x4, x3, x2        # x4 = 27        Load-Use: stall
+ 24  lw   x5, 44(x0)        # x5 = 7         ALU + lw salen juntas
+
+ 28  addi x6, x0, 1         # x6 = 1         sale sola: su pareja depende del lw
+
+ 32  add  x7, x5, x2        # x7 = 14
+ 36  sw   x4, 48(x0)        # Mem[48] = 27   ALU + sw
+
+ 40  lw   x8, 48(x0)        # x8 = 27        lw + ALU
+ 44  sub  x9, x7, x6        # x9 = 13
+
+ 48  sw   x9, 100(x0)       # Mem[100] = 13
+ 52  fin: beq x0, x0, fin</pre>
+<p class="pie">Código 16. Programa 3 (<code>e2_p3_memoria.s</code>).</p>
+
+<figure><img src="figuras/r_p3a.png" style="width: 100%" alt="waveform"></figure>
+<p class="pie">Figura 18. Programa 3, de 40 a 100 ns: conflictos de memoria y stall por Load-Use.</p>
+
+<ol>
+  <li>Hay dos <code>sw</code> en el par, que comparten el puerto de memoria: <code>Issue1</code> = 0.</li>
+  <li>Un <code>sw</code> y un <code>lw</code> tampoco salen juntos.</li>
+  <li><code>add x4</code> depende de <code>lw x3</code> y sale solo el <code>lw</code>. En Memory, el primer <code>sw</code> escribe en la dirección 40.</li>
+  <li>Ahora el <code>lw</code> está en Execute y el <code>add</code> en Decode. Es un Load-Use, así que <code>Issue0</code> = 0 y no sale ninguna.</li>
+  <li>El <code>lw</code> lee 20 en Memory, y en Decode salen juntos el <code>add</code> y <code>lw x5</code>: una operación ALU y un acceso a memoria.</li>
+</ol>
+
+<figure><img src="figuras/r_p3b.png" style="width: 100%" alt="waveform"></figure>
+<p class="pie">Figura 19. Programa 3, de 90 a 150 ns: el puerto de memoria en las dos vías.</p>
+
+<ol>
+  <li>Solo la segunda del par depende de <code>lw x5</code>, así que sale la primera sin detener el PC.</li>
+  <li><code>lw x5</code> usa el puerto desde la vía 1 (<code>MemSelM</code> = 1), y en Decode salen juntos <code>add x7</code> y <code>sw x4</code>.</li>
+  <li>El <code>sw</code> de la vía 1 escribe 27 en la dirección 48.</li>
+  <li><code>lw x8</code>, ahora en la vía 0, lee ese 27.</li>
+  <li>El último <code>sw</code> guarda 13 en la dirección 100.</li>
+</ol>
+
+<h2>6.4 Programa 4: saltos en las dos posiciones del par</h2>
+
+<p>Hay <code>beq</code> y <code>jal</code> en las dos posiciones, tomados y no tomados. Las instrucciones que suman algo a x9 no deben ejecutarse. Si alguna lo hiciera, el resultado no sería 0.</p>
+
+<pre>  0  addi x1, x0, 5         # x1 = 5
+  4  addi x9, x0, 0         # x9 = 0
+
+  8  beq  x1, x1, L1        # vía 0, se toma
+ 12  addi x9, x9, 1         # su pareja: se anula
+
+ 16  addi x9, x9, 1         # se anula
+ 20  addi x9, x9, 1         # se anula
+
+ 24  L1: sw x1, 40(x0)      # Mem[40] = 5
+ 28  beq  x1, x0, L2        # vía 1, no se toma
+
+ 32  lw   x2, 40(x0)        # x2 = 5, más antigua que el salto: sigue
+ 36  beq  x1, x1, L2        # vía 1, se toma
+
+ 40  add  x9, x9, x2        # se anula (y además depende del lw)
+ 44  addi x9, x9, 1         # se anula
+
+ 48  L2: beq x1, x0, L3     # no se toma; dos saltos en el par: sale solo</pre>
+<p class="pie">Código 17. Programa 4 (<code>e2_p4_branches.s</code>), primera parte: los <code>beq</code>.</p>
+
+<figure><img src="figuras/r_p4a.png" style="width: 100%" alt="waveform"></figure>
+<p class="pie">Figura 20. Programa 4, de 50 a 130 ns.</p>
+
+<ol>
+  <li>El <code>beq</code> de la vía 0 se toma. <code>FlushD</code>, <code>FlushE0</code> y <code>FlushE1</code> anulan lo que entró detrás, y <code>FlushM1</code> anula a su pareja.</li>
+  <li>En Memory solo queda el <code>beq</code>, y <code>PCF</code> = 24.</li>
+  <li><code>beq x1, x0, L2</code> está en la vía 1 (<code>BranchSelE</code> = 1) y no se toma.</li>
+  <li><code>beq x1, x1, L2</code> se toma en la vía 1, pero <code>FlushM1</code> = 0 porque el <code>lw</code> de la vía 0 es más antiguo. En Decode hay un Load-Use, pero manda el salto: <code>StallF</code> = 0 y el PC salta a 48.</li>
+  <li>Hay dos saltos en el par y sale solo el primero.</li>
+  <li>Ese <code>beq</code> no se toma y el <code>jal</code> pasa a la vía 0.</li>
+</ol>
+
+<pre> 52  jal  x3, L3            # vía 0, x3 = 56
+ 56  addi x9, x9, 1         # su pareja: se anula
+
+ 60  L3: addi x4, x0, 2     # x4 = 2
+ 64  jal  x5, L4            # vía 1, x5 = 68
+
+ 68  addi x9, x9, 1         # se anula
+
+ 72  L4: add x6, x2, x4     # x6 = 7
+ 76  add  x7, x3, x5        # x7 = 124
+
+ 80  sw   x9, 100(x0)       # Mem[100] = 0
+ 84  fin: beq x0, x0, fin</pre>
+<p class="pie">Código 18. Programa 4, segunda parte: los <code>jal</code>.</p>
+
+<figure><img src="figuras/r_p4b.png" style="width: 100%" alt="waveform"></figure>
+<p class="pie">Figura 21. Programa 4, de 130 a 190 ns.</p>
+
+<ol>
+  <li>El <code>jal</code> de la vía 0 salta a 60 y <code>FlushM1</code> anula a su pareja.</li>
+  <li>El <code>jal</code> escribe x3 = 56.</li>
+  <li>El <code>jal</code> de la vía 1 salta a 72 sin anular a su pareja, que es más antigua.</li>
+  <li>Las dos vías escriben a la vez x4 y x5. Al final Mem[100] = 0, así que nada anulado se ejecutó.</li>
+</ol>
+
+<h2>6.5 Programa 5: dos escrituras en el Register File</h2>
+
+<pre>  0  addi x1, x0, 11        # x1 = 11
+  4  addi x2, x0, 22        # x2 = 22   se escriben en el mismo ciclo
+
+  8  addi x3, x0, 5         # x3 = 5
+ 12  addi x3, x0, 9         # x3 = 9    las dos escriben x3: queda la vía 1
+
+ 16  addi x0, x0, 7         # destino x0: se sigue leyendo 0
+ 20  addi x4, x0, 4         # x4 = 4
+
+ 24  sw   x2, 40(x0)        # Mem[40] = 22
+ 28  add  x5, x1, x3        # x5 = 20
+
+ 32  lw   x6, 40(x0)        # x6 = 22   dato de memoria
+ 36  add  x7, x3, x4        # x7 = 13   dato de la ALU, mismo ciclo
+     ... (add x8, add x9, add x10, add x11)
+ 56  sw   x10, 100(x0)      # Mem[100] = 42
+ 60  fin: beq x0, x0, fin</pre>
+<p class="pie">Código 19. Programa 5 (<code>e2_p5_regfile.s</code>), resumido.</p>
+
+<p>En esta waveform agregamos los registros. Cambian a la mitad del ciclo porque el Register File escribe en el flanco de bajada.</p>
+
+<figure><img src="figuras/r_p5.png" style="width: 100%" alt="waveform"></figure>
+<p class="pie">Figura 22. Programa 5, de 60 a 140 ns.</p>
+
+<ol>
+  <li>Las dos vías escriben a la vez x1 y x2.</li>
+  <li>Las dos vías escriben x3 y queda 9, el dato de la vía 1.</li>
+  <li>La escritura en x0 no cambia nada.</li>
+  <li>Una vía escribe un dato de memoria y la otra uno de la ALU.</li>
+  <li>x10 = 42 solo sale bien si todas las escrituras anteriores fueron correctas.</li>
+</ol>
+
+<h2>6.6 Programa 6: reagrupamiento</h2>
+
+<p>Casi cada instrucción depende de la anterior, así que la pendiente se reagrupa una y otra vez. Si alguna se perdiera o se repitiera, el resultado no sería 37.</p>
+
+<pre>  0  addi x1, x0, 1         # x1 = 1
+  4  addi x2, x0, 10        # x2 = 10
+
+  8  addi x1, x1, 1         # x1 = 2
+
+ 12  addi x1, x1, 1         # x1 = 3   se reagrupa con la siguiente
+ 16  addi x2, x2, 10        # x2 = 20
+
+ 20  addi x2, x2, 10        # x2 = 30
+ 24  addi x1, x1, 1         # x1 = 4
+
+ 28  addi x1, x1, 1         # x1 = 5   desde aquí sale una por ciclo
+
+ 32  addi x1, x1, 1         # x1 = 6
+
+ 36  addi x1, x1, 1         # x1 = 7
+
+ 40  add  x3, x1, x2        # x3 = 37
+
+ 44  sw   x3, 100(x0)       # Mem[100] = 37
+ 48  fin: beq x0, x0, fin</pre>
+<p class="pie">Código 20. Programa 6 (<code>e2_p6_reagrupamiento.s</code>).</p>
+
+<figure><img src="figuras/r_p6.png" style="width: 100%" alt="waveform"></figure>
+<p class="pie">Figura 23. Programa 6, de 40 a 130 ns.</p>
+
+<ol>
+  <li>Los dos <code>addi x1</code> del par dependen entre sí: <code>Issue1</code> = 0.</li>
+  <li>El segundo pasa a la vía 0 con <code>addi x2</code> al lado, y ahora salen juntas. <code>PCF</code> avanzó solo 4.</li>
+  <li>Desde aquí hay emisiones parciales seguidas y <code>PCF</code> avanza de 4 en 4.</li>
+</ol>
+
+<p>En Writeback x1 toma los valores del 1 al 7 en orden, sin saltarse ni repetir ninguno.</p>
+<h1>7. Optimización: predicción dinámica de saltos</h1>
+
+<h2>7.1 Limitación que buscamos resolver</h2>
+
+<p>En el Dual-Issue un salto tomado anula todo lo que entró detrás. En el <code>beq</code> que cierra un bucle eso cuesta 2 ciclos y hasta cinco instrucciones en cada vuelta (Figura 24).</p>
+
+<figure><img src="figuras/pred_sin.svg" style="width: 15.5cm" alt="Salto sin prediccion"></figure>
+<p class="pie">Figura 24. Salto que cierra un bucle en el Dual-Issue: el destino recién entra en el ciclo 4.</p>
+
+<p>En el Dual-Issue esto pesa más que en el pipeline, porque en cada ciclo perdido podían haber salido dos instrucciones. En el programa del profesor, por ejemplo, el Dual-Issue pierde así 134 de sus 387 ciclos.</p>
+
+<h2>7.2 Idea</h2>
+
+<p>La idea es decidir ya en Fetch si el salto se toma y a dónde va. Si se acierta, el destino entra en el ciclo siguiente y no se pierde nada (Figura 25). Si se falla, se hace el mismo flush de antes.</p>
+
+<figure><img src="figuras/pred_con.svg" style="width: 15.5cm" alt="Salto con prediccion"></figure>
+<p class="pie">Figura 25. El mismo salto con predicción: el destino entra en el ciclo 2.</p>
+
+<p>En Fetch la instrucción todavía no se decodificó, así que hacen falta dos cosas.</p>
+<ul>
+  <li>Un branch target buffer (BTB), que es una tabla con la dirección y el destino de los saltos ya ejecutados. El destino de un <code>beq</code> o un <code>jal</code> siempre es PC + inmediato, así que el guardado siempre es correcto.</li>
+  <li>Un contador de 2 bits por salto, que sube cuando el salto se toma y baja cuando no (Figura 26). Con 10 u 11 se predice tomado. Desde 11 hacen falta dos fallos seguidos para cambiar la predicción, así que la salida de un bucle no la cambia.</li>
+</ul>
+
+<figure><img src="figuras/dos_bits.svg" style="width: 14cm" alt="Contador de 2 bits"></figure>
+<p class="pie">Figura 26. Estados del contador de 2 bits.</p>
+
+<h2>7.3 Predictor</h2>
+
+<p>El módulo nuevo <code>predictor.v</code> tiene 16 entradas indexadas con <code>PC[5:2]</code>. Cada entrada guarda un bit de válido, el PC del salto, su destino y su contador. Como Fetch lee dos instrucciones, se consulta dos veces, con <code>PCF</code> y con <code>PCF + 4</code>.</p>
+
+<pre>  wire hit0 = valid[i0] &amp; (pc[i0] == PCF0);    // i0 = PCF0[5:2]
+  assign PredF0       = hit0 &amp; cnt[i0][1];     // se predice tomado
+  assign PredTargetF0 = target[i0];             // destino guardado
+  // igual para PCF1 = PCF + 4: PredF1 y PredTargetF1</pre>
+<p class="pie">Código 21. Consulta del predictor en <code>predictor.v</code>.</p>
+
+<p>La tabla se actualiza cuando el salto llega a Execute. Si el salto ya estaba, su contador sube o baja. Si no, se guarda con el contador en 10 o en 01, según se haya tomado o no.</p>
+
+<h2>7.4 Cambios en Fetch</h2>
+
+<p>La Figura 27 muestra el Fetch nuevo, numerado en el orden en que se usa cada parte.</p>
+
+<figure><img src="figuras/detalle_fetch_opt_anot.png" style="width: 12.5cm" alt="Fetch con predictor"></figure>
+<p class="pie">Figura 27. Fetch de la versión optimizada.</p>
+
+<ol>
+  <li>El predictor recibe <code>PCF</code> y <code>PCF + 4</code> y entrega <code>PredF0</code>, <code>PredF1</code> y sus destinos.</li>
+  <li><code>seqmux</code> da el PC sin predicción: avanza 8 si salieron las dos instrucciones y 4 si no.</li>
+  <li><code>predmux</code> salta al destino de <code>InstrF0</code> si se predice tomada. Si no, salta al de <code>InstrF1</code>, pero solo con <code>Issue1</code> = 1, porque si no <code>InstrF1</code> no entra al registro F/D.</li>
+  <li><code>pcmux</code> toma <code>PCCorrectE</code> cuando en Execute la predicción falló.</li>
+  <li>Si <code>InstrF0</code> se predice tomada, <code>InstrF1</code> es del camino que no se sigue y se cambia por una burbuja. Si solo se le impidiera salir, quedaría pendiente y se reagruparía con el par siguiente.</li>
+  <li>Cada posición del registro F/D guarda también la predicción, que viaja con su instrucción hasta Execute.</li>
+</ol>
+
+<pre>  mux2 #(32) seqmux(.d0(PCPlus4F), .d1(PCPlus8F), .s(Issue1), .y(PCSeqF));
+  mux3 #(32) predmux(.d0(PCSeqF), .d1(PredTargetF1), .d2(PredTargetF0),
+                     .s({PredF0, Issue1 &amp; PredF1}), .y(PCPredF));
+  mux2 #(32) pcmux(.d0(PCPredF), .d1(PCCorrectE), .s(MispredE), .y(PCNextF));
+  assign InstrF1S = PredF0 ? 32'b0 : InstrF1;</pre>
+<p class="pie">Código 22. Siguiente PC y segunda instrucción en <code>datapath_dual.v</code> (versión optimizada).</p>
+
+<h2>7.5 Cambios en Execute y en la Hazard Unit</h2>
+
+<p>En Execute el recurso de branches compara la predicción con lo que pasó (Figura 28).</p>
+
+<figure><img src="figuras/detalle_branch_opt_anot.png" style="width: 14cm" alt="Recurso de branches con prediccion"></figure>
+<p class="pie">Figura 28. Recurso de branches de la versión optimizada.</p>
+
+<ol>
+  <li><code>TakenE</code> indica si el salto se tomó. Es lo que antes era <code>PCSrcE</code>.</li>
+  <li><code>MispredE</code> indica que la predicción falló.</li>
+  <li><code>correctmux</code> da el PC correcto: el destino si el salto se tomó, o la instrucción que le sigue si no.</li>
+</ol>
+
+<pre>  assign TakenE   = (BranchE &amp; ZeroE) | JumpE;
+  assign MispredE = (BranchE | JumpE) &amp; (TakenE != PredE);
+  mux2 #(32) correctmux(.d0(BranchPCPlus4E), .d1(PCTargetE), .s(TakenE), .y(PCCorrectE));</pre>
+<p class="pie">Código 23. Comparación de la predicción en Execute.</p>
+
+<p>Con esto quedan los cuatro casos de la Tabla 10. En la Hazard Unit los flushes ahora dependen de <code>MispredE</code> en lugar de <code>PCSrcE</code>. Así <code>FlushM1</code> anula la pareja de un salto de la vía 0 solo si la predicción falló.</p>
+
+<table>
+  <tr><th>Predicción</th><th>Resultado</th><th class="c">MispredE</th><th>Qué pasa</th></tr>
+  <tr><td>No tomado</td><td>No tomado</td><td class="c">0</td><td>Nada</td></tr>
+  <tr><td>No tomado</td><td>Tomado</td><td class="c">1</td><td>Flush y el PC carga <code>PCTargetE</code></td></tr>
+  <tr><td>Tomado</td><td>Tomado</td><td class="c">0</td><td>Nada: no se pierde ningún ciclo</td></tr>
+  <tr><td>Tomado</td><td>No tomado</td><td class="c">1</td><td>Flush y el PC carga <code>BranchPCPlus4E</code></td></tr>
+</table>
+<p class="pie">Tabla 10. Los cuatro casos de la predicción.</p>
+
+<h2>7.6 Forwarding del resultado de un jal</h2>
+
+<p>Las pruebas al azar (sección 8) encontraron un caso nuevo. Un <code>jal</code> escribe PC + 4 en rd, pero el forwarding desde Memory solo traía <code>ALUResultM</code>. Sin predicción no importaba, porque el flush retrasaba al destino hasta que el <code>jal</code> estaba en Writeback. Con la predicción, la instrucción que usa rd llega a Execute con el <code>jal</code> todavía en Memory (Figura 29).</p>
+
+<figure><img src="figuras/jal_fw.svg" style="width: 14.5cm" alt="Forwarding de un jal"></figure>
+<p class="pie">Figura 29. Un <code>jal</code> predicho y una instrucción del destino que usa rd.</p>
+
+<p>Lo corregimos con un mux por vía en Memory, que deja pasar <code>PCPlus4M</code> si la instrucción es un <code>jal</code>. Su salida, <code>ResultM0</code> o <code>ResultM1</code>, reemplaza a <code>ALUResultM</code> en los muxes de forwarding. Un <code>lw</code> no necesita este camino, porque antes de usar su dato siempre hay un stall.</p>
+
+<pre>  mux2 #(32) resultmmux0(.d0(ALUResultM0), .d1(PCPlus4M0), .s(ResultSrcM0[1]), .y(ResultM0));
+  mux2 #(32) resultmmux1(.d0(ALUResultM1), .d1(PCPlus4M1), .s(ResultSrcM1[1]), .y(ResultM1));</pre>
+<p class="pie">Código 24. Dato que se adelanta desde Memory.</p>
+
+<h2>7.7 Módulos modificados</h2>
+
+<p>La Tabla 11 resume los cambios y la Figura 30 muestra el datapath completo.</p>
+
+<table>
+  <tr><th>Módulo</th><th>Estado</th><th>Cambio</th></tr>
+  <tr><td><code>predictor</code></td><td>Nuevo</td><td>Tabla de 16 entradas: dos consultas en Fetch y una actualización en Execute</td></tr>
+  <tr><td><code>datapath_dual</code></td><td>Modificado</td><td>Predictor y muxes del PC en Fetch, burbuja en lugar de <code>InstrF1</code>, bit de predicción en F/D y D/E, <code>TakenE</code>, <code>MispredE</code> y <code>correctmux</code> en Execute, <code>resultmmux0/1</code> en Memory</td></tr>
+  <tr><td><code>hazardunit_dual</code></td><td>Modificado</td><td>Los flushes dependen de <code>MispredE</code></td></tr>
+  <tr><td><code>issueunit</code> y los demás</td><td>Sin cambios</td><td></td></tr>
+</table>
+<p class="pie">Tabla 11. Módulos de la versión optimizada.</p>
+<h1>8. Pruebas de la optimización</h1>
+
+<p>Probamos la versión optimizada de tres formas.</p>
+<ul>
+  <li>Con los programas de las secciones 2 y 6 y <code>riscvtest</code>. Dan el mismo resultado y tardan lo mismo que en el Dual-Issue, porque en ellos cada salto se ejecuta una sola vez y nunca está en la tabla.</li>
+  <li>Con programas al azar (carpeta <code>pruebas_aleatorias</code>) que tienen bucles, saltos en las dos vías y dependencias con <code>lw</code>. Cada uno corre en A, B y C, y se comparan los registros, la memoria y las instrucciones retiradas. Así encontramos el caso del <code>jal</code> de la sección 7.6. Después de corregirlo, 10&nbsp;000 programas dieron lo mismo en las tres.</li>
+  <li>Con dos programas con bucles, para ver la predicción en las waveforms (Tabla 12).</li>
+</ul>
+
+<table>
+  <tr><th>Prueba</th><th>Qué revisa</th><th class="c">Resultado</th></tr>
+  <tr><td><code>ef_p1_bucle</code></td><td>Un bucle de 10 vueltas cerrado con un <code>beq</code>: cómo aprende el predictor, un acierto sin flush y el fallo de la última vuelta</td><td class="c">Mem[100] = 55</td></tr>
+  <tr><td><code>ef_p2_vias</code></td><td>Dos bucles cerrados con un <code>jal</code>, uno en la vía 0 y otro en la vía 1. La instrucción que sigue a cada <code>jal</code> suma 1 a x9 y no debe ejecutarse nunca</td><td class="c">Mem[100] = 18, x9 = 0</td></tr>
+</table>
+<p class="pie">Tabla 12. Pruebas de la optimización (testbenches <code>tb_ef_p1</code> y <code>tb_ef_p2</code>).</p>
+
+<div class="apaisada">
+<figure><img src="figuras/datapath_opt.svg" style="height: 16.9cm; max-height: none" alt="Datapath optimizado"></figure>
+<p class="pie">Figura 30. Datapath del Dual-Issue con predicción de saltos.</p>
+</div>
+
+<h2>8.1 Prueba 1: el predictor aprende un bucle</h2>
+
+<pre>  0  addi x1, x0, 0         # i = 0
+  4  addi x2, x0, 0         # suma = 0
+  8  addi x9, x0, 1         # constante 1
+ 12  bucle: addi x1, x1, 1  # i = i + 1
+ 16  add  x2, x2, x1        # suma = suma + i
+ 20  slti x3, x1, 10        # x3 = 1 mientras i &lt; 10
+ 24  beq  x3, x9, bucle     # vuelve mientras i &lt; 10
+ 28  sw   x2, 100(x0)       # Mem[100] = 55
+ 32  fin: beq x0, x0, fin</pre>
+<p class="pie">Código 25. Prueba 1 (<code>ef_p1_bucle.s</code>). El salto está en la dirección 24.</p>
+
+<p>La Figura 31 muestra las dos primeras vueltas y la Figura 32 la última.</p>
+
+<figure><img src="figuras/r_o1a.png" style="width: 100%" alt="waveform"></figure>
+<p class="pie">Figura 31. Prueba 1, de 60 a 130 ns: la primera vuelta se predice mal y la segunda ya bien.</p>
+
+<ol>
+  <li>En la primera vuelta el <code>beq</code> no está en la tabla y se toma, así que hay flush como en el Dual-Issue. Ahí entra a la tabla.</li>
+  <li>En la segunda vuelta el <code>beq</code> se predice tomado en Fetch y el siguiente PC ya es el destino. Un ciclo antes estaba en la vía 1, pero con <code>Issue1</code> = 0 esa predicción no se usa.</li>
+  <li>Al lado del <code>beq</code> entra una burbuja en lugar del <code>sw</code>.</li>
+  <li>En Execute la predicción acierta (<code>MispredE</code> = 0) y no se pierde ningún ciclo.</li>
+</ol>
+
+<figure><img src="figuras/r_o1b.png" style="width: 100%" alt="waveform"></figure>
+<p class="pie">Figura 32. Prueba 1, de 330 a 390 ns: la última vuelta.</p>
+
+<ol>
+  <li>En la última vuelta el <code>beq</code> también se predice tomado.</li>
+  <li>Pero ya no se toma, así que <code>MispredE</code> = 1 y el PC vuelve a la instrucción que sigue al salto. El contador baja de 11 a 10.</li>
+  <li>Fetch lee el <code>sw</code> y <code>fin</code>, y en Decode quedan las burbujas del flush.</li>
+</ol>
+
+<p>El <code>beq</code> falla solo en la primera y en la última vuelta. Por eso la prueba tarda 40 ciclos, contra 53 en el Dual-Issue.</p>
+
+<h2>8.2 Prueba 2: un salto predicho en la vía 1</h2>
+
+<pre> 20  L1: addi x1, x1, 1
+ 24  beq  x1, x2, sale1
+ 28  addi x5, x5, 2
+ 32  jal  x0, L1            # el jal queda en la via 0
+ 36  addi x9, x9, 1         # no debe ejecutarse
+ 40  sale1: addi x1, x0, 0
+ 44  L2: beq x1, x2, sale2
+ 48  addi x1, x1, 1
+ 52  addi x7, x7, 3
+ 56  jal  x0, L2            # el jal queda en la via 1
+ 60  addi x9, x9, 1         # no debe ejecutarse</pre>
+<p class="pie">Código 26. Los dos bucles de la prueba 2 (<code>ef_p2_vias.s</code>).</p>
+
+<p>En el segundo bucle el <code>jal</code> queda en <code>InstrF1</code>, es decir, en la vía 1 (Figura 33).</p>
+
+<figure><img src="figuras/r_o2.png" style="width: 100%" alt="waveform"></figure>
+<p class="pie">Figura 33. Prueba 2, de 240 a 290 ns: el <code>jal</code> de la dirección 56 se predice desde la vía 1.</p>
+
+<ol>
+  <li>El <code>jal</code> se predice desde la vía 1 (<code>PredF1</code> = 1). Como salen las dos instrucciones, el siguiente PC es su destino.</li>
+  <li>El par <code>addi x7</code> | <code>jal</code> llega a Decode con la predicción guardada.</li>
+  <li>En Execute la predicción acierta y no hay flush. El <code>addi x7</code> de la vía 0 sigue normal.</li>
+</ol>
+
+<p>Al final x9 = 0, así que ninguna instrucción que sigue a un <code>jal</code> se ejecutó.</p>
+<h1>9. Programas de comparación</h1>
+
+<p>Para comparar las tres arquitecturas usamos el programa del profesor y uno propio, que corren sin cambios en A, B y C con el mismo <code>.mem</code>. En esta sección revisamos que den el resultado correcto, y en la sección 10 comparamos su rendimiento.</p>
+
+<h2>9.1 Programa del profesor</h2>
+
+<p>El programa del profesor (<code>profesor.s</code>) tiene 90 instrucciones en cuatro etapas, y el enunciado da el estado que se espera al final de cada una. La etapa A prueba la doble emisión y las dependencias, la B los accesos a memoria, la C tres bucles de 12 vueltas y la D todo junto, con saltos que deben evitar dos <code>sw</code>. Como sus datos empiezan en la dirección 1536, usamos una memoria de datos de 512 palabras.</p>
+
+<h2>9.2 Comprobación de las etapas</h2>
+
+<p>Los testbenches <code>tb_profesor</code> (A), <code>tb_profesor_dual</code> (B) y <code>tb_profesor_opt</code> (C) comprueban cada etapa cuando su último <code>sw</code> llega a Writeback. En ese ciclo ya están escritos todos los registros y la memoria de la etapa, y el testbench los compara con el estado del enunciado. En la waveform, <code>chk</code> es la señal de comprobación y vale 1 en ese ciclo. <code>etapa</code> es la letra de la etapa, <code>ok</code> vale 1 si todo coincidió y <code>pasadas</code> cuenta las etapas correctas. Las cuatro etapas pasan en las tres arquitecturas (Tabla 13).</p>
+
+<table>
+  <tr><th>Etapa</th><th>Registros</th><th>Memoria</th><th class="c" style="white-space: nowrap">Ciclo en<br>A / B / C</th></tr>
+  <tr><td>A</td><td>x1 = 1536, x2 = 1, x3 = 8, x4 = 3, x5 = 11, x6 = 5, x7 = 16, x8 = 2, x9 = 7, x10 = 12</td><td>M[x1+0] = 11, M[x1+4] = 5, M[x1+8] = 12</td><td class="c" style="white-space: nowrap">18 / 12 / 12</td></tr>
+  <tr><td>B</td><td>Los de A y x11 = 11, x12 = 16, x13 = 5, x14 = 12, x15 = 7, x16 = 7, x17 = 16, x18 = 23</td><td>Lo de A y M[x1+12] = 7, M[x1+16] = 16, M[x1+20] = 23</td><td class="c" style="white-space: nowrap">32 / 25 / 25</td></tr>
+  <tr><td>C</td><td>Los de B y x19 = 12, x20 = 12, x21 = 24, x22 = 18, x24 = 24, x26 = 6</td><td>Lo de B y M[x1+24] = 24, M[x1+28] = 18, M[x1+32] = 24</td><td class="c" style="white-space: nowrap">362 / 312 / 220</td></tr>
+  <tr><td>D</td><td>Los de C, salvo x19 = 6, x20 = 6, x26 = 4, y además x25 = 4, x27 = 1560, x28 = 74, x29 = 4, x30 = 23, x31 = 1</td><td>Lo de C y M[x1+36] = 74, M[x1+40] = 4, M[x1+44] = 0, M[x1+48] = 1, M[x1+52] = 1</td><td class="c" style="white-space: nowrap">459 / 387 / 292</td></tr>
+</table>
+<p class="pie">Tabla 13. Estado al final de cada etapa, igual en el enunciado y en A, B y C. Los registros que no aparecen valen 0. El ciclo de D es el total de ciclos del programa.</p>
+
+<p>Las Figuras 34 a 37 muestran las comprobaciones en la versión C. En morado están las señales del testbench, en amarillo los valores comprobados y en naranja la palabra que escribe el último <code>sw</code> de la etapa.</p>
+
+<figure><img src="figuras/r_prof_A.png" style="width: 100%" alt="waveform"></figure>
+<p class="pie">Figura 34. Comprobación de la etapa A (ciclo 12, a los 130 ns).</p>
+
+<p>x9 = 7 muestra el orden de escrituras. <code>add x9</code> y <code>addi x9</code> escriben x9 en el mismo ciclo, y queda el dato de la vía 1, que es la instrucción más joven.</p>
+
+<figure><img src="figuras/r_prof_B.png" style="width: 100%" alt="waveform"></figure>
+<p class="pie">Figura 35. Comprobación de la etapa B (ciclo 25, a los 260 ns).</p>
+
+<p>Ahora <code>pasadas</code> = 2. Están encerrados x18 y las tres palabras que guarda la etapa B.</p>
+
+<figure><img src="figuras/r_prof_C.png" style="width: 100%" alt="waveform"></figure>
+<p class="pie">Figura 36. Comprobación de la etapa C (ciclo 220, a los 2210 ns).</p>
+
+<p>Después de los tres bucles, x21, x22 y x24 tienen las sumas que da el enunciado.</p>
+
+<figure><img src="figuras/r_prof_D.png" style="width: 100%" alt="waveform"></figure>
+<p class="pie">Figura 37. Comprobación de la etapa D (ciclo 292, a los 2930 ns): final del programa.</p>
+
+<p>M[x1+44] (en rojo) sigue en 0, así que los dos <code>sw</code> que debían saltarse no se ejecutaron. En este mismo ciclo <code>fin</code> llega a Writeback.</p>
+
+<h2>9.3 Dos casos clave</h2>
+
+<p>El enunciado del profesor también pide al menos dos waveforms de casos importantes. Elegimos la etapa A, con doble emisión y dependencias, y la etapa B, con el puerto único de memoria y el Load-Use. Las dos son de la versión C, pero en estas etapas no hay saltos y B se comporta igual.</p>
+
+<pre>  0  addi x1, x0, 1536
+  4  addi x2, x0, 1
+
+  8  addi x3, x0, 8
+ 12  addi x4, x0, 3
+
+ 16  add  x5, x3, x4       # x5 = 11
+ 20  sub  x6, x3, x4       # x6 = 5
+
+ 24  add  x7, x5, x6       # x7 = 16
+ 28  addi x8, x0, 2
+
+ 32  add  x9, x7, x8       # x9 = 18
+ 36  addi x9, x0, 7        # x9 = 7, el mismo destino
+
+ 40  add  x10, x9, x6      # x10 = 12, usa el x9 mas reciente
+ 44  sw   x5, 0(x1)
+
+ 48  sw   x6, 4(x1)
+
+ 52  sw   x10, 8(x1)</pre>
+<p class="pie">Código 27. Etapa A del programa del profesor. Una línea en blanco separa los grupos que salen juntos de Decode.</p>
+
+<figure><img src="figuras/r_prof_k1.png" style="width: 100%" alt="waveform"></figure>
+<p class="pie">Figura 38. Etapa A, ciclos 4 a 8 (de 50 a 100 ns): doble emisión con dependencias.</p>
+
+<ol>
+  <li>Ciclo 5. <code>add x5</code> y <code>sub x6</code> están juntas en Execute y toman x3 y x4 de Memory, uno de cada vía (011 y 100).</li>
+  <li>Ciclo 6. <code>add x9</code> y <code>addi x9</code> escriben el mismo registro, pero esa WAW no impide que salgan juntas (<code>Issue1</code> = 1).</li>
+  <li>Ciclo 8. <code>add x10</code> necesita x9, que está en Memory en las dos vías, y toma el de la vía 1 (100), que es el más reciente. En Decode hay dos <code>sw</code> y sale solo el primero (<code>Issue1</code> = 0).</li>
+</ol>
+
+<p>En la etapa B casi todas las instrucciones usan memoria (Código 28), así que solo <code>add x12</code> y <code>lw x13</code> salen juntas.</p>
+
+<pre> 56  lw   x11, 0(x1)
+ 60  add  x12, x11, x6     # espera un ciclo por Load-Use
+ 64  lw   x13, 4(x1)       # sale junto con el add
+ 68  lw   x14, 8(x1)
+ 72  sub  x15, x14, x13    # espera un ciclo por Load-Use
+ 76  sw   x15, 12(x1)      # M[x1+12] = 7
+ 80  lw   x16, 12(x1)      # lee lo que acaba de guardar el sw
+ 84  sw   x12, 16(x1)      # M[x1+16] = 16
+ 88  lw   x17, 16(x1)
+ 92  add  x18, x16, x17    # espera un ciclo por Load-Use
+ 96  sw   x18, 20(x1)      # M[x1+20] = 23</pre>
+<p class="pie">Código 28. Etapa B del programa del profesor.</p>
+
+<figure><img src="figuras/r_prof_k2.png" style="width: 100%" alt="waveform"></figure>
+<p class="pie">Figura 39. Etapa B, ciclos 15 a 21 (de 160 a 230 ns): puerto único de memoria y Load-Use.</p>
+
+<ol>
+  <li>Ciclo 16. <code>sw x15</code> y <code>lw x16</code> usan memoria y sale solo el <code>sw</code>. Lo mismo pasa en los tres ciclos siguientes; en el último, porque <code>add x18</code> usa el dato de <code>lw x17</code>.</li>
+  <li>Ciclo 18. <code>sw x15</code> escribe 7 en M[x1+12].</li>
+  <li>Ciclo 19. <code>lw x16</code> lee esa dirección y obtiene el 7, porque también en el pipeline va detrás del <code>sw</code>.</li>
+  <li>Ciclo 20. <code>add x18</code> depende de <code>lw x17</code>, que está en Execute. Es un Load-Use y no sale ninguna (<code>Issue0</code> = 0).</li>
+  <li>Ciclo 21. <code>lw x17</code> lee el 16, que <code>add x18</code> recibe por forwarding en el ciclo siguiente.</li>
+</ol>
+
+<h2>9.4 Programa propio</h2>
+
+<p>El programa propio trabaja con un arreglo de 16 números (Código 29). El bucle <code>gen</code> lo llena con los números del 0 al 15 desordenados. El bucle <code>rec</code> lo recorre con <code>lw</code>, suma todos los números, cuenta los menores que 8 y suma los demás. Los tres resultados son iguales en A, B y C.</p>
+
+<pre>  0          addi x1, x0, 0       # direccion del elemento i
+  4          addi x2, x0, 64      # direccion final (16 palabras)
+  8          addi x3, x0, 3       # v = 3
+ 12  gen:    addi x3, x3, 5       # v = v + 5
+ 16          andi x4, x3, 15      # A[i] = v mod 16
+ 20          sw   x4, 0(x1)       # guarda A[i]
+ 24          addi x1, x1, 4       # siguiente elemento
+ 28          beq  x1, x2, sigue   # termino de llenar
+ 32          jal  x0, gen         # vuelve a gen
+ 36  sigue:  addi x1, x0, 0       # direccion del elemento i
+ 40          addi x5, x0, 0       # suma total
+ 44          addi x6, x0, 0       # cuantos son menores que 8
+ 48          addi x7, x0, 0       # suma de los mayores o iguales a 8
+ 52  rec:    lw   x8, 0(x1)       # x8 = A[i]
+ 56          addi x1, x1, 4       # siguiente elemento
+ 60          add  x5, x5, x8      # suma total
+ 64          slti x9, x8, 8       # x9 = 1 si A[i] &lt; 8
+ 68          beq  x9, x0, grande  # A[i] &gt;= 8
+ 72          addi x6, x6, 1       # uno menor que 8 mas
+ 76          jal  x0, prox
+ 80  grande: add  x7, x7, x8      # suma de los mayores o iguales a 8
+ 84  prox:   beq  x1, x2, listo   # termino de recorrer
+ 88          jal  x0, rec         # vuelve a rec
+ 92  listo:  sw   x5, 100(x0)     # Mem[100] = 120
+ 96          sw   x6, 104(x0)     # Mem[104] = 8
+100          sw   x7, 108(x0)     # Mem[108] = 92
+104  fin:    beq  x0, x0, fin     # fin del programa</pre>
+<p class="pie">Código 29. Programa propio (<code>propio.s</code>), con la dirección de cada instrucción.</p>
+
+<p>Tiene pares independientes, dependencias con el <code>lw</code> y tres tipos de saltos: los <code>jal</code> que cierran los bucles, que siempre se toman; los <code>beq</code> de salida, que se toman una vez; y <code>beq x9, x0, grande</code>, que depende del dato. De sus 240 instrucciones, 86 son saltos.</p>
+
+<h1>10. Comparación de las tres arquitecturas</h1>
+
+<h2>10.1 Cómo medimos</h2>
+
+<p>Usamos el criterio del enunciado del profesor en todos los programas. Todo programa termina en <code>fin</code>, un salto a sí mismo que no se cuenta. Los ciclos van desde el reset hasta que la última instrucción antes de <code>fin</code> está en Writeback. Las instrucciones retiradas son las que llegan a Writeback, sin burbujas ni instrucciones anuladas. IPC = instrucciones / ciclos, CPI = ciclos / instrucciones y speedup = ciclos de la arquitectura base / ciclos de la evaluada.</p>
+
+<p>Lo miden <code>tb_comparacion</code>, <code>tb_comparacion_dual</code> y <code>tb_comparacion_opt</code>, que el script <code>comparar.sh</code> corre juntos. También cuentan stalls, flushes y la precisión del predictor. Para el speedup suponemos el mismo reloj; el tiempo real está en la sección 10.6.</p>
+
+<h2>10.2 Resultados</h2>
+
+<p>La Tabla 14 tiene los indicadores en el formato del enunciado, más una fila con el speedup frente al Dual-Issue. Las tres versiones retiran las mismas instrucciones; solo cambian los ciclos.</p>
+
+<table>
+  <tr><th rowspan="2">Indicador</th><th colspan="3" class="c">Programa del profesor</th><th colspan="3" class="c">Programa propio</th></tr>
+  <tr><th class="c">Pipeline</th><th class="c">Dual-Issue</th><th class="c">Optimizado</th><th class="c">Pipeline</th><th class="c">Dual-Issue</th><th class="c">Optimizado</th></tr>
+  <tr><td>Ciclos totales</td><td class="c">459</td><td class="c">387</td><td class="c">292</td><td class="c">340</td><td class="c">289</td><td class="c">204</td></tr>
+  <tr><td>Instrucciones retiradas</td><td class="c">312</td><td class="c">312</td><td class="c">312</td><td class="c">240</td><td class="c">240</td><td class="c">240</td></tr>
+  <tr><td>CPI</td><td class="c">1.47</td><td class="c">1.24</td><td class="c">0.94</td><td class="c">1.42</td><td class="c">1.20</td><td class="c">0.85</td></tr>
+  <tr><td>IPC</td><td class="c">0.68</td><td class="c">0.81</td><td class="c">1.07</td><td class="c">0.71</td><td class="c">0.83</td><td class="c">1.18</td></tr>
+  <tr><td>Speedup vs. pipeline</td><td class="c">1.00</td><td class="c">1.19</td><td class="c">1.57</td><td class="c">1.00</td><td class="c">1.18</td><td class="c">1.67</td></tr>
+  <tr><td>Speedup vs. Dual-Issue</td><td class="c">-</td><td class="c">1.00</td><td class="c">1.33</td><td class="c">-</td><td class="c">1.00</td><td class="c">1.42</td></tr>
+</table>
+<p class="pie">Tabla 14. Indicadores de rendimiento. Pipeline es la arquitectura A, Dual-Issue la B y Optimizado la C.</p>
+
+<p>La Figura 40 muestra de dónde sale la diferencia. El pipeline y el Dual-Issue pierden los mismos ciclos en flushes, porque toman los mismos saltos. La predicción recupera más de la mitad de esos ciclos.</p>
+
+<figure><img src="figuras/ciclos_programas.svg" style="width: 12.5cm" alt="Ciclos de los dos programas"></figure>
+<p class="pie">Figura 40. Ciclos de los dos programas. En rojo, los ciclos perdidos en flushes por saltos (2 por cada flush).</p>
+
+<h2>10.3 Programas de prueba</h2>
+
+<p>La Tabla 15 tiene los programas de prueba, que dan el mismo resultado en A, B y C. El Dual-Issue gana más con instrucciones independientes (Dual 1 y 5) y nada cuando cada instrucción depende de la anterior (Pipeline 3). C solo mejora en las dos pruebas con bucles.</p>
+
+<table>
+  <tr><th rowspan="2">Programa</th><th rowspan="2" class="c">Instr.</th><th colspan="3" class="c">Ciclos</th><th colspan="3" class="c">IPC</th><th colspan="2" class="c">Speedup</th></tr>
+  <tr><th class="c">A</th><th class="c">B</th><th class="c">C</th><th class="c">A</th><th class="c">B</th><th class="c">C</th><th class="c">A a B</th><th class="c">B a C</th></tr>
+  <tr><td>Pipeline 1: ISA</td><td class="c">18</td><td class="c">24</td><td class="c">16</td><td class="c">16</td><td class="c">0.75</td><td class="c">1.12</td><td class="c">1.12</td><td class="c">1.50</td><td class="c">1.00</td></tr>
+  <tr><td>Pipeline 2: forwarding</td><td class="c">8</td><td class="c">12</td><td class="c">11</td><td class="c">11</td><td class="c">0.67</td><td class="c">0.73</td><td class="c">0.73</td><td class="c">1.09</td><td class="c">1.00</td></tr>
+  <tr><td>Pipeline 3: stalling</td><td class="c">7</td><td class="c">13</td><td class="c">13</td><td class="c">13</td><td class="c">0.54</td><td class="c">0.54</td><td class="c">0.54</td><td class="c">1.00</td><td class="c">1.00</td></tr>
+  <tr><td>Pipeline 4: flushing</td><td class="c">8</td><td class="c">16</td><td class="c">14</td><td class="c">14</td><td class="c">0.50</td><td class="c">0.57</td><td class="c">0.57</td><td class="c">1.14</td><td class="c">1.00</td></tr>
+  <tr><td>Dual 1: ALU independientes</td><td class="c">15</td><td class="c">19</td><td class="c">12</td><td class="c">12</td><td class="c">0.79</td><td class="c">1.25</td><td class="c">1.25</td><td class="c">1.58</td><td class="c">1.00</td></tr>
+  <tr><td>Dual 2: RAW y forwarding</td><td class="c">13</td><td class="c">17</td><td class="c">12</td><td class="c">12</td><td class="c">0.76</td><td class="c">1.08</td><td class="c">1.08</td><td class="c">1.42</td><td class="c">1.00</td></tr>
+  <tr><td>Dual 3: Load-Use y memoria</td><td class="c">13</td><td class="c">18</td><td class="c">14</td><td class="c">14</td><td class="c">0.72</td><td class="c">0.93</td><td class="c">0.93</td><td class="c">1.29</td><td class="c">1.00</td></tr>
+  <tr><td>Dual 4: branches</td><td class="c">14</td><td class="c">26</td><td class="c">21</td><td class="c">21</td><td class="c">0.54</td><td class="c">0.67</td><td class="c">0.67</td><td class="c">1.24</td><td class="c">1.00</td></tr>
+  <tr><td>Dual 5: Register File</td><td class="c">15</td><td class="c">19</td><td class="c">12</td><td class="c">12</td><td class="c">0.79</td><td class="c">1.25</td><td class="c">1.25</td><td class="c">1.58</td><td class="c">1.00</td></tr>
+  <tr><td>Dual 6: reagrupamiento</td><td class="c">12</td><td class="c">16</td><td class="c">13</td><td class="c">13</td><td class="c">0.75</td><td class="c">0.92</td><td class="c">0.92</td><td class="c">1.23</td><td class="c">1.00</td></tr>
+  <tr><td><code>riscvtest</code></td><td class="c">18</td><td class="c">27</td><td class="c">24</td><td class="c">24</td><td class="c">0.67</td><td class="c">0.75</td><td class="c">0.75</td><td class="c">1.12</td><td class="c">1.00</td></tr>
+  <tr><td>EF 1: bucle</td><td class="c">44</td><td class="c">66</td><td class="c">53</td><td class="c">40</td><td class="c">0.67</td><td class="c">0.83</td><td class="c">1.10</td><td class="c">1.25</td><td class="c">1.32</td></tr>
+  <tr><td>EF 2: dos vías</td><td class="c">40</td><td class="c">62</td><td class="c">48</td><td class="c">38</td><td class="c">0.65</td><td class="c">0.83</td><td class="c">1.05</td><td class="c">1.29</td><td class="c">1.26</td></tr>
+</table>
+<p class="pie">Tabla 15. Ciclos, IPC y speedup de los programas de prueba en las tres arquitecturas.</p>
+
+<h2>10.4 Dual-Issue frente al pipeline</h2>
+
+<p>En el programa del profesor el Dual-Issue es 1.19 veces más rápido que el pipeline, lejos del 2 ideal. Para ver por qué, contamos qué pasa en Decode en cada ciclo de B (Tabla 16) y cuánto tarda cada etapa del programa (Tabla 17). Con eso se ven las cuatro causas que lo alejan de IPC = 2.</p>
+
+<table>
+  <tr><th>En Decode</th><th class="c">Ciclos</th></tr>
+  <tr><td>Sale un par completo</td><td class="c">140</td></tr>
+  <tr><td>Sale una sola instrucción</td><td class="c">99</td></tr>
+  <tr><td>Stall por Load-Use</td><td class="c">10</td></tr>
+  <tr><td>Flush por los 67 saltos tomados</td><td class="c">134</td></tr>
+  <tr><td>Llenado y vaciado del pipeline</td><td class="c">4</td></tr>
+  <tr class="sep"><td>Total</td><td class="c">387</td></tr>
+</table>
+<p class="pie">Tabla 16. En qué se van los ciclos del Dual-Issue en el programa del profesor. Un par cuenta aunque después se anule.</p>
+
+<table>
+  <tr><th>Etapa</th><th class="c">Instrucciones</th><th class="c">Ciclos A</th><th class="c">Ciclos B</th><th class="c">Ciclos C</th><th class="c">Speedup A a B</th><th class="c">Speedup B a C</th></tr>
+  <tr><td>A</td><td class="c">14</td><td class="c">18</td><td class="c">12</td><td class="c">12</td><td class="c">1.50</td><td class="c">1.00</td></tr>
+  <tr><td>B</td><td class="c">11</td><td class="c">14</td><td class="c">13</td><td class="c">13</td><td class="c">1.08</td><td class="c">1.00</td></tr>
+  <tr><td>C</td><td class="c">216</td><td class="c">330</td><td class="c">287</td><td class="c">195</td><td class="c">1.15</td><td class="c">1.47</td></tr>
+  <tr><td>D</td><td class="c">71</td><td class="c">97</td><td class="c">75</td><td class="c">72</td><td class="c">1.29</td><td class="c">1.04</td></tr>
+  <tr class="sep"><td>Total</td><td class="c">312</td><td class="c">459</td><td class="c">387</td><td class="c">292</td><td class="c">1.19</td><td class="c">1.33</td></tr>
+</table>
+<p class="pie">Tabla 17. Ciclos de cada etapa del programa del profesor. La etapa A incluye los 4 ciclos en que se llena el pipeline.</p>
+
+<ul>
+  <li>Las dependencias entre instrucciones seguidas, que obligan a emisiones parciales. La etapa A tiene operaciones que se resuelven con forwarding desde las dos vías (Figura 38) y gana 1.50 veces. En la etapa C cada vuelta es una cadena de dependencias y gana solo 1.15.</li>
+  <li>El puerto único de memoria y el Load-Use, que dejan la etapa B casi igual que en el pipeline (Figura 39). Los stalls son casi los mismos en las tres versiones.</li>
+  <li>Los saltos tomados, que se llevan un tercio de los ciclos. Es lo que ataca la optimización, que en la etapa C es 1.47 veces más rápida que B.</li>
+  <li>En programas cortos, los 4 ciclos de llenado y vaciado. Dual 1 y 5 sacan todos sus pares completos y aun así quedan en IPC 1.25.</li>
+</ul>
+
+<h2>10.5 Efecto de la predicción</h2>
+
+<p>La Tabla 18 junta los stalls, los saltos, la precisión del predictor y cuántas instrucciones salieron en pares. C quita algo más de la mitad de los flushes en el programa del profesor y dos tercios en el propio. Además, sin esos flushes se arman más pares. Por eso en el programa del profesor C ahorra 95 ciclos frente a B, aunque los flushes evitados suman solo 70.</p>
+
+<table>
+  <tr><th>Programa</th><th>Arquitectura</th><th class="c">Stalls</th><th class="c">Saltos</th><th class="c">Flushes</th><th class="c">Precisión del predictor</th><th class="c">Ciclos con dos en Writeback</th><th class="c">Retiradas en pares</th></tr>
+  <tr><td rowspan="3">Profesor</td><td>A</td><td class="c">9</td><td class="c">89</td><td class="c">67</td><td class="c">-</td><td class="c">-</td><td class="c">-</td></tr>
+  <tr><td>B</td><td class="c">10</td><td class="c">89</td><td class="c">67</td><td class="c">-</td><td class="c">73</td><td class="c">47 %</td></tr>
+  <tr><td>C</td><td class="c">10</td><td class="c">89</td><td class="c">32</td><td class="c">64.0 %</td><td class="c">98</td><td class="c">63 %</td></tr>
+  <tr class="sep"><td rowspan="3">Propio</td><td>A</td><td class="c">0</td><td class="c">86</td><td class="c">48</td><td class="c">-</td><td class="c">-</td><td class="c">-</td></tr>
+  <tr><td>B</td><td class="c">16</td><td class="c">86</td><td class="c">48</td><td class="c">-</td><td class="c">67</td><td class="c">56 %</td></tr>
+  <tr><td>C</td><td class="c">9</td><td class="c">86</td><td class="c">16</td><td class="c">81.4 %</td><td class="c">81</td><td class="c">68 %</td></tr>
+</table>
+<p class="pie">Tabla 18. Métricas de los saltos y de la doble emisión. En A y B cada salto tomado es un flush; en C, cada predicción fallida. Retiradas en pares = 2 × ciclos con dos instrucciones en Writeback / instrucciones retiradas.</p>
+
+<p>En el programa propio también cambian los stalls. En el pipeline <code>addi x1</code> separa a <code>lw x8</code> de <code>add x5</code>, pero en el Dual-Issue salen juntas y <code>add x5</code> espera al <code>lw</code> en cada vuelta. En C los pares se arman distinto y en algunas vueltas ese stall desaparece.</p>
+
+<p>La Tabla 19 separa los saltos del programa del profesor según cómo se comportan. Con ella se ve cuándo la predicción mejora, mantiene o empeora el desempeño.</p>
+
+<table>
+  <tr><th>Salto</th><th>Cómo se comporta</th><th class="c">Ejecutado</th><th class="c">Tomado</th><th class="c">Flushes en B</th><th class="c">Fallos en C</th></tr>
+  <tr><td style="white-space: nowrap"><code>beq</code> de C1, C2 y C3</td><td style="white-space: nowrap">Cierran bucles de 12 vueltas</td><td class="c">36</td><td class="c">33</td><td class="c">33</td><td class="c">6</td></tr>
+  <tr><td style="white-space: nowrap"><code>beq</code> de D1</td><td>Cierra un bucle de 6 vueltas</td><td class="c">6</td><td class="c">5</td><td class="c">5</td><td class="c">2</td></tr>
+  <tr><td style="white-space: nowrap"><code>jal</code> de C2 y C3</td><td>Saltan el otro lado del if/else</td><td class="c">12</td><td class="c">12</td><td class="c">12</td><td class="c">2</td></tr>
+  <tr><td style="white-space: nowrap"><code>beq x23, x2, C2a</code></td><td>Alterna: sí, no, sí, no...</td><td class="c">12</td><td class="c">6</td><td class="c">6</td><td class="c">12</td></tr>
+  <tr><td style="white-space: nowrap"><code>beq x25, x2, C3a</code></td><td>6 veces sí y después no</td><td class="c">12</td><td class="c">6</td><td class="c">6</td><td class="c">3</td></tr>
+  <tr><td style="white-space: nowrap"><code>beq x25, x2, D2</code></td><td>Depende del dato</td><td class="c">6</td><td class="c">2</td><td class="c">2</td><td class="c">4</td></tr>
+  <tr><td style="white-space: nowrap">5 <code>beq</code> del final de D</td><td>Se ejecutan una sola vez</td><td class="c">5</td><td class="c">3</td><td class="c">3</td><td class="c">3</td></tr>
+  <tr class="sep"><td>Total</td><td></td><td class="c">89</td><td class="c">67</td><td class="c">67</td><td class="c">32</td></tr>
+</table>
+<p class="pie">Tabla 19. Saltos del programa del profesor. En B cada salto tomado es un flush; en C, cada fallo de predicción.</p>
+
+<ul>
+  <li>Mejora con los saltos de bucle y los <code>jal</code>. Fallan solo la primera vez, porque todavía no están en la tabla, y los <code>beq</code> también al salir del bucle. El <code>beq</code> de C3, que cambia de sentido una sola vez, falla 3 veces en lugar de 6.</li>
+  <li>Se mantiene igual con saltos que se ejecutan una sola vez y en código sin saltos, porque el salto nunca está en la tabla cuando se necesita.</li>
+  <li>Empeora con saltos que alternan o que dependen del dato. El <code>beq</code> de C2 se toma una vuelta sí y otra no, y su contador queda siempre del lado contrario: falla las 12 veces, contra 6 flushes sin predictor. El <code>beq</code> de D2 y <code>beq x9, x0, grande</code> del programa propio también fallan más veces de las que se toman.</li>
+</ul>
+
+<p>Aun así C gana en los dos programas, porque los saltos de bucle se ejecutan muchas más veces que los demás.</p>
+
+<h2>10.6 Costo en hardware y tiempo real</h2>
+
+<p>Sintetizamos cada procesador en Vivado para la Basys 3, sin las memorias (Tabla 20). El periodo mínimo es 10 ns menos el slack del peor camino.</p>
+
+<table>
+  <tr><th rowspan="2">Arquitectura</th><th rowspan="2" class="c">LUTs</th><th rowspan="2" class="c" style="white-space: nowrap">Flip-flops</th><th rowspan="2" class="c">Periodo mínimo</th><th rowspan="2" class="c">Frecuencia máxima</th><th colspan="2" class="c">Tiempo de ejecución</th></tr>
+  <tr><th class="c">Profesor</th><th class="c">Propio</th></tr>
+  <tr><td>A Single-Issue</td><td class="c">738</td><td class="c">507</td><td class="c">11.43 ns</td><td class="c">87.5 MHz</td><td class="c">5.25 µs</td><td class="c">3.89 µs</td></tr>
+  <tr><td>B Dual-Issue</td><td class="c">4197</td><td class="c">1978</td><td class="c">14.14 ns</td><td class="c">70.7 MHz</td><td class="c">5.47 µs</td><td class="c">4.09 µs</td></tr>
+  <tr><td style="white-space: nowrap">C Dual-Issue con predicción</td><td class="c">5170</td><td class="c">3060</td><td class="c">13.66 ns</td><td class="c">73.2 MHz</td><td class="c">3.99 µs</td><td class="c">2.79 µs</td></tr>
+</table>
+<p class="pie">Tabla 20. Recursos y frecuencia después de place and route en Vivado, y tiempo de ejecución con esa frecuencia.</p>
+
+<p>El Dual-Issue usa casi seis veces las LUTs del pipeline, sobre todo por el Register File de cuatro lecturas y los muxes de forwarding. C agrega un 23&nbsp;% de LUTs, casi todo por la tabla del predictor. El predictor no está en el camino crítico, que va del forwarding a la decisión del salto, así que C no es más lento que B.</p>
+
+<p>En tiempo real B es un poco más lento que A, con un speedup de 0.96 en el programa del profesor. Gana 19&nbsp;% en ciclos, pero pierde lo mismo en frecuencia. C sí gana: es 1.32 veces más rápido que A y 1.37 veces más que B, porque baja los ciclos sin alargar el periodo.</p>
+
+<h2>10.7 Limitaciones de la optimización</h2>
+
+<ul>
+  <li>Un contador de 2 bits no aprende un patrón como el de C2, porque no recuerda la historia del salto.</li>
+  <li>Con 16 entradas, dos saltos separados por un múltiplo de 64 bytes comparten entrada. Pasa con el <code>jal</code> de C2 y el <code>beq</code> de C3, pero como no se ejecutan a la vez no hay fallos extra.</li>
+  <li>No cambia las dependencias, el puerto de memoria ni el Load-Use, por eso C tampoco llega a IPC = 2.</li>
+</ul>
+
+<h1>11. Conclusiones</h1>
+
+<p>Las tres arquitecturas dan los mismos resultados en todos los programas, incluidos 10&nbsp;000 programas al azar, y las cuatro etapas del programa del profesor pasan en A, B y C. En ese programa el Dual-Issue es 1.19 veces más rápido que el pipeline, y lo alejan de IPC = 2 las dependencias, el puerto único de memoria y los saltos tomados.</p>
+
+<p>La predicción de saltos ataca los saltos tomados. En el programa del profesor C es 1.33 veces más rápido que B en ciclos y 1.37 veces en tiempo real. La mejora viene de los bucles; con saltos que alternan o dependen del dato puede ser peor que no predecir. Lo más difícil fue combinarla con el reagrupamiento y con el caso del <code>jal</code>, que encontramos con las pruebas al azar. Un predictor que recuerde la historia de cada salto mejoraría casos como el de C2.</p>
+
+<h1>Referencia</h1>
+
+<p>Harris, S. L. y Harris, D. M. (2021). Digital Design and Computer Architecture, RISC-V Edition. Morgan Kaufmann.</p>
+</body>
+</html>

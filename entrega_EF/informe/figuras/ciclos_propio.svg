@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 210" width="800" height="210" font-family="Arial, Liberation Sans, sans-serif">
+<rect x="170" y="8" width="16" height="16" fill="#90a4ae"/><text x="192" y="21" font-size="14">resto de los ciclos</text>
+<rect x="350" y="8" width="16" height="16" fill="#e57373"/><text x="372" y="21" font-size="14">ciclos perdidos en flushes (sin contar el beq final)</text>
+<text x="160" y="69" font-size="15" font-weight="bold" text-anchor="end">A Single-Issue</text>
+<rect x="170" y="45" width="379.8" height="36" fill="#90a4ae"/>
+<rect x="549.8" y="45" width="148.8" height="36" fill="#e57373"/>
+<text x="624.1" y="69" font-size="14" text-anchor="middle" fill="#fff" font-weight="bold">96</text>
+<text x="704.6" y="69" font-size="15">341 ciclos</text>
+<text x="160" y="124" font-size="15" font-weight="bold" text-anchor="end">B Dual-Issue</text>
+<rect x="170" y="100" width="299.2" height="36" fill="#90a4ae"/>
+<rect x="469.2" y="100" width="148.8" height="36" fill="#e57373"/>
+<text x="543.6" y="124" font-size="14" text-anchor="middle" fill="#fff" font-weight="bold">96</text>
+<text x="624.0" y="124" font-size="15">289 ciclos</text>
+<text x="160" y="179" font-size="15" font-weight="bold" text-anchor="end">C con predicción</text>
+<rect x="170" y="155" width="266.6" height="36" fill="#90a4ae"/>
+<rect x="436.6" y="155" width="49.6" height="36" fill="#e57373"/>
+<text x="461.4" y="179" font-size="14" text-anchor="middle" fill="#fff" font-weight="bold">32</text>
+<text x="492.2" y="179" font-size="15">204 ciclos</text>
+</svg>

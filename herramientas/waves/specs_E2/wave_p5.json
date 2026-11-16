@@ -1,0 +1,188 @@
+{
+ "sources": [
+  "/home/juanpedrovv/Desktop/Proyecto Arch/entrega_E2/dual_issue/src/*.v",
+  "/home/juanpedrovv/Desktop/Proyecto Arch/entrega_E2/dual_issue/tb/tb_e2_p5.v"
+ ],
+ "memdir": "/home/juanpedrovv/Desktop/Proyecto Arch/entrega_E2/programas",
+ "top": "tb_e2_p5",
+ "run": "400ns",
+ "run_extra": "30ns",
+ "t0_ns": 20,
+ "t1_ns": 140,
+ "width": 2000,
+ "scale": 150,
+ "show_range": false,
+ "cursor_ns": 20,
+ "signals": [
+  {
+   "path": "/tb_e2_p5/clk"
+  },
+  {
+   "divider": "Fetch"
+  },
+  {
+   "path": "/tb_e2_p5/dut/rvdual/dp/PCF",
+   "radix": "unsigned"
+  },
+  {
+   "path": "/tb_e2_p5/dut/rvdual/dp/InstrF0",
+   "radix": "hex"
+  },
+  {
+   "path": "/tb_e2_p5/dut/rvdual/dp/InstrF1",
+   "radix": "hex"
+  },
+  {
+   "divider": "Decode"
+  },
+  {
+   "path": "/tb_e2_p5/dut/rvdual/dp/InstrD0",
+   "radix": "hex"
+  },
+  {
+   "path": "/tb_e2_p5/dut/rvdual/dp/InstrD1",
+   "radix": "hex"
+  },
+  {
+   "divider": "Execute"
+  },
+  {
+   "path": "/tb_e2_p5/dut/rvdual/dp/InstrE0",
+   "radix": "hex"
+  },
+  {
+   "path": "/tb_e2_p5/dut/rvdual/dp/InstrE1",
+   "radix": "hex"
+  },
+  {
+   "divider": "Memory"
+  },
+  {
+   "path": "/tb_e2_p5/dut/rvdual/dp/InstrM0",
+   "radix": "hex"
+  },
+  {
+   "path": "/tb_e2_p5/dut/rvdual/dp/InstrM1",
+   "radix": "hex"
+  },
+  {
+   "path": "/tb_e2_p5/dut/rvdual/dp/MemWriteM"
+  },
+  {
+   "path": "/tb_e2_p5/dut/rvdual/dp/DataAdrM",
+   "radix": "dec"
+  },
+  {
+   "path": "/tb_e2_p5/dut/rvdual/dp/WriteDataM",
+   "radix": "dec"
+  },
+  {
+   "path": "/tb_e2_p5/dut/rvdual/dp/ReadDataM",
+   "radix": "dec"
+  },
+  {
+   "divider": "Writeback"
+  },
+  {
+   "path": "/tb_e2_p5/dut/rvdual/dp/InstrW0",
+   "radix": "hex"
+  },
+  {
+   "path": "/tb_e2_p5/dut/rvdual/dp/InstrW1",
+   "radix": "hex"
+  },
+  {
+   "path": "/tb_e2_p5/dut/rvdual/dp/RegWriteW0"
+  },
+  {
+   "path": "/tb_e2_p5/dut/rvdual/dp/RdW0",
+   "radix": "unsigned"
+  },
+  {
+   "path": "/tb_e2_p5/dut/rvdual/dp/ResultW0",
+   "radix": "dec"
+  },
+  {
+   "path": "/tb_e2_p5/dut/rvdual/dp/RegWriteW1"
+  },
+  {
+   "path": "/tb_e2_p5/dut/rvdual/dp/RdW1",
+   "radix": "unsigned"
+  },
+  {
+   "path": "/tb_e2_p5/dut/rvdual/dp/ResultW1",
+   "radix": "dec"
+  },
+  {
+   "divider": "Register File"
+  },
+  {
+   "path": "/tb_e2_p5/dut/rvdual/dp/rf/rf[1]",
+   "radix": "dec",
+   "name": "x1"
+  },
+  {
+   "path": "/tb_e2_p5/dut/rvdual/dp/rf/rf[2]",
+   "radix": "dec",
+   "name": "x2"
+  },
+  {
+   "path": "/tb_e2_p5/dut/rvdual/dp/rf/rf[3]",
+   "radix": "dec",
+   "name": "x3"
+  },
+  {
+   "path": "/tb_e2_p5/dut/rvdual/dp/rf/rf[4]",
+   "radix": "dec",
+   "name": "x4"
+  },
+  {
+   "path": "/tb_e2_p5/dut/rvdual/dp/rf/rf[5]",
+   "radix": "dec",
+   "name": "x5"
+  },
+  {
+   "path": "/tb_e2_p5/dut/rvdual/dp/rf/rf[6]",
+   "radix": "dec",
+   "name": "x6"
+  },
+  {
+   "path": "/tb_e2_p5/dut/rvdual/dp/rf/rf[7]",
+   "radix": "dec",
+   "name": "x7"
+  },
+  {
+   "path": "/tb_e2_p5/dut/rvdual/dp/rf/rf[8]",
+   "radix": "dec",
+   "name": "x8"
+  },
+  {
+   "path": "/tb_e2_p5/dut/rvdual/dp/rf/rf[10]",
+   "radix": "dec",
+   "name": "x10"
+  }
+ ],
+ "markers": [
+  {
+   "t_ns": 61.2,
+   "label": "1"
+  },
+  {
+   "t_ns": 71.2,
+   "label": "2"
+  },
+  {
+   "t_ns": 81.2,
+   "label": "3"
+  },
+  {
+   "t_ns": 101.2,
+   "label": "4"
+  },
+  {
+   "t_ns": 121.2,
+   "label": "5"
+  }
+ ],
+ "out": "/home/juanpedrovv/Desktop/Proyecto Arch/entrega_E2/informe/figuras/wave_p5.png"
+}

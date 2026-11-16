@@ -1,0 +1,258 @@
+<h1>6. Programas de prueba del Dual-Issue</h1>
+
+<p>Probamos el Dual-Issue con seis programas, uno por cada caso que pide el enunciado (Tabla [[tab:res_dual]]). Funcionan igual que los del pipeline y sus testbenches están en <code>dual_issue/tb</code>. En los listados una línea en blanco separa los grupos que salen juntos de Decode.</p>
+
+<table>
+  <tr><th>Programa</th><th>Qué prueba</th><th class="c">Mem[100]</th></tr>
+  <tr><td><code>e2_p1_alu</code></td><td>Dos operaciones ALU independientes por par</td><td class="c">32</td></tr>
+  <tr><td><code>e2_p2_raw</code></td><td>RAW dentro del par y forwarding desde las dos vías</td><td class="c">26</td></tr>
+  <tr><td><code>e2_p3_memoria</code></td><td>Puerto único de memoria y Load-Use</td><td class="c">13</td></tr>
+  <tr><td><code>e2_p4_branches</code></td><td>Saltos en las dos posiciones del par, tomados y no tomados</td><td class="c">0</td></tr>
+  <tr><td><code>e2_p5_regfile</code></td><td>Dos escrituras en el Register File</td><td class="c">42</td></tr>
+  <tr><td><code>e2_p6_reagrupamiento</code></td><td>Reagrupamiento sin perder ni repetir instrucciones</td><td class="c">37</td></tr>
+</table>
+<p class="pie">Tabla [[TAB:res_dual]]. Programas de prueba del Dual-Issue.</p>
+
+<h2>6.1 Programa 1: dos operaciones ALU independientes</h2>
+
+<pre>  0  addi x1, x0, 12        # x1 = 12
+  4  addi x2, x0, 5         # x2 = 5
+
+  8  addi x3, x0, -3        # x3 = -3
+ 12  addi x4, x0, 9         # x4 = 9
+
+ 16  add  x5, x1, x2        # x5 = 17
+ 20  sub  x6, x1, x2        # x6 = 7
+     ... (and, or, slt, slti, add, sub, add, andi)
+ 56  sw   x13, 100(x0)      # Mem[100] = 32
+ 60  fin: beq x0, x0, fin</pre>
+<p class="pie">Código [[COD:p1]]. Programa 1 (<code>e2_p1_alu.s</code>), resumido.</p>
+
+<figure><img src="figuras/r_p1.png" style="width: 14cm" alt="waveform"></figure>
+<p class="pie">Figura [[FIG:w_p1]]. Programa 1, de 30 a 80 ns.</p>
+
+<ol>
+  <li>El primer par sale completo (<code>Issue0</code> = <code>Issue1</code> = 1). Así pasa en todo el programa, y <code>PCF</code> avanza de 8 en 8.</li>
+  <li>Las dos ALU calculan en el mismo ciclo.</li>
+  <li>Mientras un par está en Execute, el anterior escribe dos registros en Writeback.</li>
+</ol>
+
+<p>Son 15 instrucciones en 12 ciclos. En el pipeline tardan 19.</p>
+
+<h2>6.2 Programa 2: RAW dentro del par y forwarding</h2>
+
+<pre>  0  addi x1, x0, 5         # x1 = 5
+
+  4  addi x2, x1, 3         # x2 = 8   lee x1, que escribe la anterior
+  8  addi x3, x0, 7         # x3 = 7
+
+ 12  add  x4, x2, x3        # x4 = 15  x2 de Memory vía 0, x3 de Memory vía 1
+ 16  add  x5, x1, x3        # x5 = 12  x1 de Writeback vía 0, x3 de Memory vía 1
+
+ 20  sub  x6, x4, x2        # x6 = 7   x4 de Memory vía 0, x2 de Writeback vía 0
+ 24  or   x7, x5, x3        # x7 = 15  x5 de Memory vía 1, x3 de Writeback vía 1
+
+ 28  addi x8, x0, 1         # x8 = 1
+ 32  addi x8, x0, 2         # x8 = 2   mismo destino
+
+ 36  add  x9, x8, x8        # x9 = 4   x8 en Memory en las dos vías: gana la vía 1
+ 40  add  x10, x6, x7       # x10 = 22
+
+ 44  add  x11, x9, x10      # x11 = 26
+
+ 48  sw   x11, 100(x0)      # Mem[100] = 26
+ 52  fin: beq x0, x0, fin</pre>
+<p class="pie">Código [[COD:p2]]. Programa 2 (<code>e2_p2_raw.s</code>).</p>
+
+<figure><img src="figuras/r_p2.png" style="width: 100%" alt="waveform"></figure>
+<p class="pie">Figura [[FIG:w_p2]]. Programa 2, de 30 a 100 ns.</p>
+
+<ol>
+  <li><code>addi x2</code> lee x1, que escribe la primera del par: <code>Issue1</code> = 0.</li>
+  <li><code>addi x2</code> pasó a la vía 0 y a su lado entró <code>addi x3</code>. <code>PCF</code> avanzó solo 4.</li>
+  <li><code>add x4</code> y <code>add x5</code> toman sus operandos de Memory en las dos vías (011 y 100) y de Writeback (001).</li>
+  <li>En este ciclo se usan las cuatro fuentes de forwarding a la vez.</li>
+  <li>x8 está en Memory en las dos vías y gana la vía 1 (100), la más reciente. En Decode, <code>sw x11</code> depende de <code>add x11</code> y otra vez <code>Issue1</code> = 0.</li>
+</ol>
+
+<h2>6.3 Programa 3: Load-Use y puerto de memoria</h2>
+
+<pre>  0  addi x1, x0, 20        # x1 = 20
+  4  addi x2, x0, 7         # x2 = 7
+
+  8  sw   x1, 40(x0)        # Mem[40] = 20   dos sw: no salen juntos
+
+ 12  sw   x2, 44(x0)        # Mem[44] = 7    sw y lw: no salen juntos
+
+ 16  lw   x3, 40(x0)        # x3 = 20        el add lee x3 (RAW)
+
+ 20  add  x4, x3, x2        # x4 = 27        Load-Use: stall
+ 24  lw   x5, 44(x0)        # x5 = 7         ALU + lw salen juntas
+
+ 28  addi x6, x0, 1         # x6 = 1         sale sola: su pareja depende del lw
+
+ 32  add  x7, x5, x2        # x7 = 14
+ 36  sw   x4, 48(x0)        # Mem[48] = 27   ALU + sw
+
+ 40  lw   x8, 48(x0)        # x8 = 27        lw + ALU
+ 44  sub  x9, x7, x6        # x9 = 13
+
+ 48  sw   x9, 100(x0)       # Mem[100] = 13
+ 52  fin: beq x0, x0, fin</pre>
+<p class="pie">Código [[COD:p3]]. Programa 3 (<code>e2_p3_memoria.s</code>).</p>
+
+<figure><img src="figuras/r_p3a.png" style="width: 100%" alt="waveform"></figure>
+<p class="pie">Figura [[FIG:w_p3a]]. Programa 3, de 40 a 100 ns: conflictos de memoria y stall por Load-Use.</p>
+
+<ol>
+  <li>Hay dos <code>sw</code> en el par, que comparten el puerto de memoria: <code>Issue1</code> = 0.</li>
+  <li>Un <code>sw</code> y un <code>lw</code> tampoco salen juntos.</li>
+  <li><code>add x4</code> depende de <code>lw x3</code> y sale solo el <code>lw</code>. En Memory, el primer <code>sw</code> escribe en la dirección 40.</li>
+  <li>Ahora el <code>lw</code> está en Execute y el <code>add</code> en Decode. Es un Load-Use, así que <code>Issue0</code> = 0 y no sale ninguna.</li>
+  <li>El <code>lw</code> lee 20 en Memory, y en Decode salen juntos el <code>add</code> y <code>lw x5</code>: una operación ALU y un acceso a memoria.</li>
+</ol>
+
+<figure><img src="figuras/r_p3b.png" style="width: 100%" alt="waveform"></figure>
+<p class="pie">Figura [[FIG:w_p3b]]. Programa 3, de 90 a 150 ns: el puerto de memoria en las dos vías.</p>
+
+<ol>
+  <li>Solo la segunda del par depende de <code>lw x5</code>, así que sale la primera sin detener el PC.</li>
+  <li><code>lw x5</code> usa el puerto desde la vía 1 (<code>MemSelM</code> = 1), y en Decode salen juntos <code>add x7</code> y <code>sw x4</code>.</li>
+  <li>El <code>sw</code> de la vía 1 escribe 27 en la dirección 48.</li>
+  <li><code>lw x8</code>, ahora en la vía 0, lee ese 27.</li>
+  <li>El último <code>sw</code> guarda 13 en la dirección 100.</li>
+</ol>
+
+<h2>6.4 Programa 4: saltos en las dos posiciones del par</h2>
+
+<p>Hay <code>beq</code> y <code>jal</code> en las dos posiciones, tomados y no tomados. Las instrucciones que suman algo a x9 no deben ejecutarse. Si alguna lo hiciera, el resultado no sería 0.</p>
+
+<pre>  0  addi x1, x0, 5         # x1 = 5
+  4  addi x9, x0, 0         # x9 = 0
+
+  8  beq  x1, x1, L1        # vía 0, se toma
+ 12  addi x9, x9, 1         # su pareja: se anula
+
+ 16  addi x9, x9, 1         # se anula
+ 20  addi x9, x9, 1         # se anula
+
+ 24  L1: sw x1, 40(x0)      # Mem[40] = 5
+ 28  beq  x1, x0, L2        # vía 1, no se toma
+
+ 32  lw   x2, 40(x0)        # x2 = 5, más antigua que el salto: sigue
+ 36  beq  x1, x1, L2        # vía 1, se toma
+
+ 40  add  x9, x9, x2        # se anula (y además depende del lw)
+ 44  addi x9, x9, 1         # se anula
+
+ 48  L2: beq x1, x0, L3     # no se toma; dos saltos en el par: sale solo</pre>
+<p class="pie">Código [[COD:p4]]. Programa 4 (<code>e2_p4_branches.s</code>), primera parte: los <code>beq</code>.</p>
+
+<figure><img src="figuras/r_p4a.png" style="width: 100%" alt="waveform"></figure>
+<p class="pie">Figura [[FIG:w_p4a]]. Programa 4, de 50 a 130 ns.</p>
+
+<ol>
+  <li>El <code>beq</code> de la vía 0 se toma. <code>FlushD</code>, <code>FlushE0</code> y <code>FlushE1</code> anulan lo que entró detrás, y <code>FlushM1</code> anula a su pareja.</li>
+  <li>En Memory solo queda el <code>beq</code>, y <code>PCF</code> = 24.</li>
+  <li><code>beq x1, x0, L2</code> está en la vía 1 (<code>BranchSelE</code> = 1) y no se toma.</li>
+  <li><code>beq x1, x1, L2</code> se toma en la vía 1, pero <code>FlushM1</code> = 0 porque el <code>lw</code> de la vía 0 es más antiguo. En Decode hay un Load-Use, pero manda el salto: <code>StallF</code> = 0 y el PC salta a 48.</li>
+  <li>Hay dos saltos en el par y sale solo el primero.</li>
+  <li>Ese <code>beq</code> no se toma y el <code>jal</code> pasa a la vía 0.</li>
+</ol>
+
+<pre> 52  jal  x3, L3            # vía 0, x3 = 56
+ 56  addi x9, x9, 1         # su pareja: se anula
+
+ 60  L3: addi x4, x0, 2     # x4 = 2
+ 64  jal  x5, L4            # vía 1, x5 = 68
+
+ 68  addi x9, x9, 1         # se anula
+
+ 72  L4: add x6, x2, x4     # x6 = 7
+ 76  add  x7, x3, x5        # x7 = 124
+
+ 80  sw   x9, 100(x0)       # Mem[100] = 0
+ 84  fin: beq x0, x0, fin</pre>
+<p class="pie">Código [[COD:p4b]]. Programa 4, segunda parte: los <code>jal</code>.</p>
+
+<figure><img src="figuras/r_p4b.png" style="width: 100%" alt="waveform"></figure>
+<p class="pie">Figura [[FIG:w_p4b]]. Programa 4, de 130 a 190 ns.</p>
+
+<ol>
+  <li>El <code>jal</code> de la vía 0 salta a 60 y <code>FlushM1</code> anula a su pareja.</li>
+  <li>El <code>jal</code> escribe x3 = 56.</li>
+  <li>El <code>jal</code> de la vía 1 salta a 72 sin anular a su pareja, que es más antigua.</li>
+  <li>Las dos vías escriben a la vez x4 y x5. Al final Mem[100] = 0, así que nada anulado se ejecutó.</li>
+</ol>
+
+<h2>6.5 Programa 5: dos escrituras en el Register File</h2>
+
+<pre>  0  addi x1, x0, 11        # x1 = 11
+  4  addi x2, x0, 22        # x2 = 22   se escriben en el mismo ciclo
+
+  8  addi x3, x0, 5         # x3 = 5
+ 12  addi x3, x0, 9         # x3 = 9    las dos escriben x3: queda la vía 1
+
+ 16  addi x0, x0, 7         # destino x0: se sigue leyendo 0
+ 20  addi x4, x0, 4         # x4 = 4
+
+ 24  sw   x2, 40(x0)        # Mem[40] = 22
+ 28  add  x5, x1, x3        # x5 = 20
+
+ 32  lw   x6, 40(x0)        # x6 = 22   dato de memoria
+ 36  add  x7, x3, x4        # x7 = 13   dato de la ALU, mismo ciclo
+     ... (add x8, add x9, add x10, add x11)
+ 56  sw   x10, 100(x0)      # Mem[100] = 42
+ 60  fin: beq x0, x0, fin</pre>
+<p class="pie">Código [[COD:p5]]. Programa 5 (<code>e2_p5_regfile.s</code>), resumido.</p>
+
+<p>En esta waveform agregamos los registros. Cambian a la mitad del ciclo porque el Register File escribe en el flanco de bajada.</p>
+
+<figure><img src="figuras/r_p5.png" style="width: 100%" alt="waveform"></figure>
+<p class="pie">Figura [[FIG:w_p5]]. Programa 5, de 60 a 140 ns.</p>
+
+<ol>
+  <li>Las dos vías escriben a la vez x1 y x2.</li>
+  <li>Las dos vías escriben x3 y queda 9, el dato de la vía 1.</li>
+  <li>La escritura en x0 no cambia nada.</li>
+  <li>Una vía escribe un dato de memoria y la otra uno de la ALU.</li>
+  <li>x10 = 42 solo sale bien si todas las escrituras anteriores fueron correctas.</li>
+</ol>
+
+<h2>6.6 Programa 6: reagrupamiento</h2>
+
+<p>Casi cada instrucción depende de la anterior, así que la pendiente se reagrupa una y otra vez. Si alguna se perdiera o se repitiera, el resultado no sería 37.</p>
+
+<pre>  0  addi x1, x0, 1         # x1 = 1
+  4  addi x2, x0, 10        # x2 = 10
+
+  8  addi x1, x1, 1         # x1 = 2
+
+ 12  addi x1, x1, 1         # x1 = 3   se reagrupa con la siguiente
+ 16  addi x2, x2, 10        # x2 = 20
+
+ 20  addi x2, x2, 10        # x2 = 30
+ 24  addi x1, x1, 1         # x1 = 4
+
+ 28  addi x1, x1, 1         # x1 = 5   desde aquí sale una por ciclo
+
+ 32  addi x1, x1, 1         # x1 = 6
+
+ 36  addi x1, x1, 1         # x1 = 7
+
+ 40  add  x3, x1, x2        # x3 = 37
+
+ 44  sw   x3, 100(x0)       # Mem[100] = 37
+ 48  fin: beq x0, x0, fin</pre>
+<p class="pie">Código [[COD:p6]]. Programa 6 (<code>e2_p6_reagrupamiento.s</code>).</p>
+
+<figure><img src="figuras/r_p6.png" style="width: 100%" alt="waveform"></figure>
+<p class="pie">Figura [[FIG:w_p6]]. Programa 6, de 40 a 130 ns.</p>
+
+<ol>
+  <li>Los dos <code>addi x1</code> del par dependen entre sí: <code>Issue1</code> = 0.</li>
+  <li>El segundo pasa a la vía 0 con <code>addi x2</code> al lado, y ahora salen juntas. <code>PCF</code> avanzó solo 4.</li>
+  <li>Desde aquí hay emisiones parciales seguidas y <code>PCF</code> avanza de 4 en 4.</li>
+</ol>
+
+<p>En Writeback x1 toma los valores del 1 al 7 en orden, sin saltarse ni repetir ninguno.</p>

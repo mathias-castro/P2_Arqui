@@ -1,0 +1,159 @@
+{
+ "sources": [
+  "/home/juanpedrovv/Desktop/Proyecto Arch/entrega_EF/dual_issue_opt/src/*.v",
+  "/home/juanpedrovv/Desktop/Proyecto Arch/entrega_EF/dual_issue_opt/tb/tb_ef_p1.v"
+ ],
+ "memdir": "/home/juanpedrovv/Desktop/Proyecto Arch/entrega_EF/programas",
+ "top": "tb_ef_p1",
+ "run": "600ns",
+ "run_extra": "30ns",
+ "t0_ns": 50,
+ "t1_ns": 140,
+ "width": 2000,
+ "scale": 150,
+ "show_range": false,
+ "cursor_ns": 50,
+ "signals": [
+  {
+   "path": "/tb_ef_p1/clk"
+  },
+  {
+   "divider": "Fetch"
+  },
+  {
+   "path": "/tb_ef_p1/dut/rvdual/dp/PCF",
+   "radix": "unsigned"
+  },
+  {
+   "path": "/tb_ef_p1/dut/rvdual/dp/InstrF0",
+   "radix": "hex"
+  },
+  {
+   "path": "/tb_ef_p1/dut/rvdual/dp/InstrF1",
+   "radix": "hex"
+  },
+  {
+   "path": "/tb_ef_p1/dut/rvdual/dp/PredF0"
+  },
+  {
+   "path": "/tb_ef_p1/dut/rvdual/dp/PredF1"
+  },
+  {
+   "path": "/tb_ef_p1/dut/rvdual/dp/PredTargetF0",
+   "radix": "unsigned"
+  },
+  {
+   "path": "/tb_ef_p1/dut/rvdual/dp/PredTargetF1",
+   "radix": "unsigned"
+  },
+  {
+   "path": "/tb_ef_p1/dut/rvdual/dp/PCNextF",
+   "radix": "unsigned"
+  },
+  {
+   "divider": "Decode"
+  },
+  {
+   "path": "/tb_ef_p1/dut/rvdual/dp/InstrD0",
+   "radix": "hex"
+  },
+  {
+   "path": "/tb_ef_p1/dut/rvdual/dp/InstrD1",
+   "radix": "hex"
+  },
+  {
+   "path": "/tb_ef_p1/dut/rvdual/dp/PredD0"
+  },
+  {
+   "path": "/tb_ef_p1/dut/rvdual/dp/PredD1"
+  },
+  {
+   "path": "/tb_ef_p1/dut/rvdual/dp/Issue0"
+  },
+  {
+   "path": "/tb_ef_p1/dut/rvdual/dp/Issue1"
+  },
+  {
+   "divider": "Execute"
+  },
+  {
+   "path": "/tb_ef_p1/dut/rvdual/dp/InstrE0",
+   "radix": "hex"
+  },
+  {
+   "path": "/tb_ef_p1/dut/rvdual/dp/InstrE1",
+   "radix": "hex"
+  },
+  {
+   "path": "/tb_ef_p1/dut/rvdual/dp/BranchSelE"
+  },
+  {
+   "path": "/tb_ef_p1/dut/rvdual/dp/PredE"
+  },
+  {
+   "path": "/tb_ef_p1/dut/rvdual/dp/TakenE"
+  },
+  {
+   "path": "/tb_ef_p1/dut/rvdual/dp/MispredE"
+  },
+  {
+   "path": "/tb_ef_p1/dut/rvdual/dp/PCCorrectE",
+   "radix": "unsigned"
+  },
+  {
+   "path": "/tb_ef_p1/dut/rvdual/dp/bp/CntE",
+   "radix": "bin",
+   "name": "CntE"
+  },
+  {
+   "path": "/tb_ef_p1/dut/rvdual/dp/FlushD"
+  },
+  {
+   "path": "/tb_ef_p1/dut/rvdual/dp/FlushE0"
+  },
+  {
+   "path": "/tb_ef_p1/dut/rvdual/dp/FlushE1"
+  },
+  {
+   "path": "/tb_ef_p1/dut/rvdual/dp/FlushM1"
+  },
+  {
+   "divider": "Memory y Writeback"
+  },
+  {
+   "path": "/tb_ef_p1/dut/rvdual/dp/InstrM0",
+   "radix": "hex"
+  },
+  {
+   "path": "/tb_ef_p1/dut/rvdual/dp/InstrM1",
+   "radix": "hex"
+  },
+  {
+   "path": "/tb_ef_p1/dut/rvdual/dp/InstrW0",
+   "radix": "hex"
+  },
+  {
+   "path": "/tb_ef_p1/dut/rvdual/dp/InstrW1",
+   "radix": "hex"
+  }
+ ],
+ "markers": [
+  {
+   "t_ns": 71.2,
+   "label": "1"
+  },
+  {
+   "t_ns": 101.2,
+   "label": "2"
+  },
+  {
+   "t_ns": 111.2,
+   "label": "3"
+  },
+  {
+   "t_ns": 121.2,
+   "label": "4"
+  }
+ ],
+ "out": "/home/juanpedrovv/Desktop/Proyecto Arch/entrega_EF/informe/figuras/wave_o1a.png"
+}
