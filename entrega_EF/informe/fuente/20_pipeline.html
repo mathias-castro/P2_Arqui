@@ -4,6 +4,8 @@
 
 <p>La sección 2 presenta el pipeline, las secciones 3 a 6 el Dual-Issue y las secciones 7 y 8 la optimización. En la sección 9 corremos el programa del profesor y uno propio en las tres arquitecturas, y en la sección 10 comparamos su rendimiento.</p>
 
+<p><b>Cambios respecto a la E1 y la E2.</b> Para esta entrega reorganizamos el código de A y B y rehicimos los programas de prueba. A es el mismo pipeline de la E1, con memorias más grandes (128 instrucciones y 512 palabras de datos, por el programa del profesor). En B, la instrucción pendiente de una emisión parcial ya no se vuelve a leer de la memoria de instrucciones, como hacía la señal <code>Realign</code> de la E2, sino que se desplaza dentro del registro F/D (sección 3.2). Además, en Decode los registros fuente que la instrucción no usa se ponen en x0 (sección 3.3). En programas al azar, A y B dan los mismos resultados y los mismos ciclos que las versiones de la E1 y la E2. Los programas de las secciones 2 y 6 son nuevos y se miden con el criterio de la sección 10.1, así que sus números no coinciden con los de los informes anteriores.</p>
+
 <h1>2. Pipeline Single-Issue</h1>
 
 <h2>2.1 Etapas y datapath</h2>
