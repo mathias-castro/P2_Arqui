@@ -102,7 +102,7 @@
 </table>
 <p class="pie">Tabla [[TAB:res_single]]. Programas de prueba del pipeline.</p>
 
-<p>Las waveforms del informe son recortes de Vivado. Arriba de cada una está la instrucción que hay en cada etapa, y (—) es una burbuja. En el Dual-Issue cada etapa tiene una línea por vía, con la vía 0 arriba. Cada marcador numerado es un ciclo que se explica debajo con el mismo número.</p>
+<p>Las waveforms del informe son recortes de Vivado. Arriba de cada una está la instrucción que hay en cada etapa, y (—) es una burbuja. En el Dual-Issue cada etapa tiene una línea por vía, con la vía 0 arriba. Cada marcador numerado es un ciclo que se explica debajo con el mismo número. Una X (en rojo) es un valor que no se usa en ese ciclo, como una posición de memoria que todavía no se escribió.</p>
 
 <h3>2.4.1 Programa 1: instrucciones soportadas</h3>
 
@@ -162,7 +162,7 @@
   <li><code>add x3</code> toma x1 de Writeback (01) y x2 de Memory (10).</li>
   <li><code>sub x4</code> toma x3 de Memory. x1 ya se lee del Register File.</li>
   <li><code>add x6, x5, x5</code>: x5 está en Memory y en Writeback, y gana Memory porque tiene el valor más nuevo.</li>
-  <li>El <code>sw</code> recibe por forwarding el dato que guarda.</li>
+  <li>El <code>sw</code> recibe por forwarding el dato que guarda (<code>ForwardBE</code> = 10). Ese dato va por <code>WriteDataE</code>; <code>SrcBE</code> = 100 es el inmediato de la dirección.</li>
 </ol>
 
 <h3>2.4.3 Programa 3: stalling</h3>

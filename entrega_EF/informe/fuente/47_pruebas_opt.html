@@ -38,8 +38,8 @@
 <p class="pie">Figura [[FIG:w_o1a]]. Prueba 1, de 60 a 130 ns: la primera vuelta se predice mal y la segunda ya bien.</p>
 
 <ol>
-  <li>En la primera vuelta el <code>beq</code> no está en la tabla y se toma, así que hay flush como en el Dual-Issue. Ahí entra a la tabla.</li>
-  <li>En la segunda vuelta el <code>beq</code> se predice tomado en Fetch y el siguiente PC ya es el destino. Un ciclo antes estaba en la vía 1, pero con <code>Issue1</code> = 0 esa predicción no se usa.</li>
+  <li>En la primera vuelta el <code>beq</code> no está en la tabla y se toma (<code>MispredE</code> = 1), así que hay flush como en el Dual-Issue. Al resolverse, el salto se guarda en la tabla.</li>
+  <li>En la segunda vuelta el <code>beq</code> ya está en la tabla: se predice tomado en Fetch (<code>PredF0</code> = 1) y el siguiente PC ya es el destino (<code>PCNextF</code> = 12).</li>
   <li>Al lado del <code>beq</code> entra una burbuja en lugar del <code>sw</code>.</li>
   <li>En Execute la predicción acierta (<code>MispredE</code> = 0) y no se pierde ningún ciclo.</li>
 </ol>
@@ -49,7 +49,7 @@
 
 <ol>
   <li>En la última vuelta el <code>beq</code> también se predice tomado.</li>
-  <li>Pero ya no se toma, así que <code>MispredE</code> = 1 y el PC vuelve a la instrucción que sigue al salto. El contador baja de 11 a 10.</li>
+  <li>Pero ya no se toma (<code>TakenE</code> = 0), así que <code>MispredE</code> = 1 y el PC vuelve a la instrucción que sigue al salto (<code>PCCorrectE</code> = 28). <code>CntE</code> = 11 es el contador antes de actualizarse; al final de ese ciclo baja a 10.</li>
   <li>Fetch lee el <code>sw</code> y <code>fin</code>, y en Decode quedan las burbujas del flush.</li>
 </ol>
 

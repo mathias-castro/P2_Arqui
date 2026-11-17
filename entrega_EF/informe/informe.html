@@ -163,7 +163,7 @@
 </table>
 <p class="pie">Tabla 3. Programas de prueba del pipeline.</p>
 
-<p>Las waveforms del informe son recortes de Vivado. Arriba de cada una está la instrucción que hay en cada etapa, y (—) es una burbuja. En el Dual-Issue cada etapa tiene una línea por vía, con la vía 0 arriba. Cada marcador numerado es un ciclo que se explica debajo con el mismo número.</p>
+<p>Las waveforms del informe son recortes de Vivado. Arriba de cada una está la instrucción que hay en cada etapa, y (—) es una burbuja. En el Dual-Issue cada etapa tiene una línea por vía, con la vía 0 arriba. Cada marcador numerado es un ciclo que se explica debajo con el mismo número. Una X (en rojo) es un valor que no se usa en ese ciclo, como una posición de memoria que todavía no se escribió.</p>
 
 <h3>2.4.1 Programa 1: instrucciones soportadas</h3>
 
@@ -223,7 +223,7 @@
   <li><code>add x3</code> toma x1 de Writeback (01) y x2 de Memory (10).</li>
   <li><code>sub x4</code> toma x3 de Memory. x1 ya se lee del Register File.</li>
   <li><code>add x6, x5, x5</code>: x5 está en Memory y en Writeback, y gana Memory porque tiene el valor más nuevo.</li>
-  <li>El <code>sw</code> recibe por forwarding el dato que guarda.</li>
+  <li>El <code>sw</code> recibe por forwarding el dato que guarda (<code>ForwardBE</code> = 10). Ese dato va por <code>WriteDataE</code>; <code>SrcBE</code> = 100 es el inmediato de la dirección.</li>
 </ol>
 
 <h3>2.4.3 Programa 3: stalling</h3>
@@ -936,8 +936,8 @@
 <p class="pie">Figura 31. Prueba 1, de 60 a 130 ns: la primera vuelta se predice mal y la segunda ya bien.</p>
 
 <ol>
-  <li>En la primera vuelta el <code>beq</code> no está en la tabla y se toma, así que hay flush como en el Dual-Issue. Ahí entra a la tabla.</li>
-  <li>En la segunda vuelta el <code>beq</code> se predice tomado en Fetch y el siguiente PC ya es el destino. Un ciclo antes estaba en la vía 1, pero con <code>Issue1</code> = 0 esa predicción no se usa.</li>
+  <li>En la primera vuelta el <code>beq</code> no está en la tabla y se toma (<code>MispredE</code> = 1), así que hay flush como en el Dual-Issue. Al resolverse, el salto se guarda en la tabla.</li>
+  <li>En la segunda vuelta el <code>beq</code> ya está en la tabla: se predice tomado en Fetch (<code>PredF0</code> = 1) y el siguiente PC ya es el destino (<code>PCNextF</code> = 12).</li>
   <li>Al lado del <code>beq</code> entra una burbuja en lugar del <code>sw</code>.</li>
   <li>En Execute la predicción acierta (<code>MispredE</code> = 0) y no se pierde ningún ciclo.</li>
 </ol>
@@ -947,7 +947,7 @@
 
 <ol>
   <li>En la última vuelta el <code>beq</code> también se predice tomado.</li>
-  <li>Pero ya no se toma, así que <code>MispredE</code> = 1 y el PC vuelve a la instrucción que sigue al salto. El contador baja de 11 a 10.</li>
+  <li>Pero ya no se toma (<code>TakenE</code> = 0), así que <code>MispredE</code> = 1 y el PC vuelve a la instrucción que sigue al salto (<code>PCCorrectE</code> = 28). <code>CntE</code> = 11 es el contador antes de actualizarse; al final de ese ciclo baja a 10.</li>
   <li>Fetch lee el <code>sw</code> y <code>fin</code>, y en Decode quedan las burbujas del flush.</li>
 </ol>
 
