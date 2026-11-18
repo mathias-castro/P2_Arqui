@@ -138,6 +138,114 @@
 
 <p>Tiene pares independientes, dependencias con el <code>lw</code> y tres tipos de saltos: los <code>jal</code> que cierran los bucles, que siempre se toman; los <code>beq</code> de salida, que se toman una vez; y <code>beq x9, x0, grande</code>, que depende del dato. De sus 240 instrucciones, 86 son saltos.</p>
 
+<p>Corrimos <code>tb_propio</code> en las tres arquitecturas y tomamos las waveforms de tres momentos del programa: el llenado del arreglo, una vuelta normal del recorrido y la última vuelta con los resultados. En cada figura, la franja de arriba indica qué instrucción hay en Fetch, Decode y Execute en cada ciclo; en B y C, una por vía.</p>
+
+<p><b>Llenado del arreglo (bucle <code>gen</code>).</b> Las tres figuras van de 50 a 210 ns, para comparar el mismo tramo.</p>
+
+<figure><img src="figuras/r_propio_A_1.png" style="width: 100%" alt="waveform"></figure>
+<p class="pie">Figura [[FIG:w_prA1]]. A (pipeline), bucle <code>gen</code>, de 50 a 210 ns.</p>
+<ol>
+  <li>El <code>sw</code> guarda A[0] = 8 en la dirección 0 (<code>MemWriteM</code> = 1).</li>
+  <li>El <code>jal x0, gen</code> llega a Execute: <code>PCSrcE</code> = 1 y se vacían Decode y Execute (<code>FlushD</code> = <code>FlushE</code> = 1).</li>
+  <li>Fetch vuelve a <code>gen</code> (<code>PCF</code> = 12). Se pierden 2 ciclos.</li>
+  <li>El siguiente <code>sw</code> guarda A[1] = 13 en la dirección 4: una vuelta tarda 8 ciclos.</li>
+  <li>El <code>jal</code> vuelve a causar flush, en todas las vueltas.</li>
+</ol>
+
+<figure><img src="figuras/r_propio_B_1.png" style="width: 100%" alt="waveform"></figure>
+<p class="pie">Figura [[FIG:w_prB1]]. B (Dual-Issue), bucle <code>gen</code>, de 50 a 210 ns.</p>
+<ol>
+  <li>El <code>sw</code> guarda A[0] = 8 en la dirección 0.</li>
+  <li>El <code>jal</code> está en Execute en la vía 0: flush de Decode, y <code>FlushM1</code> anula la instrucción de la vía 1 (<code>addi x1</code> de <code>sigue</code>), que no debía ejecutarse.</li>
+  <li><code>Issue1</code> = 0 durante dos ciclos: <code>andi x4</code> depende de <code>addi x3</code> y <code>sw x4</code> de <code>andi x4</code>, así que salen solas.</li>
+  <li>El <code>sw</code> guarda A[1] = 13 en la dirección 4: una vuelta tarda 7 ciclos.</li>
+  <li>El <code>jal</code> vuelve a causar flush.</li>
+</ol>
+
+<figure><img src="figuras/r_propio_C_1.png" style="width: 100%" alt="waveform"></figure>
+<p class="pie">Figura [[FIG:w_prC1]]. C (Dual-Issue con predicción), bucle <code>gen</code>, de 50 a 210 ns.</p>
+<ol>
+  <li>El <code>sw</code> guarda A[0] = 8 en la dirección 0.</li>
+  <li>El primer <code>jal</code> no está en la tabla: se predijo no tomado, se toma (<code>TakenE</code> = <code>MispredE</code> = 1) y hay flush. Al resolverse se guarda en la tabla.</li>
+  <li>En la segunda vuelta el <code>jal</code> se predice en Fetch (<code>PredF1</code> = 1) y el siguiente PC ya es <code>gen</code> (<code>PCNextF</code> = 12).</li>
+  <li>El <code>sw</code> guarda A[1] = 13 en la dirección 4.</li>
+  <li>En Execute la predicción acierta (<code>PredE</code> = <code>TakenE</code> = 1, <code>MispredE</code> = 0): no hay flush.</li>
+  <li>El <code>sw</code> guarda A[2] = 2 en la dirección 8: una vuelta tarda 4 ciclos.</li>
+</ol>
+
+<p>En el bucle <code>gen</code> una vuelta tarda 8 ciclos en A, 7 en B y 4 en C. B gana poco porque <code>addi x3</code>, <code>andi x4</code> y <code>sw x4</code> son una cadena de dependencias y el flush del <code>jal</code> se mantiene. C quita ese flush desde la segunda vuelta.</p>
+
+<p><b>Una vuelta del recorrido (bucle <code>rec</code>).</b> Las figuras muestran la penúltima vuelta, con A[14] = 14, que es mayor que 8 y toma el salto a <code>grande</code>.</p>
+
+<figure><img src="figuras/r_propio_A_2.png" style="width: 100%" alt="waveform"></figure>
+<p class="pie">Figura [[FIG:w_prA2]]. A, penúltima vuelta de <code>rec</code>, de 3110 a 3230 ns.</p>
+<ol>
+  <li>El <code>lw x8</code> lee la dirección 56 y obtiene 14.</li>
+  <li><code>add x5</code> usa x8 con forwarding desde Writeback (<code>ForwardBE</code> = 1). Como <code>addi x1</code> separa al <code>lw</code> del <code>add</code>, no hay stall.</li>
+  <li><code>beq x9, x0, grande</code> se toma porque 14 &gt;= 8: flush. En ese ciclo se escribe la suma parcial x5 = 117.</li>
+  <li><code>jal x0, rec</code> causa otro flush. La vuelta tarda 12 ciclos.</li>
+</ol>
+
+<figure><img src="figuras/r_propio_B_2.png" style="width: 100%" alt="waveform"></figure>
+<p class="pie">Figura [[FIG:w_prB2]]. B, penúltima vuelta de <code>rec</code>, de 2640 a 2740 ns.</p>
+<ol>
+  <li><code>lw x8</code> y <code>addi x1</code> salen juntos, y en el par siguiente <code>add x5</code> necesita x8: stall por Load-Use (<code>Issue0</code> = 0, <code>StallF</code> = 1).</li>
+  <li>El <code>lw</code> lee 14 en Memory.</li>
+  <li><code>beq ... grande</code> se toma: flush, y <code>FlushM1</code> anula <code>addi x6</code> en la vía 1.</li>
+  <li>Se escribe la suma parcial x5 = 117.</li>
+  <li><code>beq ... listo</code> va en la vía 1 (<code>BranchSelE</code> = 1) y no se toma.</li>
+  <li><code>jal x0, rec</code> va en la vía 0: flush, y <code>FlushM1</code> anula el <code>sw x5</code> de la vía 1. La vuelta tarda 10 ciclos.</li>
+</ol>
+
+<figure><img src="figuras/r_propio_C_2.png" style="width: 100%" alt="waveform"></figure>
+<p class="pie">Figura [[FIG:w_prC2]]. C, penúltima vuelta de <code>rec</code>, de 1830 a 1900 ns.</p>
+<ol>
+  <li>El <code>jal x0, rec</code> de la vuelta anterior acierta en Execute (<code>MispredE</code> = 0).</li>
+  <li>Hay el mismo stall por Load-Use que en B. En ese ciclo <code>beq ... grande</code> se predice tomado en Fetch (<code>PredF0</code> = 1, <code>PCNextF</code> = 80).</li>
+  <li>El <code>lw</code> lee 14 en Memory.</li>
+  <li><code>beq ... grande</code> acierta en Execute y no hay flush. En Fetch se predice el <code>jal x0, rec</code> (<code>PCNextF</code> = 52).</li>
+  <li>Se escribe la suma parcial x5 = 117. La vuelta tarda 6 ciclos.</li>
+</ol>
+
+<p>En esta vuelta A tarda 12 ciclos, B 10 y C 6. A no tiene stall porque <code>addi x1</code> separa al <code>lw</code> de su uso, pero B y C sí, porque esas dos instrucciones salen en el mismo par. C no tiene flushes porque predice bien los dos saltos.</p>
+
+<p><b>Última vuelta y resultados.</b> En la última vuelta A[15] = 3, que es menor que 8, así que <code>beq ... grande</code> no se toma, y <code>beq ... listo</code> se toma para salir del bucle.</p>
+
+<figure><img src="figuras/r_propio_A_3.png" style="width: 100%" alt="waveform"></figure>
+<p class="pie">Figura [[FIG:w_prA3]]. A, última vuelta de <code>rec</code> y resultados, de 3250 a 3410 ns.</p>
+<ol>
+  <li>El <code>lw</code> lee la dirección 60 y obtiene 3.</li>
+  <li><code>add x5</code> calcula la suma total: 120.</li>
+  <li><code>beq ... grande</code> no se toma (<code>PCSrcE</code> = 0).</li>
+  <li><code>jal x0, prox</code> causa flush.</li>
+  <li><code>beq ... listo</code> se toma: flush y salida del bucle.</li>
+  <li>Los tres <code>sw</code> guardan Mem[100] = 120, Mem[104] = 8 y Mem[108] = 92.</li>
+</ol>
+
+<figure><img src="figuras/r_propio_B_3.png" style="width: 100%" alt="waveform"></figure>
+<p class="pie">Figura [[FIG:w_prB3]]. B, última vuelta de <code>rec</code> y resultados, de 2750 a 2900 ns.</p>
+<ol>
+  <li>Stall por Load-Use, como en las otras vueltas.</li>
+  <li>El <code>lw</code> lee 3 en Memory.</li>
+  <li><code>beq ... grande</code> no se toma.</li>
+  <li><code>jal x0, prox</code> causa flush, y <code>FlushM1</code> anula la vía 1.</li>
+  <li><code>beq ... listo</code> se toma: flush y salida del bucle.</li>
+  <li>Los tres <code>sw</code> guardan 120, 8 y 92, uno por ciclo, porque la memoria tiene un solo puerto.</li>
+</ol>
+
+<figure><img src="figuras/r_propio_C_3.png" style="width: 100%" alt="waveform"></figure>
+<p class="pie">Figura [[FIG:w_prC3]]. C, última vuelta de <code>rec</code> y resultados, de 1900 a 2050 ns.</p>
+<ol>
+  <li>Stall por Load-Use. <code>beq ... grande</code> se predice tomado, como en la vuelta anterior.</li>
+  <li>Esta vez no se toma (<code>PredE</code> = 1, <code>TakenE</code> = 0): <code>MispredE</code> = 1, flush, y el PC se corrige a 72.</li>
+  <li>El <code>jal x0, prox</code> se predice en Fetch en la vía 1 (<code>PredF1</code> = 1, <code>PCNextF</code> = 84).</li>
+  <li><code>jal x0, prox</code> se resuelve en la vía 1 (<code>BranchSelE</code> = 1) y acierta.</li>
+  <li><code>beq ... listo</code> se predijo no tomado, pero se toma: <code>MispredE</code> = 1 y flush al salir del bucle.</li>
+  <li>Los tres <code>sw</code> guardan 120, 8 y 92.</li>
+</ol>
+
+<p>Las tres arquitecturas terminan con Mem[100] = 120, Mem[104] = 8 y Mem[108] = 92, que son los valores esperados. El último <code>sw</code> se ejecuta a los 3400 ns en A, a los 2890 ns en B y a los 2040 ns en C, lo que coincide con los 340, 289 y 204 ciclos de la sección 10.</p>
+
 <h1>10. Comparación de las tres arquitecturas</h1>
 
 <h2>10.1 Cómo medimos</h2>

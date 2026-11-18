@@ -62,15 +62,92 @@
 <section class="s">
   <h1>Pipeline Single-Issue</h1>
   <div class="fig"><img src="../informe/figuras/datapath_single.png" style="height: 470px"></div>
-  <p class="chico" style="margin-top: 10px">Hazard Unit: forwarding desde Memory y Writeback, stall de 1 ciclo en Load-Use y flush de 2 instrucciones cuando se toma un salto.</p>
+  <p class="chico" style="margin-top: 10px">Cinco etapas, una por ciclo, y en cada ciclo entra una instrucción nueva. Entre etapa y etapa hay un registro de pipeline; cada señal lleva la letra de su etapa (F, D, E, M, W).</p>
   <div class="num">3</div>
+</section>
+
+<section class="s">
+  <h1>Las cinco etapas</h1>
+  <style>
+    .fila { display: flex; align-items: stretch; }
+    .et { flex: 1; border: 1px solid #9e9e9e; background: #fafafa; text-align: center; padding-bottom: 12px; }
+    .eh { font-weight: bold; font-size: 24px; color: #1565c0; padding: 18px 6px 10px 6px; border-bottom: 1px solid #d0d0d0; margin: 0 14px; }
+    .hw { font-size: 18px; color: #333; padding: 14px 8px 4px 8px; }
+    .tx { font-size: 18px; color: #666; padding: 0 8px 6px 8px; }
+    .rp { width: 38px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+    .bar { width: 8px; height: 110px; background: #bdbdbd; }
+    .rl { font-size: 12px; color: #757575; margin-top: 4px; }
+    .tg { border-collapse: collapse; margin: 0; }
+    .tg th, .tg td { border: none; padding: 4px 5px; font-size: 18px; background: none; text-align: center; }
+    .tg th { color: #777; font-weight: normal; }
+    .tg td.in { font-family: "Liberation Mono", monospace; font-size: 18px; text-align: left; padding-right: 14px; white-space: nowrap; }
+    .tg th.hl, .tg td.hl { background: #e8eef6 !important; }
+    .cl { width: 58px; height: 42px; line-height: 40px; border: 1px solid #757575; background: white; font-size: 20px; color: #333; }
+  </style>
+  <div class="fila"><div class="et"><div class="eh">Fetch</div><div class="hw">Memoria de instrucciones</div><div class="tx">Lee la instrucción</div></div><div class="rp"><div class="bar"></div><div class="rl">F/D</div></div><div class="et"><div class="eh">Decode</div><div class="hw">Control Unit, Register File</div><div class="tx">Lee rs1 y rs2</div></div><div class="rp"><div class="bar"></div><div class="rl">D/E</div></div><div class="et"><div class="eh">Execute</div><div class="hw">ALU</div><div class="tx">Opera y resuelve saltos</div></div><div class="rp"><div class="bar"></div><div class="rl">E/M</div></div><div class="et"><div class="eh">Memory</div><div class="hw">Memoria de datos</div><div class="tx"><code>lw</code> / <code>sw</code></div></div><div class="rp"><div class="bar"></div><div class="rl">M/W</div></div><div class="et"><div class="eh">Writeback</div><div class="hw">Register File</div><div class="tx">Escribe rd</div></div></div>
+  <div class="dos" style="margin-top: 46px; align-items: center">
+    <div style="flex: 1.6"><table class="tg"><tr><th></th><th class="">1</th><th class="">2</th><th class="">3</th><th class="">4</th><th class="hl">5</th><th class="">6</th><th class="">7</th><th class="">8</th><th class="">9</th></tr><tr><td class="in">addi x1, x0, 5</td><td class=""><div class="cl">F</div></td><td class=""><div class="cl">D</div></td><td class=""><div class="cl">E</div></td><td class=""><div class="cl">M</div></td><td class="hl"><div class="cl">W</div></td><td class=""></td><td class=""></td><td class=""></td><td class=""></td></tr><tr><td class="in">addi x2, x0, 7</td><td class=""></td><td class=""><div class="cl">F</div></td><td class=""><div class="cl">D</div></td><td class=""><div class="cl">E</div></td><td class="hl"><div class="cl">M</div></td><td class=""><div class="cl">W</div></td><td class=""></td><td class=""></td><td class=""></td></tr><tr><td class="in">lw x3, 0(x0)</td><td class=""></td><td class=""></td><td class=""><div class="cl">F</div></td><td class=""><div class="cl">D</div></td><td class="hl"><div class="cl">E</div></td><td class=""><div class="cl">M</div></td><td class=""><div class="cl">W</div></td><td class=""></td><td class=""></td></tr><tr><td class="in">sw x4, 4(x0)</td><td class=""></td><td class=""></td><td class=""></td><td class=""><div class="cl">F</div></td><td class="hl"><div class="cl">D</div></td><td class=""><div class="cl">E</div></td><td class=""><div class="cl">M</div></td><td class=""><div class="cl">W</div></td><td class=""></td></tr><tr><td class="in">beq x5, x6, L</td><td class=""></td><td class=""></td><td class=""></td><td class=""></td><td class="hl"><div class="cl">F</div></td><td class=""><div class="cl">D</div></td><td class=""><div class="cl">E</div></td><td class=""><div class="cl">M</div></td><td class=""><div class="cl">W</div></td></tr></table></div>
+    <div><ul>
+      <li>En el ciclo 5 las cinco etapas están ocupadas.</li>
+      <li>Ideal: una instrucción por ciclo (CPI = 1).</li>
+    </ul></div>
+  </div>
+  <div class="num">4</div>
+</section>
+
+<section class="s">
+  <h1>Hazard Unit: data hazards</h1>
+  <p class="chico" style="margin: -8px 0 10px 0">Una instrucción necesita un resultado que todavía no se escribió en el Register File.</p>
+  <div class="chico"><ul><li><b>Forwarding:</b> si un operando de Execute es el rd de la instrucción en Memory o en Writeback, la ALU lo toma de ahí. Si está en las dos, gana Memory, que es el más reciente.</li></ul></div>
+  <div class="fig"><img src="../informe/figuras/hz_forward.svg" style="width: 900px"></div>
+  <div class="chico" style="margin-top: 6px"><ul><li><b>Stall:</b> un <code>lw</code> tiene su dato recién al final de Memory. Si la instrucción siguiente lo usa, se congelan PC y F/D un ciclo y entra una burbuja a Execute. Luego el dato llega por forwarding desde Writeback.</li></ul></div>
+  <div class="fig"><img src="../informe/figuras/hz_stall.svg" style="width: 900px"></div>
+  <div class="num">5</div>
+</section>
+
+<section class="s">
+  <h1>Hazard Unit: control hazards</h1>
+  <div class="chico"><ul><li><b>Flush:</b> el salto se decide en Execute y, mientras tanto, Fetch ya leyó las dos instrucciones de abajo. Si se toma, esas dos se anulan (las convierte en burbujas) y el PC carga el destino.</li></ul></div>
+  <div class="fig" style="margin-top: 6px"><img src="../informe/figuras/hz_flush.svg" style="width: 1000px"></div>
+  <table style="font-size: 19px; margin-top: 22px">
+    <tr><th>Situación</th><th>Qué hace la Hazard Unit</th><th class="c">Ciclos perdidos</th></tr>
+    <tr><td>Dependencia entre operaciones ALU</td><td>Forwarding desde Memory o Writeback</td><td class="c">0</td></tr>
+    <tr><td>Load-Use</td><td>Stall de Fetch y Decode, burbuja en Execute</td><td class="c">1</td></tr>
+    <tr><td>Salto tomado</td><td>Flush de Decode y Execute</td><td class="c">2</td></tr>
+  </table>
+  <div class="num">6</div>
 </section>
 
 <section class="s">
   <h1>Datapath Dual-Issue</h1>
   <div class="fig" style="margin-top: -10px"><img src="../informe/figuras/datapath_dual.png" style="height: 552px"></div>
   <p class="chico" style="margin: 2px 0 0 0">Vía 0 arriba (la instrucción más antigua del par), vía 1 abajo. Al medio, lo compartido: Register File, recurso de saltos y puerto de memoria.</p>
-  <div class="num">4</div>
+  <div class="num">7</div>
+</section>
+
+<section class="s">
+  <h1>Controller y módulos modificados</h1>
+  <div class="dos">
+    <div style="flex: 0.75"><ul>
+      <li>Controller: el mismo del pipeline (Main Decoder y ALU Decoder), instanciado una vez por vía.</li>
+      <li>Sus señales se generan en Decode y viajan con la instrucción por los registros de su vía.</li>
+      <li>Lo nuevo está en el datapath, la Issue Unit y la Hazard Unit.</li>
+    </ul></div>
+    <div style="flex: 1.25">
+      <table style="font-size: 18px">
+        <tr><th>Módulo</th><th>Estado</th><th>Función</th></tr>
+        <tr><td><code>datapath_dual</code></td><td>Modificado</td><td>Dos vías con recursos compartidos</td></tr>
+        <tr><td><code>riscvdual</code>, <code>top_dual</code></td><td>Modificado</td><td>Conectan Controllers, datapath y memorias</td></tr>
+        <tr><td><code>imem_dual</code></td><td>Modificado</td><td>Dos lecturas por ciclo</td></tr>
+        <tr><td><code>regfile_dual</code></td><td>Modificado</td><td>4 lecturas y 2 escrituras</td></tr>
+        <tr><td><code>hazardunit_dual</code></td><td>Modificado</td><td>Forwarding entre vías, stalls y flushes</td></tr>
+        <tr><td><code>issueunit</code></td><td>Nuevo</td><td>Decide si salen dos, una o ninguna</td></tr>
+        <tr><td><code>mux5</code></td><td>Nuevo</td><td>Mux de forwarding de cinco entradas</td></tr>
+        <tr><td><code>controller</code>, <code>alu</code>, <code>dmem</code>, ...</td><td>Sin cambios</td><td>Se reutilizan del pipeline</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="num">8</div>
 </section>
 
 <section class="s">
@@ -84,7 +161,7 @@
       <li>Dos muxes en el registro F/D, controlados por <code>Issue1</code>.</li>
     </ul></div>
   </div>
-  <div class="num">5</div>
+  <div class="num">9</div>
 </section>
 
 <section class="s">
@@ -96,7 +173,7 @@
       <li>3: cuatro emisiones parciales seguidas.</li>
       <li>Ninguna instrucción se pierde ni se repite.</li>
     </ul></div>
-  <div class="num">6</div>
+  <div class="num">10</div>
 </section>
 
 <section class="s">
@@ -111,7 +188,7 @@
     <tr><td>Ninguna de las anteriores</td><td></td><td>Las dos</td></tr>
   </table>
   <p style="margin-top: 26px">Como nunca salen dos accesos a memoria ni dos saltos juntos, a cada recurso compartido le basta un mux (<code>memmux</code>, <code>branchmux</code>).</p>
-  <div class="num">7</div>
+  <div class="num">11</div>
 </section>
 
 <section class="s">
@@ -126,7 +203,7 @@
       <li>Si hay varias, gana la más reciente: Memory vía 1, Memory vía 0, Writeback vía 1, Writeback vía 0.</li>
     </ul></div>
   </div>
-  <div class="num">8</div>
+  <div class="num">12</div>
 </section>
 
 <section class="s">
@@ -137,14 +214,14 @@
       <li>Su pareja de la vía 1 es más joven: <code>FlushM1</code> la anula antes de Memory.</li>
       <li>Si el salto está en la vía 1, la de la vía 0 es más antigua y sigue.</li>
     </ul></div>
-  <div class="num">9</div>
+  <div class="num">13</div>
 </section>
 
 <section class="s">
   <h1>Limitación: los saltos tomados</h1>
   <div class="fig"><img src="../informe/figuras/pred_sin.svg" style="width: 900px"></div>
   <p style="margin-top: 14px">En cada vuelta de un bucle se pierden 2 ciclos y hasta 5 instrucciones. En el programa del profesor son 134 de los 387 ciclos del Dual-Issue.</p>
-  <div class="num">10</div>
+  <div class="num">14</div>
 </section>
 
 <section class="s">
@@ -157,7 +234,7 @@
       <li>Contador de 2 bits: desde 11 hacen falta dos fallos seguidos para cambiar la predicción.</li>
     </ul></div>
   </div>
-  <div class="num">11</div>
+  <div class="num">15</div>
 </section>
 
 <section class="s">
@@ -173,7 +250,7 @@
       <li>El bit de predicción viaja con la instrucción.</li>
     </ol></div>
   </div>
-  <div class="num">12</div>
+  <div class="num">16</div>
 </section>
 
 <section class="s">
@@ -187,7 +264,23 @@
     <tr><td>Tomado</td><td>Tomado</td><td class="c">0</td><td>Nada: 0 ciclos perdidos</td></tr>
     <tr><td>Tomado</td><td>No tomado</td><td class="c">1</td><td>Flush, PC = salto + 4</td></tr>
   </table>
-  <div class="num">13</div>
+  <div class="num">17</div>
+</section>
+
+<section class="s">
+  <h1>Cambios de hardware de la optimización</h1>
+  <table style="font-size: 18px">
+    <tr><th>Módulo</th><th>Estado</th><th>Cambio</th></tr>
+    <tr><td><code>predictor</code></td><td>Nuevo</td><td>BTB de 16 entradas con contador de 2 bits: dos consultas en Fetch y una actualización en Execute</td></tr>
+    <tr><td><code>datapath_dual</code></td><td>Modificado</td><td>Fetch: <code>predmux</code> y <code>pcmux</code>, burbuja en lugar de <code>InstrF1</code>, bit de predicción en F/D y D/E.<br>Execute: <code>TakenE</code>, <code>MispredE</code>, <code>correctmux</code>. Memory: forwarding del <code>jal</code></td></tr>
+    <tr><td><code>hazardunit_dual</code></td><td>Modificado</td><td>Los flushes dependen de <code>MispredE</code> y no de <code>PCSrcE</code></td></tr>
+    <tr><td><code>issueunit</code> y los demás</td><td>Sin cambios</td><td></td></tr>
+  </table>
+  <ul style="margin-top: 30px">
+    <li>Costo frente a B: +973 LUTs (+23 %) y +1082 FFs, casi todo la tabla del predictor.</li>
+    <li>La frecuencia no baja: 73.2 MHz contra 70.7 MHz.</li>
+  </ul>
+  <div class="num">18</div>
 </section>
 
 <section class="s">
@@ -197,7 +290,7 @@
     <li>Sin flush, la instrucción que usa el rd del <code>jal</code> llega a Execute con el <code>jal</code> en Memory, y el forwarding le daba <code>ALUResultM</code>.</li>
     <li>Lo encontramos con programas al azar. Solución: un mux en Memory que adelanta <code>PCPlus4M</code> si es un <code>jal</code>.</li>
   </ul>
-  <div class="num">14</div>
+  <div class="num">19</div>
 </section>
 
 <section class="s">
@@ -212,7 +305,7 @@
       <li>4: acertó: <code>MispredE</code> = 0, sin ciclos perdidos.</li>
     </ul></div>
   </div>
-  <div class="num">15</div>
+  <div class="num">20</div>
 </section>
 
 <section class="s">
@@ -227,7 +320,7 @@
       <li>El bucle de 4 instrucciones sale en 2 ciclos.</li>
     </ul></div>
   </div>
-  <div class="num">16</div>
+  <div class="num">21</div>
 </section>
 
 <section class="s">
@@ -243,7 +336,7 @@
     <li>Datos desde la dirección 1536: memoria de datos de 2 KB y de instrucciones de 128 palabras.</li>
     <li>El Register File empieza en 0 ("registros no indicados = 0"). Termina en <code>fin: jal x0, fin</code>, que no se cuenta.</li>
   </ul>
-  <div class="num">17</div>
+  <div class="num">22</div>
 </section>
 
 <section class="s">
@@ -266,7 +359,7 @@
       <p style="margin-top: 8px">Ciclo de cada comprobación. Las 4 etapas pasan en las tres arquitecturas.</p>
     </div>
   </div>
-  <div class="num">18</div>
+  <div class="num">23</div>
 </section>
 
 <section class="s">
@@ -279,7 +372,7 @@
       <li>3, ciclo 8: <code>add x10</code> toma el x9 de la vía 1 (100): 7 + 5 = 12. Dos <code>sw</code> seguidos: sale solo uno.</li>
     </ul></div>
   </div>
-  <div class="num">19</div>
+  <div class="num">24</div>
 </section>
 
 <section class="s">
@@ -290,7 +383,7 @@
     <li>2 y 3, ciclos 18 y 19: <code>sw x15</code> escribe 7 en 1548 y un ciclo después <code>lw x16</code> lee ese 7.</li>
     <li>4 y 5, ciclos 20 y 21: Load-Use. <code>add x18</code> espera a <code>lw x17</code> (<code>StallF</code> = 1), que lee 16.</li>
   </ul></div>
-  <div class="num">20</div>
+  <div class="num">25</div>
 </section>
 
 <section class="s">
@@ -322,7 +415,37 @@ prox:   beq  x1, x2, listo
       <li>240 instrucciones, 86 saltos, 48 tomados.</li>
     </ul></div>
   </div>
-  <div class="num">21</div>
+  <div class="num">26</div>
+</section>
+
+<section class="s">
+  <h1>Programa propio: llenado del arreglo</h1>
+  <div class="fig"><img src="figs/propio_g.png" style="height: 492px"></div>
+  <div class="chico" style="margin-top: 8px"><ul>
+    <li>Arriba de cada waveform, la instrucción que está en Execute. Una vuelta de <code>gen</code> tarda 8 ciclos en A, 7 en B y 4 en C.</li>
+    <li>A y B pierden 2 ciclos por el flush del <code>jal</code> (<code>PCSrcE</code> = 1). En B, <code>addi x3</code>, <code>andi x4</code> y <code>sw</code> dependen en cadena (<code>Issue1</code> = 0). En C el <code>jal</code> se predice en Fetch (<code>PredF1</code> = 1) y acierta.</li>
+  </ul></div>
+  <div class="num">27</div>
+</section>
+
+<section class="s">
+  <h1>Programa propio: una vuelta del recorrido</h1>
+  <div class="fig"><img src="figs/propio_r.png" style="height: 470px"></div>
+  <div class="chico" style="margin-top: 8px"><ul>
+    <li>A[14] = 14, así que <code>beq x9, x0, grande</code> se toma. Una vuelta tarda 12 ciclos en A, 10 en B y 6 en C.</li>
+    <li>A no tiene stall: <code>addi x1</code> separa al <code>lw</code> de <code>add x5</code> y el dato llega desde Writeback (<code>ForwardBE</code> = 01). En B y C esas dos salen en el mismo par: stall por Load-Use. C acierta los dos saltos (<code>MispredE</code> = 0).</li>
+  </ul></div>
+  <div class="num">28</div>
+</section>
+
+<section class="s">
+  <h1>Programa propio: salida y resultados</h1>
+  <div class="fig"><img src="figs/propio_f.png" style="height: 492px"></div>
+  <div class="chico" style="margin-top: 8px"><ul>
+    <li><code>beq x1, x2, listo</code> se toma y sale del bucle. En C se había predicho no tomado: <code>MispredE</code> = 1 y flush.</li>
+    <li>Las tres guardan Mem[100] = 120, Mem[104] = 8 y Mem[108] = 92. El último <code>sw</code> llega a Memory a los 3400, 2890 y 2040 ns: 340, 289 y 204 ciclos.</li>
+  </ul></div>
+  <div class="num">29</div>
 </section>
 
 <section class="s">
@@ -338,7 +461,7 @@ prox:   beq  x1, x2, listo
     <tr><td>Speedup vs. Dual-Issue</td><td class="c">-</td><td class="c">1.00</td><td class="c">1.33</td><td class="c">-</td><td class="c">1.00</td><td class="c">1.42</td></tr>
   </table>
   <div class="fig" style="margin-top: 14px"><img src="../informe/figuras/ciclos_programas.svg" style="width: 760px"></div>
-  <div class="num">22</div>
+  <div class="num">30</div>
 </section>
 
 <section class="s">
@@ -362,7 +485,7 @@ prox:   beq  x1, x2, listo
       <li>Stalls: 9, 10 y 10. Vienen del Load-Use, que no lo quita ninguna de las dos mejoras.</li>
     </ul></div>
   </div>
-  <div class="num">23</div>
+  <div class="num">31</div>
 </section>
 
 <section class="s">
@@ -385,7 +508,7 @@ prox:   beq  x1, x2, listo
       <p style="margin-top: 14px">El contador de 2 bits no aprende un patrón que alterna: haría falta recordar la historia del salto.</p>
     </div>
   </div>
-  <div class="num">24</div>
+  <div class="num">32</div>
 </section>
 
 <section class="s">
@@ -411,7 +534,7 @@ prox:   beq  x1, x2, listo
       <li>C es el más rápido: 1.37 veces B en el programa del profesor.</li>
     </ul></div>
   </div>
-  <div class="num">25</div>
+  <div class="num">33</div>
 </section>
 
 <section class="s">
@@ -423,7 +546,7 @@ prox:   beq  x1, x2, listo
     <li>Su límite: saltos que alternan o dependen del dato.</li>
     <li>Mejora futura: un predictor que recuerde la historia del salto y una tabla más grande.</li>
   </ul>
-  <div class="num">26</div>
+  <div class="num">34</div>
 </section>
 
 </body>
