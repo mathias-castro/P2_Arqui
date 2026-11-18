@@ -10,10 +10,10 @@ Procesador RISC-V en tres versiones:
 
 - `single_issue/`: arquitectura A.
   - `src/`: código Verilog.
-  - `tb/`: `tb_e1_p1` a `tb_e1_p4` (programas del pipeline), `tb_profesor` y `tb_comparacion`.
+  - `tb/`: `tb_e1_p1` a `tb_e1_p4` (programas del pipeline), `tb_propio`, `tb_profesor` y `tb_comparacion`.
 - `dual_issue/`: arquitectura B.
   - `src/`: código Verilog.
-  - `tb/`: `tb_e2_p1` a `tb_e2_p6`, `tb_riscvtest`, `tb_profesor_dual` y `tb_comparacion_dual`.
+  - `tb/`: `tb_e2_p1` a `tb_e2_p6`, `tb_riscvtest`, `tb_propio`, `tb_profesor_dual` y `tb_comparacion_dual`.
 - `dual_issue_opt/`: arquitectura C.
   - `src/`: código Verilog. Respecto a B cambian `datapath_dual.v` y `hazardunit_dual.v`, y se agrega `predictor.v`. Los demás archivos son iguales.
   - `tb/`:
