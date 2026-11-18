@@ -524,7 +524,7 @@
 <p class="pie">Tabla 8. Señales de stall y flush de <code>hazardunit_dual.v</code>.</p>
 <h1>6. Programas de prueba del Dual-Issue</h1>
 
-<p>Probamos el Dual-Issue con seis programas, uno por cada caso que pide el enunciado (Tabla 9). Funcionan igual que los del pipeline y sus testbenches están en <code>dual_issue/tb</code>. En los listados una línea en blanco separa los grupos que salen juntos de Decode.</p>
+<p>Probamos el Dual-Issue con seis programas, cada uno enfocado en un caso (Tabla 9). Funcionan igual que los del pipeline y sus testbenches están en <code>dual_issue/tb</code>. En los listados una línea en blanco separa los grupos que salen juntos de Decode.</p>
 
 <table>
   <tr><th>Programa</th><th>Qué prueba</th><th class="c">Mem[100]</th></tr>
@@ -987,11 +987,11 @@
 
 <h2>9.1 Programa del profesor</h2>
 
-<p>El programa del profesor (<code>profesor.s</code>) tiene 90 instrucciones en cuatro etapas, y el enunciado da el estado que se espera al final de cada una. La etapa A prueba la doble emisión y las dependencias, la B los accesos a memoria, la C tres bucles de 12 vueltas y la D todo junto, con saltos que deben evitar dos <code>sw</code>. Como sus datos empiezan en la dirección 1536, usamos una memoria de datos de 512 palabras.</p>
+<p>El programa del profesor (<code>profesor.s</code>) tiene 90 instrucciones en cuatro etapas, y para cada una se conoce el estado esperado al final. La etapa A prueba la doble emisión y las dependencias, la B los accesos a memoria, la C tres bucles de 12 vueltas y la D todo junto, con saltos que deben evitar dos <code>sw</code>. Como sus datos empiezan en la dirección 1536, usamos una memoria de datos de 512 palabras.</p>
 
 <h2>9.2 Comprobación de las etapas</h2>
 
-<p>Los testbenches <code>tb_profesor</code> (A), <code>tb_profesor_dual</code> (B) y <code>tb_profesor_opt</code> (C) comprueban cada etapa cuando su último <code>sw</code> llega a Writeback. En ese ciclo ya están escritos todos los registros y la memoria de la etapa, y el testbench los compara con el estado del enunciado. En la waveform, <code>chk</code> es la señal de comprobación y vale 1 en ese ciclo. <code>etapa</code> es la letra de la etapa, <code>ok</code> vale 1 si todo coincidió y <code>pasadas</code> cuenta las etapas correctas. Las cuatro etapas pasan en las tres arquitecturas (Tabla 13).</p>
+<p>Los testbenches <code>tb_profesor</code> (A), <code>tb_profesor_dual</code> (B) y <code>tb_profesor_opt</code> (C) comprueban cada etapa cuando su último <code>sw</code> llega a Writeback. En ese ciclo ya están escritos todos los registros y la memoria de la etapa, y el testbench los compara con el estado esperado. En la waveform, <code>chk</code> es la señal de comprobación y vale 1 en ese ciclo. <code>etapa</code> es la letra de la etapa, <code>ok</code> vale 1 si todo coincidió y <code>pasadas</code> cuenta las etapas correctas. Las cuatro etapas pasan en las tres arquitecturas (Tabla 13).</p>
 
 <table>
   <tr><th>Etapa</th><th>Registros</th><th>Memoria</th><th class="c" style="white-space: nowrap">Ciclo en<br>A / B / C</th></tr>
@@ -1000,7 +1000,7 @@
   <tr><td>C</td><td>Los de B y x19 = 12, x20 = 12, x21 = 24, x22 = 18, x24 = 24, x26 = 6</td><td>Lo de B y M[x1+24] = 24, M[x1+28] = 18, M[x1+32] = 24</td><td class="c" style="white-space: nowrap">362 / 312 / 220</td></tr>
   <tr><td>D</td><td>Los de C, salvo x19 = 6, x20 = 6, x26 = 4, y además x25 = 4, x27 = 1560, x28 = 74, x29 = 4, x30 = 23, x31 = 1</td><td>Lo de C y M[x1+36] = 74, M[x1+40] = 4, M[x1+44] = 0, M[x1+48] = 1, M[x1+52] = 1</td><td class="c" style="white-space: nowrap">459 / 387 / 292</td></tr>
 </table>
-<p class="pie">Tabla 13. Estado al final de cada etapa, igual en el enunciado y en A, B y C. Los registros que no aparecen valen 0. El ciclo de D es el total de ciclos del programa.</p>
+<p class="pie">Tabla 13. Estado al final de cada etapa, el mismo en A, B y C. Los registros que no aparecen valen 0. El ciclo de D es el total de ciclos del programa.</p>
 
 <p>Las Figuras 34 a 37 muestran las comprobaciones en la versión C. En morado están las señales del testbench, en amarillo los valores comprobados y en naranja la palabra que escribe el último <code>sw</code> de la etapa.</p>
 
@@ -1017,7 +1017,7 @@
 <figure><img src="figuras/r_prof_C.png" style="width: 100%" alt="waveform"></figure>
 <p class="pie">Figura 36. Comprobación de la etapa C (ciclo 220, a los 2210 ns).</p>
 
-<p>Después de los tres bucles, x21, x22 y x24 tienen las sumas que da el enunciado.</p>
+<p>Después de los tres bucles, x21, x22 y x24 tienen las sumas esperadas.</p>
 
 <figure><img src="figuras/r_prof_D.png" style="width: 100%" alt="waveform"></figure>
 <p class="pie">Figura 37. Comprobación de la etapa D (ciclo 292, a los 2930 ns): final del programa.</p>
@@ -1026,7 +1026,7 @@
 
 <h2>9.3 Dos casos clave</h2>
 
-<p>El enunciado del profesor también pide al menos dos waveforms de casos importantes. Elegimos la etapa A, con doble emisión y dependencias, y la etapa B, con el puerto único de memoria y el Load-Use. Las dos son de la versión C, pero en estas etapas no hay saltos y B se comporta igual.</p>
+<p>También vemos en detalle dos casos: la etapa A, con doble emisión y dependencias, y la etapa B, con el puerto único de memoria y el Load-Use. Las dos son de la versión C, pero en estas etapas no hay saltos y B se comporta igual.</p>
 
 <pre>  0  addi x1, x0, 1536
   4  addi x2, x0, 1
@@ -1119,9 +1119,9 @@
 104  fin:    beq  x0, x0, fin     # fin del programa</pre>
 <p class="pie">Código 29. Programa propio (<code>propio.s</code>), con la dirección de cada instrucción.</p>
 
-<p>Tiene pares independientes, dependencias con el <code>lw</code> y tres tipos de saltos: los <code>jal</code> que cierran los bucles, que siempre se toman; los <code>beq</code> de salida, que se toman una vez; y <code>beq x9, x0, grande</code>, que depende del dato. De sus 240 instrucciones, 86 son saltos.</p>
+<p>Tiene pares independientes, dependencias con el <code>lw</code> y tres tipos de saltos. Los <code>jal</code> que cierran los bucles siempre se toman, los <code>beq</code> de salida se toman una sola vez y <code>beq x9, x0, grande</code> depende del dato. De sus 240 instrucciones, 86 son saltos.</p>
 
-<p>Corrimos <code>tb_propio</code> en las tres arquitecturas y tomamos las waveforms de tres momentos del programa: el llenado del arreglo, una vuelta normal del recorrido y la última vuelta con los resultados. En cada figura, la franja de arriba indica qué instrucción hay en Fetch, Decode y Execute en cada ciclo; en B y C, una por vía.</p>
+<p>Corrimos <code>tb_propio</code> en las tres arquitecturas y tomamos las waveforms de tres momentos del programa: el llenado del arreglo, una vuelta normal del recorrido y la última vuelta con los resultados. Como en las demás figuras, arriba está la instrucción que hay en Fetch, Decode y Execute en cada ciclo.</p>
 
 <p><b>Llenado del arreglo (bucle <code>gen</code>).</b> Las tres figuras van de 50 a 210 ns, para comparar el mismo tramo.</p>
 
@@ -1164,7 +1164,7 @@
 <p class="pie">Figura 43. A, penúltima vuelta de <code>rec</code>, de 3110 a 3230 ns.</p>
 <ol>
   <li>El <code>lw x8</code> lee la dirección 56 y obtiene 14.</li>
-  <li><code>add x5</code> usa x8 con forwarding desde Writeback (<code>ForwardBE</code> = 1). Como <code>addi x1</code> separa al <code>lw</code> del <code>add</code>, no hay stall.</li>
+  <li><code>add x5</code> usa x8 con forwarding desde Writeback (<code>ForwardBE</code> = 01). Como <code>addi x1</code> separa al <code>lw</code> del <code>add</code>, no hay stall.</li>
   <li><code>beq x9, x0, grande</code> se toma porque 14 &gt;= 8: flush. En ese ciclo se escribe la suma parcial x5 = 117.</li>
   <li><code>jal x0, rec</code> causa otro flush. La vuelta tarda 12 ciclos.</li>
 </ol>
@@ -1227,19 +1227,19 @@
   <li>Los tres <code>sw</code> guardan 120, 8 y 92.</li>
 </ol>
 
-<p>Las tres arquitecturas terminan con Mem[100] = 120, Mem[104] = 8 y Mem[108] = 92, que son los valores esperados. El último <code>sw</code> se ejecuta a los 3400 ns en A, a los 2890 ns en B y a los 2040 ns en C, lo que coincide con los 340, 289 y 204 ciclos de la sección 10.</p>
+<p>Las tres arquitecturas terminan con Mem[100] = 120, Mem[104] = 8 y Mem[108] = 92. El último <code>sw</code> se ejecuta a los 3400 ns en A, a los 2890 ns en B y a los 2040 ns en C, lo que coincide con los 340, 289 y 204 ciclos de la sección 10.</p>
 
 <h1>10. Comparación de las tres arquitecturas</h1>
 
 <h2>10.1 Cómo medimos</h2>
 
-<p>Usamos el criterio del enunciado del profesor en todos los programas. Todo programa termina en <code>fin</code>, un salto a sí mismo que no se cuenta. Los ciclos van desde el reset hasta que la última instrucción antes de <code>fin</code> está en Writeback. Las instrucciones retiradas son las que llegan a Writeback, sin burbujas ni instrucciones anuladas. IPC = instrucciones / ciclos, CPI = ciclos / instrucciones y speedup = ciclos de la arquitectura base / ciclos de la evaluada.</p>
+<p>Usamos el mismo criterio en todos los programas. Todo programa termina en <code>fin</code>, un salto a sí mismo que no se cuenta. Los ciclos van desde el reset hasta que la última instrucción antes de <code>fin</code> está en Writeback. Las instrucciones retiradas son las que llegan a Writeback, sin burbujas ni instrucciones anuladas. IPC = instrucciones / ciclos, CPI = ciclos / instrucciones y speedup = ciclos de la arquitectura base / ciclos de la evaluada.</p>
 
 <p>Lo miden <code>tb_comparacion</code>, <code>tb_comparacion_dual</code> y <code>tb_comparacion_opt</code>, que el script <code>comparar.sh</code> corre juntos. También cuentan stalls, flushes y la precisión del predictor. Para el speedup suponemos el mismo reloj; el tiempo real está en la sección 10.6.</p>
 
 <h2>10.2 Resultados</h2>
 
-<p>La Tabla 14 tiene los indicadores en el formato del enunciado, más una fila con el speedup frente al Dual-Issue. Las tres versiones retiran las mismas instrucciones; solo cambian los ciclos.</p>
+<p>La Tabla 14 tiene los indicadores de rendimiento, más una fila con el speedup frente al Dual-Issue. Las tres versiones retiran las mismas instrucciones; solo cambian los ciclos.</p>
 
 <table>
   <tr><th rowspan="2">Indicador</th><th colspan="3" class="c">Programa del profesor</th><th colspan="3" class="c">Programa propio</th></tr>
@@ -1330,7 +1330,7 @@
 
 <p>En el programa propio también cambian los stalls. En el pipeline <code>addi x1</code> separa a <code>lw x8</code> de <code>add x5</code>, pero en el Dual-Issue salen juntas y <code>add x5</code> espera al <code>lw</code> en cada vuelta. En C los pares se arman distinto y en algunas vueltas ese stall desaparece.</p>
 
-<p>La Tabla 19 separa los saltos del programa del profesor según cómo se comportan. Con ella se ve cuándo la predicción mejora, mantiene o empeora el desempeño.</p>
+<p>La Tabla 19 separa los saltos del programa del profesor según cómo se comportan. Así se ve con qué saltos ayuda la predicción y con cuáles no.</p>
 
 <table>
   <tr><th>Salto</th><th>Cómo se comporta</th><th class="c">Ejecutado</th><th class="c">Tomado</th><th class="c">Flushes en B</th><th class="c">Fallos en C</th></tr>
