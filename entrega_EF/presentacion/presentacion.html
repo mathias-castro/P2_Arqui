@@ -175,7 +175,7 @@
   <div class="fig"><img src="../informe/figuras/r_p6.png" style="width: 1160px"></div>
   <div class="m" style="margin-top: 16px"><ul class="col2">
       <li>1: dos <code>addi x1, x1, 1</code> seguidos, el segundo depende del primero: <code>Issue1</code> = 0.</li>
-      <li>2: el segundo pasa a la vía 0 y se junta con <code>addi x2</code>. El PC avanza solo 4 (16 a 20).</li>
+      <li>2: el segundo pasa a la vía 0 y se junta con el <code>addi x2</code> que estaba en Fetch. El PC avanza solo 4 (16 a 20).</li>
       <li>3: cuatro emisiones parciales seguidas.</li>
       <li>Ninguna instrucción se pierde ni se repite.</li>
     </ul></div>

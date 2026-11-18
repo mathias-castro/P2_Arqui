@@ -251,7 +251,7 @@
 
 <ol>
   <li>Los dos <code>addi x1</code> del par dependen entre sí: <code>Issue1</code> = 0.</li>
-  <li>El segundo pasa a la vía 0 con <code>addi x2</code> al lado, y ahora salen juntas. <code>PCF</code> avanzó solo 4.</li>
+  <li>El segundo pasa a la vía 0, y a su lado entra el <code>addi x2</code> que en el ciclo anterior estaba en Fetch. Ahora salen juntas. <code>PCF</code> avanzó solo 4.</li>
   <li>Desde aquí hay emisiones parciales seguidas y <code>PCF</code> avanza de 4 en 4.</li>
 </ol>
 

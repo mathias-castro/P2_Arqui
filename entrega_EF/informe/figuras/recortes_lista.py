@@ -83,7 +83,7 @@ recorte('wave_p5', 'r_p5.png', 60, 140,
 recorte('wave_p6', 'r_p6.png', 40, 130,
         ['PCF', 'Issue1', 'RdW0', 'ResultW0', 'RdW1', 'ResultW1'],
         [('Issue1', 40, 'r'), ('PCF', 50, 'y'), ('Issue1', 50, 'p'), ('Issue1', 70, 'r'), ('Issue1', 80, 'r'),
-         ('Issue1', 90, 'r'), ('Issue1', 100, 'r')], etapas=('D', 'E', 'W'))
+         ('Issue1', 90, 'r'), ('Issue1', 100, 'r')], etapas=('F', 'D', 'E', 'W'))
 
 # ---------- Optimizacion ----------
 recorte('wave_o1a', 'r_o1a.png', 60, 130,
